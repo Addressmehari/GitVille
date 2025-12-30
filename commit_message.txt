@@ -1,1 +1,6 @@
-version 4: roof texture
+version 5: 4 types of roof,
+
+0.Scalloped (Soft, classic)
+1.Brick (Ordered, solid)
+2.Standing Seam (Vertical, modern)
+3.Sawtooth (Sharp, rustic)

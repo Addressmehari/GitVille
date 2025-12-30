@@ -343,11 +343,11 @@ function renderHouses() {
     // but unless we have thousands, iterating is cheap. Drawing is the cost.
 
     for (const house of sortedHouses) {
-        drawHouse(house.x, house.y, house.color);
+        drawHouse(house.x, house.y, house.color, house.roofStyle);
     }
 }
 
-function drawHouse(gx, gy, color) {
+function drawHouse(gx, gy, color, roofStyle) {
     const isoCenter = gridToWorld(gx, gy);
 
     function toScreen(lx, ly, lz) {
@@ -663,8 +663,11 @@ function drawHouse(gx, gy, color) {
     ctx.strokeStyle = roofEdgeColor;
     ctx.stroke();
 
-    // --- Texture: Shingles ---
-    // Interpolate curves to draw rows of shingles
+    // --- Texture: Shingles / Patterns ---
+    // Select variation based on parameter or position fallback
+    const styleIndex = (roofStyle !== undefined) ? roofStyle : (Math.abs(gx + gy) % 4);
+
+    // Interpolate curves helper
     function getQuadPoint(p0, cp, p1, t) {
         const invT = 1 - t;
         return {
@@ -673,74 +676,155 @@ function drawHouse(gx, gy, color) {
         };
     }
 
-    const rows = 8;
-    const cols = 6;
-
     ctx.beginPath();
-    // Use a lighter/darker stroke for shingles
-    ctx.strokeStyle = adjustColor(roofColorMain, -15); // Subtle dark lines
+    ctx.strokeStyle = adjustColor(roofColorMain, -15);
     ctx.lineWidth = 1;
 
-    for (let r = 0; r < rows; r++) {
-        // t goes from 0 (Ridge) to 1 (Eave)
-        const tVal = r / rows;
-        const tNext = (r + 1) / rows;
+    if (styleIndex === 0) {
+        // --- Style 0: Scalloped (Fish Scale) ---
+        const rows = 8;
+        const cols = 6;
+        for (let r = 0; r < rows; r++) {
+            const tVal = r / rows;
+            const tNext = (r + 1) / rows;
+            const pStart = getQuadPoint(rBack, cpBack, eBackRight, tVal);
+            const pEnd = getQuadPoint(rFront, cpFront, eFrontRight, tVal);
+            const rowWidthX = pEnd.x - pStart.x;
+            const rowWidthY = pEnd.y - pStart.y;
+            const offset = (r % 2 === 0) ? 0 : 0.5;
 
-        // Start and End points of this row (along the slope curves)
-        const pStart = getQuadPoint(rBack, cpBack, eBackRight, tVal);
-        const pEnd = getQuadPoint(rFront, cpFront, eFrontRight, tVal);
+            for (let c = 0; c < cols; c++) {
+                let ct = (c + offset) / cols;
+                let ctNext = (c + offset + 1) / cols;
+                if (ct < 0) ct = 0;
+                if (ctNext > 1) ctNext = 1;
+                if (ctNext <= ct) continue;
 
-        const pStartNext = getQuadPoint(rBack, cpBack, eBackRight, tNext);
-        const pEndNext = getQuadPoint(rFront, cpFront, eFrontRight, tNext);
+                const sx = pStart.x + rowWidthX * ct;
+                const sy = pStart.y + rowWidthY * ct;
+                const ex = pStart.x + rowWidthX * ctNext;
+                const ey = pStart.y + rowWidthY * ctNext;
+                const midX = (sx + ex) / 2;
+                const midY = (sy + ey) / 2;
+                const tileH = 6;
 
-        // Draw Shingles across the row (Back to Front)
-        const rowWidthX = pEnd.x - pStart.x;
-        const rowWidthY = pEnd.y - pStart.y;
+                ctx.moveTo(sx, sy);
+                ctx.quadraticCurveTo(midX, midY + tileH, ex, ey);
+            }
+        }
+    } else if (styleIndex === 1) {
+        // --- Style 1: Rectangular Slate / Bricks ---
+        const rows = 8;
+        const cols = 5;
+        for (let r = 0; r < rows; r++) {
+            const tVal = r / rows;
+            const tNext = (r + 1) / rows; // Needed for slope direction
 
-        // Stagger rows
-        const offset = (r % 2 === 0) ? 0 : 0.5;
+            const pStart = getQuadPoint(rBack, cpBack, eBackRight, tVal);
+            const pEnd = getQuadPoint(rFront, cpFront, eFrontRight, tVal);
 
-        for (let c = 0; c < cols; c++) {
-            // Normalized params for columns
-            let ct = (c + offset) / cols;
-            let ctNext = (c + offset + 1) / cols;
+            // Calculate slope direction vector for seams
+            const pStartNext = getQuadPoint(rBack, cpBack, eBackRight, tNext);
+            let slopeDX = pStartNext.x - pStart.x;
+            let slopeDY = pStartNext.y - pStart.y;
+            const slopeLen = Math.sqrt(slopeDX * slopeDX + slopeDY * slopeDY);
+            // Normalize and scale
+            const tickLen = 5;
+            const tickX = (slopeDX / slopeLen) * tickLen;
+            const tickY = (slopeDY / slopeLen) * tickLen;
 
-            // Clip to 0-1 to keep shingles ON the roof
-            if (ct < 0) ct = 0;
-            if (ctNext > 1) ctNext = 1;
+            const rowWidthX = pEnd.x - pStart.x;
+            const rowWidthY = pEnd.y - pStart.y;
+            const offset = (r % 2 === 0) ? 0 : 0.5;
 
-            // If squashed too thin, skip
-            if (ctNext <= ct) continue;
+            // Horizontal lines for rows
+            ctx.moveTo(pStart.x, pStart.y);
+            ctx.lineTo(pEnd.x, pEnd.y);
 
-            // Linear iterp along the row line
-            // Top of shingle
-            const sx = pStart.x + rowWidthX * ct;
-            const sy = pStart.y + rowWidthY * ct;
+            // Vertical seams aligned with slope (not 90 degrees screen)
+            for (let c = 0; c < cols; c++) {
+                let ct = (c + offset) / cols;
+                if (ct < 0 || ct > 1) continue;
+                const sx = pStart.x + rowWidthX * ct;
+                const sy = pStart.y + rowWidthY * ct;
+                // Line down along slope
+                ctx.moveTo(sx, sy);
+                ctx.lineTo(sx + tickX, sy + tickY);
+            }
+        }
+    } else if (styleIndex === 2) {
+        // --- Style 2: Vertical Standing Seam (Metal) ---
+        const cols = 7;
+        for (let c = 0; c <= cols; c++) {
+            const t = c / cols;
+            // Line from Ridge to Eave interpolating the roof surface
+            // We need to trace the surface curve at column t
+            // Surface is defined by 2 curves: BackCurve and FrontCurve
+            // We interpolate tween them.
 
-            const ex = pStart.x + rowWidthX * ctNext;
-            const ey = pStart.y + rowWidthY * ctNext;
+            // Just drawing straight lines from Ridge to Eave is visibly wrong on a curved roof.
+            // We need 3 points: Ridge, Mid, Eave for the seam.
 
-            // Bottom of shingle (approx based on next row)
-            // We want a curve "U" shape or just lines?
-            // "Real like" often implies actual tiles.
-            // Let's draw arcs hanging down.
+            // Point on Ridge
+            const ridgeP = {
+                x: rBack.x + (rFront.x - rBack.x) * t,
+                y: rBack.y + (rFront.y - rBack.y) * t
+            };
 
-            // Midpoint for arc control
-            const midX = (sx + ex) / 2;
-            const midY = (sy + ey) / 2;
+            // Point on Eave
+            const eaveP = {
+                x: eBackRight.x + (eFrontRight.x - eBackRight.x) * t,
+                y: eBackRight.y + (eFrontRight.y - eBackRight.y) * t
+            };
 
-            // Determine "Height" of shingle on screen (distance to next row)
-            // Approx next row y
-            // Simple approach: Use vectors
-            // Let's just draw small quadratic dips.
+            // Point on Control Curve (Connects cpBack to cpFront)
+            const midCP = {
+                x: cpBack.x + (cpFront.x - cpBack.x) * t,
+                y: cpBack.y + (cpFront.y - cpBack.y) * t
+            };
 
-            const tileH = 6; // pixel height of tile visual
+            ctx.moveTo(ridgeP.x, ridgeP.y);
+            ctx.quadraticCurveTo(midCP.x, midCP.y, eaveP.x, eaveP.y);
+        }
+    } else {
+        // --- Style 3: Sawtooth / Zig-Zag Slate ---
+        const rows = 10; // Denser
+        const cols = 8;
+        for (let r = 0; r < rows; r++) {
+            const tVal = r / rows;
+            const pStart = getQuadPoint(rBack, cpBack, eBackRight, tVal);
+            const pEnd = getQuadPoint(rFront, cpFront, eFrontRight, tVal);
+            const rowWidthX = pEnd.x - pStart.x;
+            const rowWidthY = pEnd.y - pStart.y;
+            // Stagger rows
+            const offset = (r % 2 === 0) ? 0 : 0.5;
 
-            ctx.moveTo(sx, sy);
-            // Draw curve to (ex, ey) dipping by tileH
-            ctx.quadraticCurveTo(midX, midY + tileH, ex, ey);
+            for (let c = 0; c < cols; c++) {
+                let ct = (c + offset) / cols;
+                let ctNext = (c + offset + 1) / cols;
+
+                // Clip
+                if (ct < 0) ct = 0;
+                if (ctNext > 1) ctNext = 1;
+                if (ctNext <= ct) continue;
+
+                const sx = pStart.x + rowWidthX * ct;
+                const sy = pStart.y + rowWidthY * ct;
+                const ex = pStart.x + rowWidthX * ctNext;
+                const ey = pStart.y + rowWidthY * ctNext;
+
+                const midX = (sx + ex) / 2;
+                const midY = (sy + ey) / 2;
+                const tileH = 5;
+
+                // Draw pointy triangle (V shape)
+                ctx.moveTo(sx, sy);
+                ctx.lineTo(midX, midY + tileH);
+                ctx.lineTo(ex, ey);
+            }
         }
     }
+
     ctx.stroke();
 
     // 7. Roof Thickness / Fascia (Right edge)

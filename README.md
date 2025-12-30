@@ -85,48 +85,6 @@ GitVille bridges the gap between GitHub data and visual art. Here is the flow of
 
 ---
 
-## 🚀 Quick Start
-
-<details>
-<summary><strong>📦 Installation & Setup (Click to expand)</strong></summary>
-
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/Addressmehari/GitVille.git
-    cd GitVille
-    ```
-
-2.  **Run the Frontend**
-    Since this is a static site, you can use any static file server.
-    ```bash
-    # Using python
-    python -m http.server 8000
-    
-    # OR using npx
-    npx serve .
-    ```
-    Open `http://localhost:8000` in your browser.
-
-</details>
-
-<details>
-<summary><strong>🐍 Python Backend Setup (Click to expand)</strong></summary>
-
-If you want to regenerate the city data locally:
-
-1.  **Install Dependencies**
-    *(Make sure you have a `requirements.txt` or install manually)*
-    ```bash
-    pip install requests
-    ```
-
-2.  **Run the Generator**
-    ```bash
-    # Usage: python fetch_stargazers.py <owner/repo> <limit>
-    python fetch_stargazers.py Addressmehari/GitVille 100
-    ```
-
-</details>
 
 ---
 

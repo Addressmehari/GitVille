@@ -1,0 +1,1 @@
+version 1: basic Isometric & cubes read from datafile as json

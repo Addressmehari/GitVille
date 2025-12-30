@@ -1,10 +1,1 @@
-version 19: added user insertion,
-
-1.Generate city from repo:
-
-fetch_stargazers.py owner/repo
-
-2. Insert Single User:
-This adds one specific user to your existing city and updates the layout/roads automatically.
-
- fetch_stargazers.py user123
+version 20: fixed the house building logic, fetching count can be given in the terminal itself

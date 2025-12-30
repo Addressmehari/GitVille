@@ -225,6 +225,7 @@ def generate_city_slots(limit):
     # Better: Fill block by block.
     
     houses_placed = 0
+    road_tiles = set()
     
     # Loop over abstract positions (0,0), (1,0)...
     for bx, by in abstract_block_positions:
@@ -236,20 +237,14 @@ def generate_city_slots(limit):
             qx, qy = quadrants[q_idx]
             
             # Start position of this block in World Space
-            # Base offset is Main Avenue Half-Width
+            # ALGORITHM UPDATE: Fill OUTWARDS from center.
+            # Base (Start of Cluster near center)
             base_x = (MAIN_AVENUE_WIDTH / 2) * qx
             base_y = (MAIN_AVENUE_WIDTH / 2) * qy
             
-            # Add block strides
-            # Note: We must ensure we move AWAY from axes.
-            # If qx is positive, we add. If negative, we subtract.
-            block_world_x = base_x + (bx * BLOCK_STRIDE_X * qx)
-            block_world_y = base_y + (by * BLOCK_STRIDE_Y * qy)
-            
-            # Adjust if qx/qy is negative, we need to shift the block origin?
-            # A block spans [x, x+width]. If we are at -100, we want [-100-width, -100].
-            if qx < 0: block_world_x -= BLOCK_WIDTH
-            if qy < 0: block_world_y -= BLOCK_HEIGHT
+            # Add block strides (Move block origin away from center)
+            block_start_x = base_x + (bx * BLOCK_STRIDE_X * qx)
+            block_start_y = base_y + (by * BLOCK_STRIDE_Y * qy)
             
             # Fill the block with houses
             for i in range(HOUSES_PER_BLOCK):
@@ -259,76 +254,60 @@ def generate_city_slots(limit):
                 ix = i % CLUSTER_COLS
                 iy = i // CLUSTER_COLS
                 
-                # World Pos
-                house_x = block_world_x + (ix * HOUSE_GAP)
-                house_y = block_world_y + (iy * HOUSE_GAP)
+                # World Pos - Expanding OUTWARDS from block start
+                # qx/qy determines direction of expansion
+                house_x = block_start_x + (ix * HOUSE_GAP * qx)
+                house_y = block_start_y + (iy * HOUSE_GAP * qy)
                 
                 slots.append((house_x, house_y))
                 
-                # Facing Logic
-                # Face the Main Avenues (the axes) primarily.
-                # NE (1, -1): Face Left (to Y-axis) or Down (to X-axis).
-                # Let's say: Face the "Primary" Main Avenue.
-                # Or alternating.
+                # Facing Logic: Face the vertical axis (Left/Right)
+                if house_x > 0:
+                    facing_dir.append("left")
+                else:
+                    facing_dir.append("right")
                 
-                # Let's simple face the vertical axis (Left/Right)
+            # Facing Logic: Face the vertical axis (Left/Right)
                 if house_x > 0:
                     facing_dir.append("left")
                 else:
                     facing_dir.append("right")
                 
                 houses_placed += 1
+            
+            # --- Road Generation for this Block ---
+            # We add the roads surrounding this specific block to the set.
+            # Road lines indices: Inner = bx, Outer = bx+1
+            # Coordinate Formula: 0 if 0, else 2 + idx*8
+            def get_r_coord(idx):
+                if idx == 0: return 0
+                return 2 + idx * 8
+            
+            rx_in = get_r_coord(bx) * qx
+            rx_out = get_r_coord(bx + 1) * qx
+            ry_in = get_r_coord(by) * qy
+            ry_out = get_r_coord(by + 1) * qy
+            
+            # Sort to handle negative quadrants correctly
+            sx = int(min(rx_in, rx_out))
+            ex = int(max(rx_in, rx_out))
+            sy = int(min(ry_in, ry_out))
+            ey = int(max(ry_in, ry_out))
+            
+            # Add Horizontal Segments (Top/Bottom of block)
+            for x in range(sx, ex + 1):
+                road_tiles.add((x, int(ry_in)))
+                road_tiles.add((x, int(ry_out)))
                 
-    road_tiles = set()
+            # Add Vertical Segments (Left/Right of block)
+            for y in range(sy, ey + 1):
+                road_tiles.add((int(rx_in), y))
+                road_tiles.add((int(rx_out), y))
+                
     if slots:
-        min_x = int(min(s[0] for s in slots))
-        max_x = int(max(s[0] for s in slots))
-        min_y = int(min(s[1] for s in slots))
-        max_y = int(max(s[1] for s in slots))
-        
-        # Grid lines logic
-        # Axis: 0 (Main Avenue)
-        # Block Width: 6. Start offset: 3.
-        # First Road at: 3 (start) + 6 (width) + 1 (half gap) = 10.
-        # Stride: 6 + 2 = 8.
-        
-        def get_grid_lines(min_val, max_val):
-            lines = set()
-            lines.add(0) # Main Avenue
-            
-            # Positive
-            curr = 10
-            while curr <= max_val + 2:
-                lines.add(curr)
-                curr += 8
-            
-            # Negative
-            curr = -10
-            while curr >= min_val - 2:
-                lines.add(curr)
-                curr -= 8
-            return lines
-
-        x_lines = get_grid_lines(min_x, max_x)
-        y_lines = get_grid_lines(min_y, max_y)
-        
-        # Fill grid
-        # Add Horizontal roads (+/- 2 padding for visual connection)
-        for y in y_lines:
-            for x in range(min_x - 3, max_x + 4):
-                road_tiles.add((x, y))
-                
-        # Add Vertical roads
-        for x in x_lines:
-            for y in range(min_y - 3, max_y + 4):
-                road_tiles.add((x, y))
-                
-        # --- Central House Adjustment ---
+        # --- Central House Adjustment (Post-Process) ---
         # 1. Clear the road UNDER the central house (0,0) and immediate avenue connections
         # to make space for the ring.
-        # Central house is at (0,0).
-        # We want to clear (0,0) and maybe (0, +/-1), (+/-1, 0)?
-        # Let's clear a 3x3 box in the center from the Main Avenues.
         
         for i in range(-2, 3):
              if (0, i) in road_tiles: road_tiles.remove((0, i))
@@ -456,14 +435,23 @@ def add_user(username):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python fetch_stargazers.py owner/repo [token]")
+        print("Usage: python fetch_stargazers.py owner/repo [count] [token]")
+        print("       python fetch_stargazers.py username (to add single user)")
         repo_input = "n8n-io/n8n"
     else:
         repo_input = sys.argv[1]
     
+    # Defaults
+    limit = 100
     token = os.environ.get("GITHUB_TOKEN")
+    
+    # Parse optional args (count or token)
     if len(sys.argv) > 2:
-        token = sys.argv[2]
+        for arg in sys.argv[2:]:
+            if arg.isdigit():
+                limit = int(arg)
+            else:
+                token = arg
             
     # If no slash, treat as "Add User" mode
     if '/' not in repo_input:
@@ -473,8 +461,9 @@ def main():
         
     owner, repo = repo_input.split('/')
     
-    stargazers = get_stargazers(owner, repo, token, limit=100)
-    contributors = get_contributors(owner, repo, token, limit=100)
+    print(f"Fetch limit set to: {limit}")
+    stargazers = get_stargazers(owner, repo, token, limit=limit)
+    contributors = get_contributors(owner, repo, token, limit=limit)
     
     if stargazers:
         houses, roads = generate_houses(stargazers, contributors, owner)

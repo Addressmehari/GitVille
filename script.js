@@ -628,9 +628,6 @@ function drawHouse(gx, gy, color) {
 
     // 6. Main Roof Slope (Right Side)
     // Vertices: rFront -> rBack -> eBackRight -> eFrontRight
-    // To make it curved ("Asian" or "Fairytale" style curve), we need control points.
-    // The curve dips INWARDS usually.
-    // We draw from Ridge to Eave.
 
     // Helper to get midpoint dip
     function getCurveCP(p1, p2) {
@@ -641,26 +638,109 @@ function drawHouse(gx, gy, color) {
         return { x: mx, y: my + 5 };
     }
 
+    const cpBack = getCurveCP(rBack, eBackRight);
+
+    // Note: Direction matters for consistency. Let's define curve from Ridge to Eave for both sides.
+    // Front Edge: rFront -> eFrontRight.
+    const cpFront = getCurveCP(rFront, eFrontRight);
+
+    // Draw Base Fill First
     ctx.fillStyle = roofColorMain;
     ctx.beginPath();
-    ctx.moveTo(rFront.x, rFront.y); // Start at Front Peak
-    ctx.lineTo(rBack.x, rBack.y);   // Line to Back Peak (Ridge is straight)
-
-    // Curve down from Back Peak to Back Eave
-    const cpBack = getCurveCP(rBack, eBackRight);
+    ctx.moveTo(rFront.x, rFront.y);
+    ctx.lineTo(rBack.x, rBack.y);
+    // Back Curve
     ctx.quadraticCurveTo(cpBack.x, cpBack.y, eBackRight.x, eBackRight.y);
-
-    // Line along Eave (Straight)
+    // Eave Line
     ctx.lineTo(eFrontRight.x, eFrontRight.y);
-
-    // Curve up from Front Eave to Front Peak
-    const cpFront = getCurveCP(eFrontRight, rFront);
+    // Front Curve (Reverse direction for shape closing: Eave -> Ridge)
+    // cpFront is symmetric so it works, just traverse backwards
     ctx.quadraticCurveTo(cpFront.x, cpFront.y, rFront.x, rFront.y);
 
     ctx.closePath();
     ctx.fill();
     ctx.lineWidth = 1;
     ctx.strokeStyle = roofEdgeColor;
+    ctx.stroke();
+
+    // --- Texture: Shingles ---
+    // Interpolate curves to draw rows of shingles
+    function getQuadPoint(p0, cp, p1, t) {
+        const invT = 1 - t;
+        return {
+            x: invT * invT * p0.x + 2 * invT * t * cp.x + t * t * p1.x,
+            y: invT * invT * p0.y + 2 * invT * t * cp.y + t * t * p1.y
+        };
+    }
+
+    const rows = 8;
+    const cols = 6;
+
+    ctx.beginPath();
+    // Use a lighter/darker stroke for shingles
+    ctx.strokeStyle = adjustColor(roofColorMain, -15); // Subtle dark lines
+    ctx.lineWidth = 1;
+
+    for (let r = 0; r < rows; r++) {
+        // t goes from 0 (Ridge) to 1 (Eave)
+        const tVal = r / rows;
+        const tNext = (r + 1) / rows;
+
+        // Start and End points of this row (along the slope curves)
+        const pStart = getQuadPoint(rBack, cpBack, eBackRight, tVal);
+        const pEnd = getQuadPoint(rFront, cpFront, eFrontRight, tVal);
+
+        const pStartNext = getQuadPoint(rBack, cpBack, eBackRight, tNext);
+        const pEndNext = getQuadPoint(rFront, cpFront, eFrontRight, tNext);
+
+        // Draw Shingles across the row (Back to Front)
+        const rowWidthX = pEnd.x - pStart.x;
+        const rowWidthY = pEnd.y - pStart.y;
+
+        // Stagger rows
+        const offset = (r % 2 === 0) ? 0 : 0.5;
+
+        for (let c = 0; c < cols; c++) {
+            // Normalized params for columns
+            let ct = (c + offset) / cols;
+            let ctNext = (c + offset + 1) / cols;
+
+            // Clip to 0-1 to keep shingles ON the roof
+            if (ct < 0) ct = 0;
+            if (ctNext > 1) ctNext = 1;
+
+            // If squashed too thin, skip
+            if (ctNext <= ct) continue;
+
+            // Linear iterp along the row line
+            // Top of shingle
+            const sx = pStart.x + rowWidthX * ct;
+            const sy = pStart.y + rowWidthY * ct;
+
+            const ex = pStart.x + rowWidthX * ctNext;
+            const ey = pStart.y + rowWidthY * ctNext;
+
+            // Bottom of shingle (approx based on next row)
+            // We want a curve "U" shape or just lines?
+            // "Real like" often implies actual tiles.
+            // Let's draw arcs hanging down.
+
+            // Midpoint for arc control
+            const midX = (sx + ex) / 2;
+            const midY = (sy + ey) / 2;
+
+            // Determine "Height" of shingle on screen (distance to next row)
+            // Approx next row y
+            // Simple approach: Use vectors
+            // Let's just draw small quadratic dips.
+
+            const tileH = 6; // pixel height of tile visual
+
+            ctx.moveTo(sx, sy);
+            // Draw curve to (ex, ey) dipping by tileH
+            ctx.quadraticCurveTo(midX, midY + tileH, ex, ey);
+        }
+    }
     ctx.stroke();
 
     // 7. Roof Thickness / Fascia (Right edge)

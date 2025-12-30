@@ -1,1 +1,1 @@
-version 15: updated the world generation logic
+version 16: added the terrace upgrade to house if that user had merged PR

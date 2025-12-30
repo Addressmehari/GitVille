@@ -67,6 +67,68 @@ def get_stargazers(owner, repo, token=None, limit=1000):
             
     return stargazers
 
+def get_contributors(owner, repo, token=None, limit=5000):
+    url = f"https://api.github.com/repos/{owner}/{repo}/contributors"
+    contributors = set()
+    page = 1
+    per_page = 100
+    
+    headers = {
+        "Accept": "application/vnd.github.v3+json",
+        "User-Agent": "GitVille-Contributor-Fetcher"
+    }
+    if token:
+        headers["Authorization"] = f"token {token}"
+        
+    print(f"Fetching contributors from {owner}/{repo}...")
+    
+    import time
+    
+    while len(contributors) < limit:
+        attempts = 0
+        success = False
+        
+        while attempts < 3:
+            try:
+                req = urllib.request.Request(f"{url}?page={page}&per_page={per_page}&anon=true", headers=headers)
+                with urllib.request.urlopen(req, timeout=10) as response:
+                    content = response.read().decode()
+                    if not content.strip():
+                        data = []
+                    else:
+                        data = json.loads(content)
+                        
+                    if not data:
+                        success = True
+                        break
+                    
+                    for item in data:
+                        if 'login' in item:
+                            contributors.add(item['login'])
+                    
+                    print(f"Fetched contributors page {page} (+{len(data)}, total {len(contributors)})")
+                    
+                    if len(data) < per_page:
+                        success = True
+                    else:
+                        success = True
+                        
+                    page += 1
+                    break
+                    
+            except (urllib.error.HTTPError, urllib.error.URLError, Exception) as e:
+                print(f"Contributor fetch attempt {attempts+1} failed: {e}")
+                attempts += 1
+                time.sleep(2)
+                
+        if not success:
+            print("Failed to fetch contributors page after retries.")
+            break
+        if len(data) == 0: # Stop if no data returned
+            break
+            
+    return contributors
+
 def string_to_color(s):
     hash_object = hashlib.md5(s.encode())
     hex_dig = hash_object.hexdigest()
@@ -78,10 +140,6 @@ def string_to_pseudo_random(s):
     nums = [int(hex_dig[i], 16) % 4 for i in range(5)]
     return nums
 
-def generate_city_slots(limit):
-    slots = []
-    facing_dir = [] 
-    
 def generate_city_slots(limit):
     slots = []
     facing_dir = []
@@ -223,7 +281,7 @@ def generate_city_slots(limit):
                 
     return slots, facing_dir
 
-def generate_houses(stargazers, owner_name):
+def generate_houses(stargazers, contributors, owner_name):
     # Sort
     stargazers.sort(key=lambda x: x['starred_at'])
     
@@ -249,6 +307,9 @@ def generate_houses(stargazers, owner_name):
         x, y = slots[i]
         facing = facings[i]
         
+        # Check if contributor
+        has_terrace = username in contributors
+        
         house = {
             "x": x,
             "y": y,
@@ -259,7 +320,8 @@ def generate_houses(stargazers, owner_name):
             "chimneyStyle": attrs[3],
             "wallStyle": attrs[4],
             "username": username,
-            "facing": facing
+            "facing": facing,
+            "has_terrace": has_terrace
         }
         processed_houses.append(house)
 
@@ -268,7 +330,7 @@ def generate_houses(stargazers, owner_name):
 def main():
     if len(sys.argv) < 2:
         print("Usage: python fetch_stargazers.py owner/repo [token]")
-        repo_input = "octocat/Hello-World"
+        repo_input = "n8n-io/n8n"
     else:
         repo_input = sys.argv[1]
     
@@ -281,13 +343,17 @@ def main():
         return
         
     owner, repo = repo_input.split('/')
+    
     stargazers = get_stargazers(owner, repo, token, limit=1000)
+    contributors = get_contributors(owner, repo, token, limit=2000)
     
     if stargazers:
-        houses = generate_houses(stargazers, owner)
+        houses = generate_houses(stargazers, contributors, owner)
         with open("stargazers_houses.json", "w") as f:
             json.dump(houses, f, indent=4)
         print(f"Successfully generated {len(houses)} houses in stargazers_houses.json")
+    else:
+        print("No stargazers found (or error).")
 
 if __name__ == "__main__":
     main()

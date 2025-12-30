@@ -56,7 +56,7 @@ async function init() {
     // Load data
     try {
         const [housesRes, worldRes] = await Promise.all([
-            fetch('stargazers_houses.json'),
+            fetch('houses.json'),
             fetch('world.json')
         ]);
 

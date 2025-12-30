@@ -1,0 +1,60 @@
+name: Fetch All Stargazers and Rebuild City
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Maximum number of stargazers to fetch'
+        required: true
+        default: '2000'
+  schedule:
+    - cron: '0 0 * * 0' # Run weekly at midnight on Sunday to ensure sync
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild-city:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Fetch Stargazers and Generate City
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Determine limit (input or default for schedule)
+          LIMIT="${{ inputs.limit }}"
+          if [ -z "$LIMIT" ]; then
+            LIMIT="5000"
+          fi
+          
+          echo "Target Repo: ${{ github.repository }}"
+          echo "Fetch Limit: $LIMIT"
+          
+          # Run the script with the repository name and limit
+          # The script reads GITHUB_TOKEN from environment automatically
+          python fetch_stargazers.py "${{ github.repository }}" "$LIMIT"
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Add the generated files
+          git add stargazers_houses.json roads.json
+          
+          # Commit only if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to the city layout."
+          else
+            git commit -m "Rebuild city layout with latest stargazers (Limit: ${{ inputs.limit || '5000' }})"
+            git push
+          fi

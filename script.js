@@ -81,7 +81,7 @@ async function init() {
     try {
         console.log("Fetching data...");
         const [housesRes, worldRes, roadsRes] = await Promise.all([
-            fetch('https://raw.githubusercontent.com/Addressmehari/GitVille/dev-me/stargazers_houses.json?t=' + Date.now()),
+            fetch('https://raw.githubusercontent.com/Addressmehari/GitVille/main/stargazers_houses.json?t=' + Date.now()),
             fetch('world.json'),
             fetch('roads.json').catch(e => null) // Fallback for roads
         ]);

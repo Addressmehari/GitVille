@@ -1,1 +1,10 @@
-version 18: added road fetching from the pycode
+version 19: added user insertion,
+
+1.Generate city from repo:
+
+fetch_stargazers.py owner/repo
+
+2. Insert Single User:
+This adds one specific user to your existing city and updates the layout/roads automatically.
+
+ fetch_stargazers.py user123

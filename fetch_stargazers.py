@@ -397,6 +397,63 @@ def generate_houses(stargazers, contributors, owner_name):
 
     return processed_houses, roads
 
+def recalculate_layout(houses):
+    # Recalculate slots for the entire list (existing + new)
+    slots, facings, roads = generate_city_slots(len(houses))
+    
+    # Update positions and facings
+    for i, house in enumerate(houses):
+        if i < len(slots):
+            house['x'] = slots[i][0]
+            house['y'] = slots[i][1]
+            house['facing'] = facings[i]
+            
+    # Save Houses
+    with open("stargazers_houses.json", "w") as f:
+        json.dump(houses, f, indent=4)
+        
+    # Save Roads
+    road_data = [{"x": int(r[0]), "y": int(r[1])} for r in roads]
+    with open("roads.json", "w") as f:
+        json.dump(road_data, f, indent=4)
+        
+    print(f"Updated layout with {len(houses)} houses and {len(road_data)} road tiles.")
+
+def add_user(username):
+    filename = "stargazers_houses.json"
+    if not os.path.exists(filename):
+        print(f"File {filename} not found. Please run with owner/repo first to generate the base city.")
+        return
+
+    with open(filename, "r") as f:
+        houses = json.load(f)
+        
+    # Check if user exists
+    if any(h['username'] == username for h in houses):
+        print(f"User {username} already exists in the city.")
+        return
+
+    # Generate attributes for new user
+    attrs = string_to_pseudo_random(username)
+    
+    # Create new house object (position will be set by recalculate_layout)
+    new_house = {
+        "x": 0, "y": 0, # Placeholders
+        "color": string_to_color(username),
+        "roofStyle": attrs[0],
+        "doorStyle": attrs[1],
+        "windowStyle": attrs[2],
+        "chimneyStyle": attrs[3],
+        "wallStyle": attrs[4],
+        "username": username,
+        "facing": "down",
+        "has_terrace": False # Default for manual add
+    }
+    
+    houses.append(new_house)
+    print(f"Adding new house for {username}...")
+    recalculate_layout(houses)
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python fetch_stargazers.py owner/repo [token]")
@@ -408,8 +465,10 @@ def main():
     if len(sys.argv) > 2:
         token = sys.argv[2]
             
+    # If no slash, treat as "Add User" mode
     if '/' not in repo_input:
-        print("Invalid format. Use owner/repo")
+        print(f"Detecting single username '{repo_input}'. Adding to existing city...")
+        add_user(repo_input)
         return
         
     owner, repo = repo_input.split('/')

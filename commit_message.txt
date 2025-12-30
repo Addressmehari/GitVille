@@ -1,1 +1,1 @@
-version 10: hover modulate & name appear
+version 11 : add `abandoned` and `facing` house properties.

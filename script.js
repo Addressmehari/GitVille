@@ -370,7 +370,7 @@ function renderHouses() {
     // but unless we have thousands, iterating is cheap. Drawing is the cost.
 
     for (const house of sortedHouses) {
-        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle, house.windowStyle, house.chimneyStyle, house.wallStyle, house.hoverAnim, house.username);
+        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle, house.windowStyle, house.chimneyStyle, house.wallStyle, house.hoverAnim, house.username, house.abandoned, house.facing);
     }
 }
 
@@ -394,8 +394,40 @@ function updateHoverState() {
     }
 }
 
-function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyle, wallStyle, hoverAnim, username) {
+function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyle, wallStyle, hoverAnim, username, abandoned, facing) {
     const isoCenter = gridToWorld(gx, gy);
+
+    // --- "Sketchy" Style Hook (Abandoned Only) ---
+    // Save original stroke
+    const originalStroke = ctx.stroke;
+    if (abandoned) {
+        // Override stroke to draw multiple jittery lines
+        ctx.stroke = function () {
+            const lineWidth = ctx.lineWidth;
+            const strokeStyle = ctx.strokeStyle;
+
+            ctx.save();
+            // Pass 1: Semi-transparent based on original
+            // Just draw slightly jittered versions
+
+            // Jitter 1
+            ctx.translate((Math.random() - 0.5) * 1.5, (Math.random() - 0.5) * 1.5);
+            originalStroke.call(ctx);
+
+            // Jitter 2
+            ctx.translate((Math.random() - 0.5) * 1.5, (Math.random() - 0.5) * 1.5);
+            originalStroke.call(ctx);
+
+            ctx.restore();
+
+            // Draw main line? Or just the jitters? 
+            // Users request "sketchy". Just jitters looks ghosty.
+            // Let's render the main one too but maybe thinner?
+            // Actually, overlaying 2 jitters usually looks good enough as "sketchy".
+            // Let's add a central one for definition.
+            originalStroke.call(ctx);
+        };
+    }
 
     // Apply Hover Lift
     const lift = (hoverAnim || 0) * 4; // Lift 4 pixels
@@ -410,11 +442,30 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
 
     function toScreen(lx, ly, lz) {
         // Simple projection reuse
-        // Apply local scale? - A bit complex for simple drawing. 
-        // Let's stick to simple Lift for smoothness.
 
-        const sx = isoCenter.x + (lx - ly);
-        const sy = isoCenter.y + (lx + ly) * 0.5 - lz - lift;
+        // ROTATION: Swap X and Y if facing "right"
+        // Default (Original) = "left"
+        if (facing === 'right') {
+            const temp = lx; lx = ly; ly = temp;
+        }
+
+        // Apply "Wobble" if abandoned
+        let dx = 0, dy = 0;
+        if (abandoned) {
+            // Deterministic noise based on local coords
+            // Reduced wobble amplitude significantly to avoid "broken" look being "glitchy"
+            const seed = (lx * 73 + ly * 37 + lz * 13 + gx * 100 + gy);
+            dx = (Math.sin(seed) * 0.5); // wobble X (was 2.5)
+            dy = (Math.cos(seed * 0.5) * 0.5); // wobble Y (was 2.5)
+
+            // Sag the roof?
+            if (lz > wallHeight) {
+                dy += 2; // Drop visuals at height
+            }
+        }
+
+        const sx = isoCenter.x + (lx - ly) + dx;
+        const sy = isoCenter.y + (lx + ly) * 0.5 - lz - lift + dy;
         return { x: sx, y: sy };
     }
 
@@ -432,7 +483,12 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
 
     ctx.fillStyle = "rgba(0,0,0,0.15)";
     ctx.beginPath();
-    ctx.ellipse(sCenter.x, sCenter.y, (16 * 1.5) * sScale, (18 * 0.8) * sScale, 0, 0, Math.PI * 2);
+
+    // Shadow Dimensions depend on rotation
+    let sw = 16, sd = 18;
+    if (facing === 'right') { sw = 18; sd = 16; }
+
+    ctx.ellipse(sCenter.x, sCenter.y, (sw * 1.5) * sScale, (sd * 0.8) * sScale, 0, 0, Math.PI * 2);
     ctx.fill();
 
     // Override toScreen for the rest of the house geometry to include LIFT
@@ -442,12 +498,24 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
     const hw = 16;  // Half-Width (Side to side relative to gable)
     const hd = 18;  // Half-Depth (Front to back)
     const wallHeight = 35;
-    const roofHeight = 30; // Higher roof looks cozier
+    let roofHeight = 30; // Higher roof looks cozier
+    if (abandoned) roofHeight = 22; // Collapsed look
     const overhang = 4;    // Roof overhang magnitude (Key for 'good' look)
 
     // Colors
-    const wallColor = "#fdfbf7";
-    const wallShadow = "#e0dad1";
+    let wallColor = "#fdfbf7";
+    let wallShadow = "#e0dad1";
+    let glassColor1 = "#74b9ff"; // Standard Blue
+    let glassColor2 = "#81ecec"; // Cyan/Turquoise
+
+    if (abandoned) {
+        wallColor = "#95a5a6"; // Concrete/Dirty Grey
+        wallShadow = "#7f8c8d";
+        color = "#535c68"; // Override roof to dark grey
+        glassColor1 = "#2d3436"; // Broken/Dark
+        glassColor2 = "#2d3436";
+    }
+
     const roofColorMain = adjustColor(color, -20);
     const roofColorDark = adjustColor(color, -40);
     const roofEdgeColor = adjustColor(color, -50);
@@ -718,12 +786,77 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
     drawWallTexture(0, wallStyle);
     ctx.restore();
 
-    const wStyle = (windowStyle !== undefined) ? windowStyle : 0;
+    let wStyle = (windowStyle !== undefined) ? windowStyle : 0;
+    if (abandoned) wStyle = -1; // Force boarded up
     const winY = 0; // Centered on wall Y
     const winZ = wallHeight / 2 + 2;
     const winX = hw + 0.2; // Surface
 
-    if (wStyle === 0) {
+    if (wStyle === -1) {
+        // --- Style -1: Boarded Up (Abandoned) ---
+        const winW = 10;
+        const winH = 14;
+
+        // 1. Dark Hole (Missing Glass)
+        drawRightRect(winX, winY, winZ, winW, winH, "#1e1e1e"); // Pitch black/void
+
+        // 2. Boards (Haphazard)
+        // Helper for a crooked plank
+        function drawPlank(zPos, width, angle) {
+            const angleRad = angle * (Math.PI / 180);
+            const cx = winX + 0.5;
+            const cy = winY;
+            const cz = zPos;
+
+            // Simple rotated Rect on Side Wall plane... 
+            // Actually, simplest is just endpoints.
+            // Plank is mostly along Y axis (width), tilted in Z.
+            // Let's manually compute corners for a "Strip".
+
+            const w2 = width / 2;
+            const h2 = 1.5; // Plank height
+
+            // Unrotated offsets
+            // y from -w2 to w2
+            // z from -h2 to h2
+
+            // Rotate around X axis (tilt)? No, we want to rotate in the Y-Z plane of the wall.
+            // y' = y*cos - z*sin
+            // z' = y*sin + z*cos
+
+            const c = Math.cos(angleRad);
+            const s = Math.sin(angleRad);
+
+            function rot(y, z) {
+                return { y: y * c - z * s, z: y * s + z * c };
+            }
+
+            const p1 = rot(-w2, -h2);
+            const p2 = rot(w2, -h2);
+            const p3 = rot(w2, h2);
+            const p4 = rot(-w2, h2);
+
+            ctx.fillStyle = "#5d4037"; // Dark Wood
+            ctx.beginPath();
+            [p1, p2, p3, p4].forEach((p, i) => {
+                const pt = toScreen(cx, cy + p.y, cz + p.z);
+                if (i === 0) ctx.moveTo(pt.x, pt.y);
+                else ctx.lineTo(pt.x, pt.y);
+            });
+            ctx.fill();
+            // Nail
+            ctx.fillStyle = "#95a5a6";
+            const nail = toScreen(cx, cy + p1.y + (p2.y - p1.y) * 0.1, cz + p1.z + (p2.z - p1.z) * 0.1);
+            ctx.beginPath(); ctx.arc(nail.x, nail.y, 0.5, 0, Math.PI * 2); ctx.fill();
+            const nail2 = toScreen(cx, cy + p2.y - (p2.y - p1.y) * 0.1, cz + p2.z - (p2.z - p1.z) * 0.1);
+            ctx.beginPath(); ctx.arc(nail2.x, nail2.y, 0.5, 0, Math.PI * 2); ctx.fill();
+        }
+
+        drawPlank(winZ, winW + 4, 15);
+        drawPlank(winZ - 3, winW + 4, -10);
+        drawPlank(winZ + 3, winW + 4, 5);
+
+    } else if (wStyle === 0) {
         // --- Style 0: Classic Muntins (Cross) ---
         const winW = 10;
         const winH = 14;
@@ -731,7 +864,7 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
         // Frame
         drawRightRect(winX, winY, winZ, winW + 3, winH + 3, "#dfe6e9");
         // Glass Background
-        drawRightRect(winX + 0.5, winY, winZ, winW, winH, "#74b9ff");
+        drawRightRect(winX + 0.5, winY, winZ, winW, winH, glassColor1);
         // Muntins (Cross)
         const bar = 1.2;
         drawRightRect(winX + 0.6, winY, winZ, bar, winH, "#dfe6e9"); // Vert
@@ -789,7 +922,7 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
         const gBaseZ = fBaseZ; // Glass arch starts at same height relative to its rect
         // Actually, glass usually starts slightly higher? No, alignment is better.
 
-        ctx.fillStyle = "#74b9ff";
+        ctx.fillStyle = glassColor1;
         ctx.beginPath();
 
         const g_bl = toScreen(winX + 0.5, fCenterY + gRad, bottomZ + 1);
@@ -825,7 +958,7 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
 
         // 1. Basic Window
         drawRightRect(winX, winY, winZ, winW, winH, "#b2bec3"); // Grey Frame
-        drawRightRect(winX + 0.2, winY, winZ, winW - 2, winH - 2, "#81ecec"); // Glass
+        drawRightRect(winX + 0.2, winY, winZ, winW - 2, winH - 2, glassColor2); // Glass
 
         // 2. Awning
         // Slopes down from Wall (Top of window + small gap) to Front-Out
@@ -907,7 +1040,7 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
 
         // Window (Diamond Pattern?)
         drawRightRect(winX, winY, winZ, winW + 2, winH + 2, "#636e72"); // Dark Frame
-        drawRightRect(winX + 0.5, winY, winZ, winW, winH, "#81ecec"); // Light Glass
+        drawRightRect(winX + 0.5, winY, winZ, winW, winH, glassColor2); // Light Glass
 
         // Diamond Lead
         ctx.strokeStyle = "rgba(0,0,0,0.2)";
@@ -983,6 +1116,43 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
     drawWallTexture(1, wallStyle);
     ctx.restore();
 
+    // --- Cracks (Abandoned Only) ---
+    if (abandoned) {
+        ctx.strokeStyle = "rgba(0,0,0,0.4)";
+        ctx.lineWidth = 1;
+
+        // Simple jagged line helper
+        const drawCrack = (surface, seed) => {
+            // Surface 0: Right, 1: Front
+            ctx.beginPath();
+            // Start point
+            let cx, cy, cz;
+            if (surface === 0) { cx = hw; cy = 0; cz = 10; }
+            else { cx = 0; cy = hd; cz = wallHeight - 10; }
+
+            // Walk
+            let px = cx, py = cy, pz = cz;
+            const pt = toScreen(px, py, pz);
+            ctx.moveTo(pt.x, pt.y);
+
+            for (let i = 0; i < 5; i++) {
+                // Random walk based on seed + i
+                const r = ((seed + i) * 9301 + 49297) % 233280;
+                const dr = r / 233280;
+
+                if (surface === 0) { py += (dr - 0.5) * 10; pz += (dr) * 10; } // Up and sideways
+                else { px += (dr - 0.5) * 10; pz -= (dr) * 10; } // Down and sideways
+
+                const p = toScreen(px, py, pz);
+                ctx.lineTo(p.x, p.y);
+            }
+            ctx.stroke();
+        };
+
+        drawCrack(0, gx * gy);
+        drawCrack(1, gx + gy);
+    }
+
     // Front Wall Trim (Corners)
     ctx.fillStyle = adjustColor(wallColor, -5);
     // Left Corner Trim
@@ -1015,7 +1185,8 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
     ctx.fill();
 
     // Door on Front Wall
-    const dStyle = (doorStyle !== undefined) ? doorStyle : 0;
+    let dStyle = (doorStyle !== undefined) ? doorStyle : 0;
+    if (abandoned) dStyle = -1; // Force boarded
     const dW = 6;
     const dH = 22;
     const dFrame = 1.5;
@@ -1043,7 +1214,37 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
         }
     }
 
-    if (dStyle === 0) {
+    if (dStyle === -1) {
+        // --- Style -1: Boarded Door ---
+        // Dark Void
+        drawDoorRect(0, 0, dW * 2, dH, "#000");
+
+        // Big 'X' planks
+        // Using toScreen directly for custom lines
+        const d_bl = toScreen(-dW - 2, doory + 1, 2);
+        const d_tr = toScreen(dW + 2, doory + 1, dH - 2);
+        const d_br = toScreen(dW + 2, doory + 1, 2);
+        const d_tl = toScreen(-dW - 2, doory + 1, dH - 2);
+
+        ctx.strokeStyle = "#5d4037"; // Wood
+        ctx.lineWidth = 3;
+
+        ctx.beginPath();
+        ctx.moveTo(d_bl.x, d_bl.y); ctx.lineTo(d_tr.x, d_tr.y);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(d_tl.x, d_tl.y); ctx.lineTo(d_br.x, d_br.y);
+        ctx.stroke();
+
+        // One horizontal
+        const d_ml = toScreen(-dW - 2, doory + 1, dH / 2);
+        const d_mr = toScreen(dW + 2, doory + 1, dH / 2);
+        ctx.beginPath();
+        ctx.moveTo(d_ml.x, d_ml.y); ctx.lineTo(d_mr.x, d_mr.y);
+        ctx.stroke();
+
+    } else if (dStyle === 0) {
         // --- Style 0: Classic Panelled ---
         // 1. Door Frame
         const df_bl = toScreen(-dW - dFrame, doory, 0);
@@ -1167,7 +1368,7 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
         drawDoorRect(0, 0, dW * 2, dH, "#636e72");
 
         // Vertical Glass Insert
-        drawDoorRect(0, 2, 4, dH - 4, "#81ecec");
+        drawDoorRect(0, 2, 4, dH - 4, glassColor2);
 
         // Long Bar Handle
         const hVal = 12;
@@ -1211,7 +1412,7 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
         // 2 cols x 3 rows per door
         const paneW = 2;
         const paneH = 4;
-        const glassColor = "#81ecec";
+        const glassColor = glassColor2;
 
         // Helper for panes
         function drawPanes(centerX) {
@@ -1258,7 +1459,7 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
 
     // Attic Window (Round)
     const awC = toScreen(0, hd + 0.5, wallHeight + roofHeight * 0.4);
-    ctx.fillStyle = "#55efc4";
+    ctx.fillStyle = abandoned ? "#2d3436" : "#55efc4";
     ctx.beginPath();
     ctx.arc(awC.x, awC.y, 4, 0, Math.PI * 2);
     ctx.fill();
@@ -1470,6 +1671,34 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
     }
 
     ctx.stroke();
+
+    if (abandoned) {
+        // --- Roof Holes ---
+        ctx.fillStyle = "#2d3436"; // Dark void color
+        // Random patches
+        const numHoles = 3;
+        for (let i = 0; i < numHoles; i++) {
+            // Pick a t value (along slope) and 'u' value (along width)
+            const t = 0.3 + (i * 0.2);
+            // Point on main slope
+            const pStart = getQuadPoint(rBack, cpBack, eBackRight, t);
+            const pEnd = getQuadPoint(rFront, cpFront, eFrontRight, t);
+
+            // Interpolate 'u'
+            const u = 0.2 + ((i * 1.3) % 0.6);
+            const holeX = pStart.x + (pEnd.x - pStart.x) * u;
+            const holeY = pStart.y + (pEnd.y - pStart.y) * u;
+
+            ctx.beginPath();
+            // Jagged hole shape
+            const rad = 4;
+            ctx.moveTo(holeX - rad, holeY);
+            ctx.lineTo(holeX, holeY - rad + 1);
+            ctx.lineTo(holeX + rad, holeY + 2);
+            ctx.lineTo(holeX, holeY + rad);
+            ctx.fill();
+        }
+    }
 
     // 7. Roof Thickness / Fascia (Right edge)
     ctx.fillStyle = roofColorDark;
@@ -1865,9 +2094,16 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
         const textMetrics = ctx.measureText(username);
         const textW = textMetrics.width;
         const padX = 10;
-        const padY = 6;
+        // const padY = 6; // Unused
         const boxH = 26;
-        const boxW = textW + padX * 2;
+
+        // Dead Status Dot
+        const dotSize = 6;
+        const dotGap = 6;
+        let contentW = textW;
+        if (abandoned) contentW += dotSize + dotGap;
+
+        const boxW = contentW + padX * 2;
 
         const bx = -boxW / 2;
         const by = -boxH - 8; // Move up by height + arrow length
@@ -1888,7 +2124,7 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
 
         // Arrow pointing down to (0,0) - relative to translate
         const arrowW = 6;
-        const arrowH = 6;
+        const arrowH = 6; // Unused var but good for ref
         const arrowBaseY = by + boxH;
 
         ctx.lineTo(arrowW, arrowBaseY); // Right side of arrow base
@@ -1909,14 +2145,113 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
         ctx.strokeStyle = color; // Used the house color passed in
         ctx.stroke();
 
+        // Content
+        ctx.textBaseline = "middle";
+
+        // Calculate Layout
+        // Center the entire content group (Text + Dot) within the box
+        // Box is centered on 0. Box Left is bx.
+        // Content Start X relative to 0 is -contentW / 2.
+
+        const contentStartX = -contentW / 2;
+        const textY = by + boxH / 2;
+
         // Text
         ctx.fillStyle = "#2d3436"; // Dark Text
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        // Center of box
-        ctx.fillText(username, 0, by + boxH / 2);
+        ctx.textAlign = "left";
+        ctx.fillText(username, contentStartX, textY);
+
+        // Red Dead Dot
+        if (abandoned) {
+            const dotX = contentStartX + textW + dotGap + dotSize / 2;
+            const dotY = textY; // Middle align with text
+
+            ctx.fillStyle = "#e74c3c"; // Red
+            ctx.beginPath();
+            ctx.arc(dotX, dotY, dotSize / 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
 
         ctx.restore();
+    }
+
+    // --- Visuals: Vines & Overgrowth (Abandoned Only) ---
+    // Rendered last on top of everything
+    if (abandoned) {
+        ctx.save();
+        ctx.fillStyle = "#5d7052"; // Mossy Green
+        ctx.strokeStyle = "#4b6140";
+        ctx.lineWidth = 2;
+
+        // Procedural Vines Helper
+        function drawVine(seedX, seedY, length, isWall) {
+            const startPt = toScreen(seedX, seedY, 0); // Start at root
+            ctx.beginPath();
+            ctx.moveTo(startPt.x, startPt.y);
+
+            let cx = seedX, cy = seedY, cz = 0;
+            for (let i = 0; i < length; i++) {
+                // climb up
+                const n = (i * 13 + seedX + seedY) % 10;
+                cz += 2 + (n / 5);
+                cx += Math.sin(i) * 2;
+                cy += Math.cos(i) * 2;
+
+                // Clamp to house volumeish
+                if (cz > wallHeight + roofHeight) break;
+
+                const p = toScreen(cx, cy, cz);
+                ctx.lineTo(p.x, p.y);
+
+                // Leaves
+                if (i % 3 === 0) {
+                    // ctx.beginPath(); // Optimization: draw leaves separate or simply little strokes?
+                    // Simple stroke leaves are fast
+                    const leafL = 3;
+                    const lx = p.x + ((i % 2 === 0) ? leafL : -leafL);
+                    const ly = p.y - 1;
+                    // ctx.moveTo(p.x, p.y); ctx.lineTo(lx, ly);
+                }
+            }
+            ctx.stroke();
+
+            // Patches of moss
+            if (isWall) {
+                const mossC = toScreen(seedX, seedY, wallHeight / 2 + (seedX % 5));
+                ctx.beginPath();
+                ctx.arc(mossC.x, mossC.y, 4 + (seedY % 4), 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Draw some vines
+        drawVine(hw, 0, 15, true);  // Side wall vine
+        drawVine(-hw, hd, 20, true); // Front corner vine
+        drawVine(0, hd, 10, true);   // Door vine
+        drawVine(hw, -hd, 12, true); // Back corner
+
+        // Rubble piles at base
+        for (let i = 0; i < 5; i++) {
+            // Deterministic pseudo-random based on grid + index
+            const h = (gx * 3737 + gy * 2929 + i * 191) % 100; // 0-99
+            const n = h / 100;
+
+            let rx = (n - 0.5) * hw * 2.0;
+            let ry = ((h % 20) / 20 - 0.5) * hd * 2.0;
+
+            // Keep near center
+            const p = toScreen(rx, ry, 0);
+            ctx.fillStyle = (i % 2 === 0) ? "#3d3d3d" : "#5d4037"; // Dark grey or wood
+            ctx.beginPath();
+            ctx.arc(p.x, p.y + i, 2 + (n * 5) % 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        ctx.restore();
+    }
+    // Restore Context Hook
+    if (abandoned) {
+        ctx.stroke = originalStroke;
     }
 }
 

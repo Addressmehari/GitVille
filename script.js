@@ -44,6 +44,7 @@ let initialZoom = null;
 
 // World Data
 let houses = []; // Will be loaded from JSON
+let roads = new Set(); // Set of "x,y" strings
 let worldConfig = { weather: "none" }; // Default config
 
 // --- Initialization ---
@@ -55,13 +56,22 @@ async function init() {
 
     // Load data
     try {
-        const [housesRes, worldRes] = await Promise.all([
+        const [housesRes, worldRes, roadsRes] = await Promise.all([
             fetch('houses.json'),
-            fetch('world.json')
+            fetch('world.json'),
+            fetch('roads.json').catch(e => ({ json: () => [] })) // Fallback for roads
         ]);
 
         houses = await housesRes.json();
         worldConfig = await worldRes.json();
+
+        try {
+            const roadData = await roadsRes.json();
+            if (Array.isArray(roadData)) {
+                roadData.forEach(r => roads.add(`${r.x},${r.y}`));
+            }
+        } catch (e) { console.log("No roads found"); }
+
 
         // Initialize animation state
         houses.forEach(h => h.hoverAnim = 0);
@@ -386,36 +396,194 @@ function renderVisibleGrid() {
     for (let gy = startY; gy <= endY; gy++) {
         for (let gx = startX; gx <= endX; gx++) {
             const worldPos = gridToWorld(gx, gy);
+            const tileKey = `${gx},${gy}`;
 
-            // Checkboard pattern
-            const isDark = (gx + gy) % 2 !== 0; // Simple parity check
-            ctx.fillStyle = isDark ? COLOR_GROUND_DARK : COLOR_GROUND_LIGHT;
+            if (roads.has(tileKey)) {
+                drawRoadTile(gx, gy, worldPos);
+            } else {
+                // Checkboard pattern
+                const isDark = (gx + gy) % 2 !== 0; // Simple parity check
+                ctx.fillStyle = isDark ? COLOR_GROUND_DARK : COLOR_GROUND_LIGHT;
 
-            // Draw Diamond path
-            // Top: (0, -H/2)
-            // Right: (W/2, 0)
-            // Bottom: (0, H/2)
-            // Left: (-W/2, 0)
+                // Draw Diamond path
+                ctx.beginPath();
+                ctx.moveTo(worldPos.x, worldPos.y - TILE_HEIGHT / 2);
+                ctx.lineTo(worldPos.x + TILE_WIDTH / 2, worldPos.y);
+                ctx.lineTo(worldPos.x, worldPos.y + TILE_HEIGHT / 2);
+                ctx.lineTo(worldPos.x - TILE_WIDTH / 2, worldPos.y);
+                ctx.closePath();
 
-            ctx.beginPath();
-            ctx.moveTo(worldPos.x, worldPos.y - TILE_HEIGHT / 2);
-            ctx.lineTo(worldPos.x + TILE_WIDTH / 2, worldPos.y);
-            ctx.lineTo(worldPos.x, worldPos.y + TILE_HEIGHT / 2);
-            ctx.lineTo(worldPos.x - TILE_WIDTH / 2, worldPos.y);
-            ctx.closePath();
+                ctx.fill();
 
-            ctx.fill();
-
-            // Toggleable grid lines (drawing them always for now as they are subtle)
-            ctx.strokeStyle = GRID_LINE_COLOR;
-            ctx.stroke();
-
-            // Debug coords
-            // ctx.fillStyle = '#aaa';
-            // ctx.font = '10px Arial';
-            // ctx.fillText(`${gx},${gy}`, worldPos.x - 10, worldPos.y);
+                // Toggleable grid lines (drawing them always for now as they are subtle)
+                ctx.strokeStyle = GRID_LINE_COLOR;
+                ctx.stroke();
+            }
         }
     }
+}
+
+
+
+function drawRoadTile(gx, gy, pos) {
+    // 1. Identify Neighbors
+    const hasN = roads.has(`${gx},${gy - 1}`);
+    const hasS = roads.has(`${gx},${gy + 1}`);
+    const hasE = roads.has(`${gx + 1},${gy}`);
+    const hasW = roads.has(`${gx - 1},${gy}`);
+
+    // 2. Draw Sidewalk Base (Full Tile)
+    ctx.fillStyle = "#bdc3c7"; // Concrete Color
+    const halfW = TILE_WIDTH / 2;
+    const halfH = TILE_HEIGHT / 2;
+
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y - halfH);
+    ctx.lineTo(pos.x + halfW, pos.y);
+    ctx.lineTo(pos.x, pos.y + halfH);
+    ctx.lineTo(pos.x - halfW, pos.y);
+    ctx.closePath();
+    ctx.fill();
+
+    // 3. Draw Asphalt (Adaptive)
+    const rW = 0.6; // Road is 60% of tile width
+    // Vertices of the "Center Patch"
+    const cpTop = { x: pos.x, y: pos.y - halfH * rW };
+    const cpRight = { x: pos.x + halfW * rW, y: pos.y };
+    const cpBottom = { x: pos.x, y: pos.y + halfH * rW };
+    const cpLeft = { x: pos.x - halfW * rW, y: pos.y };
+
+    ctx.fillStyle = "#34495e"; // Wet Asphalt / Dark Blue-Grey
+
+    // Draw Center Patch
+    ctx.beginPath();
+    ctx.moveTo(cpTop.x, cpTop.y);
+    ctx.lineTo(cpRight.x, cpRight.y);
+    ctx.lineTo(cpBottom.x, cpBottom.y);
+    ctx.lineTo(cpLeft.x, cpLeft.y);
+    ctx.fill();
+
+    // Helper to get World coords from Grid Offset relative to Center
+    const g2w = (gdx, gdy) => {
+        return {
+            x: pos.x + (gdx - gdy) * halfW,
+            y: pos.y + (gdx + gdy) * halfH
+        };
+    };
+
+    const w = rW / 2; // half-width in grid units (0 to 0.5)
+
+    // Draw Arms (Asphalt Fills)
+    if (hasN) {
+        const p1 = g2w(-w, -w); const p2 = g2w(w, -w);
+        const p3 = g2w(w, -0.5); const p4 = g2w(-w, -0.5);
+        ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.lineTo(p4.x, p4.y); ctx.fill();
+    }
+    if (hasS) {
+        const p1 = g2w(-w, w); const p2 = g2w(w, w);
+        const p3 = g2w(w, 0.5); const p4 = g2w(-w, 0.5);
+        ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.lineTo(p4.x, p4.y); ctx.fill();
+    }
+    if (hasE) {
+        const p1 = g2w(w, -w); const p2 = g2w(w, w);
+        const p3 = g2w(0.5, w); const p4 = g2w(0.5, -w);
+        ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.lineTo(p4.x, p4.y); ctx.fill();
+    }
+    if (hasW) {
+        const p1 = g2w(-w, -w); const p2 = g2w(-w, w);
+        const p3 = g2w(-0.5, w); const p4 = g2w(-0.5, -w);
+        ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.lineTo(p4.x, p4.y); ctx.fill();
+    }
+
+    // 4. Markings (Refined: Continuous lines)
+    ctx.strokeStyle = "#ecf0f1";
+    ctx.lineWidth = 2;
+    ctx.setLineDash([8, 8]); // Cleaner dash size
+
+    const neighborCount = [hasN, hasS, hasE, hasW].filter(Boolean).length;
+
+    if (neighborCount === 2 && ((hasN && hasS) || (hasE && hasW))) {
+        // STRAIGHT: Draw single line from edge to edge
+        ctx.beginPath();
+        if (hasN && hasS) {
+            const start = g2w(0, -0.5);
+            const end = g2w(0, 0.5);
+            ctx.moveTo(start.x, start.y); ctx.lineTo(end.x, end.y);
+        } else {
+            const start = g2w(-0.5, 0); // West Edge
+            const end = g2w(0.5, 0);    // East Edge
+            ctx.moveTo(start.x, start.y); ctx.lineTo(end.x, end.y);
+        }
+        ctx.stroke();
+
+    } else if (neighborCount === 2) {
+        // TURN: Draw single continuous curve
+        ctx.beginPath();
+        // Control point is always center (0,0) for these 90deg turns on grid
+        const cp = g2w(0, 0);
+        let start, end;
+
+        if (hasN && hasE) {
+            start = g2w(0, -0.5); end = g2w(0.5, 0);
+        } else if (hasN && hasW) {
+            start = g2w(0, -0.5); end = g2w(-0.5, 0);
+        } else if (hasS && hasE) {
+            start = g2w(0, 0.5); end = g2w(0.5, 0);
+        } else if (hasS && hasW) {
+            start = g2w(0, 0.5); end = g2w(-0.5, 0);
+        }
+
+        if (start && end) {
+            ctx.moveTo(start.x, start.y);
+            ctx.quadraticCurveTo(cp.x, cp.y, end.x, end.y);
+            ctx.stroke();
+        }
+    } else {
+        // Intersections (3, 4) or Dead Ends (1) or Isolated (0)
+        // Draw stubs from edge to patch-boundary only. Keep intersection clear.
+        // Boundary is 'w' (e.g. 0.3)
+        const drawStub = (gdxStart, gdyStart, gdxEnd, gdyEnd) => {
+            ctx.beginPath();
+            const s = g2w(gdxStart, gdyStart);
+            const e = g2w(gdxEnd, gdyEnd);
+            ctx.moveTo(s.x, s.y); ctx.lineTo(e.x, e.y);
+            ctx.stroke();
+        };
+
+        if (hasN) drawStub(0, -0.5, 0, -w);
+        if (hasS) drawStub(0, 0.5, 0, w);
+        if (hasE) drawStub(0.5, 0, w, 0);
+        if (hasW) drawStub(-0.5, 0, -w, 0);
+    }
+
+    ctx.setLineDash([]);
+
+    // 5. Outline / Edge (Bright and Visible)
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 3;
+    ctx.globalAlpha = 0.8; // Slight transparency for blending
+    // N
+    if (hasN) {
+        ctx.beginPath(); ctx.moveTo(g2w(-w, -0.5).x, g2w(-w, -0.5).y); ctx.lineTo(g2w(-w, -w).x, g2w(-w, -w).y); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(g2w(w, -0.5).x, g2w(w, -0.5).y); ctx.lineTo(g2w(w, -w).x, g2w(w, -w).y); ctx.stroke();
+    } else { ctx.beginPath(); ctx.moveTo(g2w(-w, -w).x, g2w(-w, -w).y); ctx.lineTo(g2w(w, -w).x, g2w(w, -w).y); ctx.stroke(); }
+    // S
+    if (hasS) {
+        ctx.beginPath(); ctx.moveTo(g2w(-w, 0.5).x, g2w(-w, 0.5).y); ctx.lineTo(g2w(-w, w).x, g2w(-w, w).y); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(g2w(w, 0.5).x, g2w(w, 0.5).y); ctx.lineTo(g2w(w, w).x, g2w(w, w).y); ctx.stroke();
+    } else { ctx.beginPath(); ctx.moveTo(g2w(-w, w).x, g2w(-w, w).y); ctx.lineTo(g2w(w, w).x, g2w(w, w).y); ctx.stroke(); }
+    // E
+    if (hasE) {
+        ctx.beginPath(); ctx.moveTo(g2w(0.5, -w).x, g2w(0.5, -w).y); ctx.lineTo(g2w(w, -w).x, g2w(w, -w).y); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(g2w(0.5, w).x, g2w(0.5, w).y); ctx.lineTo(g2w(w, w).x, g2w(w, w).y); ctx.stroke();
+    } else { ctx.beginPath(); ctx.moveTo(g2w(w, -w).x, g2w(w, -w).y); ctx.lineTo(g2w(w, w).x, g2w(w, w).y); ctx.stroke(); }
+    // W
+    if (hasW) {
+        ctx.beginPath(); ctx.moveTo(g2w(-0.5, -w).x, g2w(-0.5, -w).y); ctx.lineTo(g2w(-w, -w).x, g2w(-w, -w).y); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(g2w(-0.5, w).x, g2w(-0.5, w).y); ctx.lineTo(g2w(-w, w).x, g2w(-w, w).y); ctx.stroke();
+    } else { ctx.beginPath(); ctx.moveTo(g2w(-w, -w).x, g2w(-w, -w).y); ctx.lineTo(g2w(-w, w).x, g2w(-w, w).y); ctx.stroke(); }
+
+    ctx.globalAlpha = 1.0; // Reset
 }
 
 function renderHouses() {

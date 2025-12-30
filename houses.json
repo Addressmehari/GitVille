@@ -4,342 +4,391 @@
         "y": -9,
         "color": "#ff6b6b",
         "roofStyle": 0,
-        "doorStyle": 0
+        "doorStyle": 0,
+        "windowStyle": 0
     },
     {
         "x": -9,
         "y": -6,
         "color": "#4ecdc4",
         "roofStyle": 1,
-        "doorStyle": 1
+        "doorStyle": 1,
+        "windowStyle": 1
     },
     {
         "x": -9,
         "y": -3,
         "color": "#ffe66d",
         "roofStyle": 2,
-        "doorStyle": 2
+        "doorStyle": 2,
+        "windowStyle": 2
     },
     {
         "x": -9,
         "y": 0,
         "color": "#ff9f1c",
         "roofStyle": 3,
-        "doorStyle": 3
+        "doorStyle": 3,
+        "windowStyle": 3
     },
     {
         "x": -9,
         "y": 3,
         "color": "#2b2d42",
         "roofStyle": 0,
-        "doorStyle": 0
+        "doorStyle": 0,
+        "windowStyle": 0
     },
     {
         "x": -9,
         "y": 6,
         "color": "#8d99ae",
         "roofStyle": 1,
-        "doorStyle": 1
+        "doorStyle": 1,
+        "windowStyle": 1
     },
     {
         "x": -9,
         "y": 9,
         "color": "#ef233c",
         "roofStyle": 2,
-        "doorStyle": 2
+        "doorStyle": 2,
+        "windowStyle": 2
     },
     {
         "x": -6,
         "y": -9,
         "color": "#d90429",
         "roofStyle": 3,
-        "doorStyle": 3
+        "doorStyle": 3,
+        "windowStyle": 3
     },
     {
         "x": -6,
         "y": -6,
         "color": "#54a0ff",
         "roofStyle": 0,
-        "doorStyle": 0
+        "doorStyle": 0,
+        "windowStyle": 0
     },
     {
         "x": -6,
         "y": -3,
         "color": "#5f27cd",
         "roofStyle": 1,
-        "doorStyle": 1
+        "doorStyle": 1,
+        "windowStyle": 1
     },
     {
         "x": -6,
         "y": 0,
         "color": "#ff6b6b",
         "roofStyle": 2,
-        "doorStyle": 2
+        "doorStyle": 2,
+        "windowStyle": 2
     },
     {
         "x": -6,
         "y": 3,
         "color": "#4ecdc4",
         "roofStyle": 3,
-        "doorStyle": 3
+        "doorStyle": 3,
+        "windowStyle": 3
     },
     {
         "x": -6,
         "y": 6,
         "color": "#ffe66d",
         "roofStyle": 0,
-        "doorStyle": 0
+        "doorStyle": 0,
+        "windowStyle": 0
     },
     {
         "x": -6,
         "y": 9,
         "color": "#ff9f1c",
         "roofStyle": 1,
-        "doorStyle": 1
+        "doorStyle": 1,
+        "windowStyle": 1
     },
     {
         "x": -3,
         "y": -9,
         "color": "#2b2d42",
         "roofStyle": 2,
-        "doorStyle": 2
+        "doorStyle": 2,
+        "windowStyle": 2
     },
     {
         "x": -3,
         "y": -6,
         "color": "#8d99ae",
         "roofStyle": 3,
-        "doorStyle": 3
+        "doorStyle": 3,
+        "windowStyle": 3
     },
     {
         "x": -3,
         "y": -3,
         "color": "#ef233c",
         "roofStyle": 0,
-        "doorStyle": 0
+        "doorStyle": 0,
+        "windowStyle": 0
     },
     {
         "x": -3,
         "y": 0,
         "color": "#d90429",
         "roofStyle": 1,
-        "doorStyle": 1
+        "doorStyle": 1,
+        "windowStyle": 1
     },
     {
         "x": -3,
         "y": 3,
         "color": "#54a0ff",
         "roofStyle": 2,
-        "doorStyle": 2
+        "doorStyle": 2,
+        "windowStyle": 2
     },
     {
         "x": -3,
         "y": 6,
         "color": "#5f27cd",
         "roofStyle": 3,
-        "doorStyle": 3
+        "doorStyle": 3,
+        "windowStyle": 3
     },
     {
         "x": -3,
         "y": 9,
         "color": "#ff6b6b",
         "roofStyle": 0,
-        "doorStyle": 0
+        "doorStyle": 0,
+        "windowStyle": 0
     },
     {
         "x": 0,
         "y": -9,
         "color": "#4ecdc4",
         "roofStyle": 1,
-        "doorStyle": 1
+        "doorStyle": 1,
+        "windowStyle": 1
     },
     {
         "x": 0,
         "y": -6,
         "color": "#ffe66d",
         "roofStyle": 2,
-        "doorStyle": 2
+        "doorStyle": 2,
+        "windowStyle": 2
     },
     {
         "x": 0,
         "y": -3,
         "color": "#ff9f1c",
         "roofStyle": 3,
-        "doorStyle": 3
+        "doorStyle": 3,
+        "windowStyle": 3
     },
     {
         "x": 0,
         "y": 0,
         "color": "#2b2d42",
         "roofStyle": 0,
-        "doorStyle": 0
+        "doorStyle": 0,
+        "windowStyle": 0
     },
     {
         "x": 0,
         "y": 3,
         "color": "#8d99ae",
         "roofStyle": 1,
-        "doorStyle": 1
+        "doorStyle": 1,
+        "windowStyle": 1
     },
     {
         "x": 0,
         "y": 6,
         "color": "#ef233c",
         "roofStyle": 2,
-        "doorStyle": 2
+        "doorStyle": 2,
+        "windowStyle": 2
     },
     {
         "x": 0,
         "y": 9,
         "color": "#d90429",
         "roofStyle": 3,
-        "doorStyle": 3
+        "doorStyle": 3,
+        "windowStyle": 3
     },
     {
         "x": 3,
         "y": -9,
         "color": "#54a0ff",
         "roofStyle": 0,
-        "doorStyle": 0
+        "doorStyle": 0,
+        "windowStyle": 0
     },
     {
         "x": 3,
         "y": -6,
         "color": "#5f27cd",
         "roofStyle": 1,
-        "doorStyle": 1
+        "doorStyle": 1,
+        "windowStyle": 1
     },
     {
         "x": 3,
         "y": -3,
         "color": "#ff6b6b",
         "roofStyle": 2,
-        "doorStyle": 2
+        "doorStyle": 2,
+        "windowStyle": 2
     },
     {
         "x": 3,
         "y": 0,
         "color": "#4ecdc4",
         "roofStyle": 3,
-        "doorStyle": 3
+        "doorStyle": 3,
+        "windowStyle": 3
     },
     {
         "x": 3,
         "y": 3,
         "color": "#ffe66d",
         "roofStyle": 0,
-        "doorStyle": 0
+        "doorStyle": 0,
+        "windowStyle": 0
     },
     {
         "x": 3,
         "y": 6,
         "color": "#ff9f1c",
         "roofStyle": 1,
-        "doorStyle": 1
+        "doorStyle": 1,
+        "windowStyle": 1
     },
     {
         "x": 3,
         "y": 9,
         "color": "#2b2d42",
         "roofStyle": 2,
-        "doorStyle": 2
+        "doorStyle": 2,
+        "windowStyle": 2
     },
     {
         "x": 6,
         "y": -9,
         "color": "#8d99ae",
         "roofStyle": 3,
-        "doorStyle": 3
+        "doorStyle": 3,
+        "windowStyle": 3
     },
     {
         "x": 6,
         "y": -6,
         "color": "#ef233c",
         "roofStyle": 0,
-        "doorStyle": 0
+        "doorStyle": 0,
+        "windowStyle": 0
     },
     {
         "x": 6,
         "y": -3,
         "color": "#d90429",
         "roofStyle": 1,
-        "doorStyle": 1
+        "doorStyle": 1,
+        "windowStyle": 1
     },
     {
         "x": 6,
         "y": 0,
         "color": "#54a0ff",
         "roofStyle": 2,
-        "doorStyle": 2
+        "doorStyle": 2,
+        "windowStyle": 2
     },
     {
         "x": 6,
         "y": 3,
         "color": "#5f27cd",
         "roofStyle": 3,
-        "doorStyle": 3
+        "doorStyle": 3,
+        "windowStyle": 3
     },
     {
         "x": 6,
         "y": 6,
         "color": "#ff6b6b",
         "roofStyle": 0,
-        "doorStyle": 0
+        "doorStyle": 0,
+        "windowStyle": 0
     },
     {
         "x": 6,
         "y": 9,
         "color": "#4ecdc4",
         "roofStyle": 1,
-        "doorStyle": 1
+        "doorStyle": 1,
+        "windowStyle": 1
     },
     {
         "x": 9,
         "y": -9,
         "color": "#ffe66d",
         "roofStyle": 2,
-        "doorStyle": 2
+        "doorStyle": 2,
+        "windowStyle": 2
     },
     {
         "x": 9,
         "y": -6,
         "color": "#ff9f1c",
         "roofStyle": 3,
-        "doorStyle": 3
+        "doorStyle": 3,
+        "windowStyle": 3
     },
     {
         "x": 9,
         "y": -3,
         "color": "#2b2d42",
         "roofStyle": 0,
-        "doorStyle": 0
+        "doorStyle": 0,
+        "windowStyle": 0
     },
     {
         "x": 9,
         "y": 0,
         "color": "#8d99ae",
         "roofStyle": 1,
-        "doorStyle": 1
+        "doorStyle": 1,
+        "windowStyle": 1
     },
     {
         "x": 9,
         "y": 3,
         "color": "#ef233c",
         "roofStyle": 2,
-        "doorStyle": 2
+        "doorStyle": 2,
+        "windowStyle": 2
     },
     {
         "x": 9,
         "y": 6,
         "color": "#d90429",
         "roofStyle": 3,
-        "doorStyle": 3
+        "doorStyle": 3,
+        "windowStyle": 3
     },
     {
         "x": 9,
         "y": 9,
         "color": "#54a0ff",
         "roofStyle": 0,
-        "doorStyle": 0
+        "doorStyle": 0,
+        "windowStyle": 0
     }
 ]

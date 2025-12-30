@@ -1,6 +1,6 @@
-version 6: 4 types of door,
+version 7: added 4types of windows,
 
-0: Classic Panelled (Standard door with knob and 4 panels)
-1: Arched / Round Top (Wooden door with a rounded top and vertical planks)
-2: Modern Glass (Sleek dark frame with a vertical glass slit)
-3: Double French Glass Doors (White double doors with glass window panes)
+Index 0: Classic Muntins (Standard rectangular window with cross bars)
+Index 1: Arched Window (Tall window with a semi-circular top)
+Index 2: Canvas Awning (Window with a red & white striped canopy)
+Index 3: Flower Box (Diamond-paned window with a planter box)

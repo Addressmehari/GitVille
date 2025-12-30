@@ -343,11 +343,11 @@ function renderHouses() {
     // but unless we have thousands, iterating is cheap. Drawing is the cost.
 
     for (const house of sortedHouses) {
-        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle);
+        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle, house.windowStyle);
     }
 }
 
-function drawHouse(gx, gy, color, roofStyle, doorStyle) {
+function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle) {
     const isoCenter = gridToWorld(gx, gy);
 
     function toScreen(lx, ly, lz) {
@@ -459,30 +459,250 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle) {
         // ctx.stroke(); // Optional stroke
     }
 
-    const winY = 0;
+    const wStyle = (windowStyle !== undefined) ? windowStyle : 0;
+    const winY = 0; // Centered on wall Y
     const winZ = wallHeight / 2 + 2;
-    const winW = 10; // Total Width
-    const winH = 14; // Total Height
     const winX = hw + 0.2; // Surface
 
-    // Frame
-    drawRightRect(winX, winY, winZ, winW + 3, winH + 3, "#dfe6e9");
+    if (wStyle === 0) {
+        // --- Style 0: Classic Muntins (Cross) ---
+        const winW = 10;
+        const winH = 14;
 
-    // Glass Background
-    drawRightRect(winX + 0.5, winY, winZ, winW, winH, "#74b9ff");
+        // Frame
+        drawRightRect(winX, winY, winZ, winW + 3, winH + 3, "#dfe6e9");
+        // Glass Background
+        drawRightRect(winX + 0.5, winY, winZ, winW, winH, "#74b9ff");
+        // Muntins (Cross)
+        const bar = 1.2;
+        drawRightRect(winX + 0.6, winY, winZ, bar, winH, "#dfe6e9"); // Vert
+        drawRightRect(winX + 0.6, winY, winZ, winW, bar, "#dfe6e9"); // Horz
+        // Sill
+        drawRightRect(winX + 1, winY, winZ - winH / 2 - 1, winW + 5, 2, "#b2bec3");
 
-    // Muntins (Cross)
-    const bar = 1.2;
-    // Vertical
-    drawRightRect(winX + 0.6, winY, winZ, bar, winH, "#dfe6e9");
-    // Horizontal
-    drawRightRect(winX + 0.6, winY, winZ, winW, bar, "#dfe6e9");
+    } else if (wStyle === 1) {
+        // --- Style 1: Arched Window ---
+        const winW = 10;
+        const winH = 16;
+        const archStartH = 10; // Height of the rectangular part
 
-    // Sill
-    const sillW = winW + 5;
-    const sillH = 2;
-    // Sill sticks out? We simulate by drawing a slightly larger/lower rect
-    drawRightRect(winX + 1, winY, winZ - winH / 2 - 1, sillW, sillH, "#b2bec3");
+        // 1. Frame
+        const fW = winW + 3;
+        const fRad = fW / 2;
+        const fCenterY = winY;
+        const fBaseZ = (winZ - winH / 2) + archStartH; // Z where arch starts
+        const bottomZ = winZ - winH / 2;
+
+        ctx.fillStyle = "#dfe6e9";
+        ctx.beginPath();
+
+        // Start Bottom-Left (Front side bottom)
+        const p_bl = toScreen(winX, fCenterY + fRad, bottomZ);
+        // Bottom-Right (Back side bottom)
+        const p_br = toScreen(winX, fCenterY - fRad, bottomZ);
+        // Top-Right (Back side start of arch)
+        const p_tr = toScreen(winX, fCenterY - fRad, fBaseZ);
+
+        ctx.moveTo(p_bl.x, p_bl.y);
+        ctx.lineTo(p_br.x, p_br.y);
+        ctx.lineTo(p_tr.x, p_tr.y);
+
+        // Arch: From Back (-Y) to Front (+Y)
+        // theta 0 -> Back (-radius), theta PI -> Front (+radius)
+        // y = -cos(t) * r
+        // z = sin(t) * r
+        const steps = 16;
+        for (let i = 0; i <= steps; i++) {
+            const t = (i / steps) * Math.PI; // 0 to PI
+            const ly = -Math.cos(t) * fRad;
+            const lz = Math.sin(t) * fRad;
+            const p = toScreen(winX, fCenterY + ly, fBaseZ + lz);
+            ctx.lineTo(p.x, p.y);
+        }
+
+        // Close back to Bottom-Left
+        ctx.lineTo(p_bl.x, p_bl.y);
+        ctx.fill();
+
+        // 2. Glass (Inset)
+        const gW = winW;
+        const gRad = gW / 2;
+        const gBaseZ = fBaseZ; // Glass arch starts at same height relative to its rect
+        // Actually, glass usually starts slightly higher? No, alignment is better.
+
+        ctx.fillStyle = "#74b9ff";
+        ctx.beginPath();
+
+        const g_bl = toScreen(winX + 0.5, fCenterY + gRad, bottomZ + 1);
+        const g_br = toScreen(winX + 0.5, fCenterY - gRad, bottomZ + 1);
+        const g_tr = toScreen(winX + 0.5, fCenterY - gRad, gBaseZ);
+
+        ctx.moveTo(g_bl.x, g_bl.y);
+        ctx.lineTo(g_br.x, g_br.y);
+        ctx.lineTo(g_tr.x, g_tr.y);
+
+        for (let i = 0; i <= steps; i++) {
+            const t = (i / steps) * Math.PI;
+            const ly = -Math.cos(t) * gRad;
+            const lz = Math.sin(t) * gRad;
+            const p = toScreen(winX + 0.5, fCenterY + ly, gBaseZ + lz);
+            ctx.lineTo(p.x, p.y);
+        }
+
+        ctx.lineTo(g_bl.x, g_bl.y);
+        ctx.fill();
+
+        // 3. Details: Keystone or Muntins?
+        // Simple muntin bar
+        drawRightRect(winX + 0.6, winY, winZ, 1.5, winH - 2, "#dfe6e9"); // Vertical bar
+        // Horizontal bar at arch base
+        drawRightRect(winX + 0.6, winY, fBaseZ, gW, 1.5, "#dfe6e9");
+
+
+    } else if (wStyle === 2) {
+        // --- Style 2: Canvas Awning Window ---
+        const winW = 10;
+        const winH = 12;
+
+        // 1. Basic Window
+        drawRightRect(winX, winY, winZ, winW, winH, "#b2bec3"); // Grey Frame
+        drawRightRect(winX + 0.2, winY, winZ, winW - 2, winH - 2, "#81ecec"); // Glass
+
+        // 2. Awning
+        // Slopes down from Wall (Top of window + small gap) to Front-Out
+        const awnW = winW + 4;
+        const awnD = 5; // Sticks out
+        const awnH = 4; // Drop height
+
+        const topZ = winZ + winH / 2 + 1; // Wall attachment
+        const botZ = topZ - awnH;         // Front edge height
+
+        const wallY1 = winY + awnW / 2;
+        const wallY2 = winY - awnW / 2;
+
+        const outX = winX + awnD;
+        // Front edge matches width
+        const outY1 = wallY1;
+        const outY2 = wallY2;
+
+        // Points for Side Triangles (to draw later/under)
+        const p_tl = toScreen(winX, wallY1, topZ); // Wall Top-Left (Front-ish)
+        const p_fl = toScreen(outX, outY1, botZ);  // Out Front-Left
+        const p_wall_bl = toScreen(winX, wallY1, botZ); // Wall Bottom-Left
+
+        const p_tr = toScreen(winX, wallY2, topZ); // Wall Top-Right
+        const p_fr = toScreen(outX, outY2, botZ);  // Out Front-Right
+        const p_wall_br = toScreen(winX, wallY2, botZ); // Wall Bottom-Right
+
+        // Draw Stripes (5 bands)
+        const steps = 5;
+        for (let i = 0; i < steps; i++) {
+            // Alternating Red and White
+            ctx.fillStyle = (i % 2 === 0) ? "#e17055" : "#dfe6e9";
+
+            // Interpolate Y slice
+            const t1 = i / steps;
+            const t2 = (i + 1) / steps;
+
+            const y_a = wallY1 + (wallY2 - wallY1) * t1;
+            const y_b = wallY1 + (wallY2 - wallY1) * t2;
+
+            // 4 points for the stripe quad
+            const pa_wall = toScreen(winX, y_a, topZ);
+            const pb_wall = toScreen(winX, y_b, topZ);
+            const pb_front = toScreen(outX, y_b, botZ);
+            const pa_front = toScreen(outX, y_a, botZ);
+
+            ctx.beginPath();
+            ctx.moveTo(pa_wall.x, pa_wall.y);
+            ctx.lineTo(pb_wall.x, pb_wall.y);
+            ctx.lineTo(pb_front.x, pb_front.y);
+            ctx.lineTo(pa_front.x, pa_front.y);
+            ctx.fill();
+        }
+
+        // Side Triangles (Fabric sides)
+        ctx.fillStyle = "#d63031"; // Darker red for sides
+
+        // Left Side (+Y side) - Visible
+        ctx.beginPath();
+        ctx.moveTo(p_tl.x, p_tl.y);
+        ctx.lineTo(p_fl.x, p_fl.y);
+        ctx.lineTo(p_wall_bl.x, p_wall_bl.y);
+        ctx.fill();
+
+        // Right Side (-Y side)
+        ctx.beginPath();
+        ctx.moveTo(p_tr.x, p_tr.y);
+        ctx.lineTo(p_fr.x, p_fr.y);
+        ctx.lineTo(p_wall_br.x, p_wall_br.y);
+        ctx.fill();
+
+        // Optional: Scalloped edge at bottom?
+        // Keep it simple for now.
+
+    } else {
+        // --- Style 3: Flower Box ---
+        const winW = 12;
+        const winH = 12;
+
+        // Window (Diamond Pattern?)
+        drawRightRect(winX, winY, winZ, winW + 2, winH + 2, "#636e72"); // Dark Frame
+        drawRightRect(winX + 0.5, winY, winZ, winW, winH, "#81ecec"); // Light Glass
+
+        // Diamond Lead
+        ctx.strokeStyle = "rgba(0,0,0,0.2)";
+        ctx.beginPath();
+        const center = toScreen(winX + 0.6, winY, winZ);
+        const top = toScreen(winX + 0.6, winY, winZ + winH / 2);
+        const bot = toScreen(winX + 0.6, winY, winZ - winH / 2);
+        const left = toScreen(winX + 0.6, winY + winW / 2, winZ);
+        const right = toScreen(winX + 0.6, winY - winW / 2, winZ);
+        ctx.moveTo(top.x, top.y); ctx.lineTo(left.x, left.y);
+        ctx.lineTo(bot.x, bot.y); ctx.lineTo(right.x, right.y); ctx.lineTo(top.x, top.y);
+        ctx.stroke();
+
+        // Flower Box
+        const boxH = 5;
+        const boxD = 4; // Sticks out in X
+        const boxZ = winZ - winH / 2 - boxH / 2 + 1;
+
+        // We need to draw a generic box attached to the wall
+        // Front face of box (at X = winX + boxD)
+        drawRightRect(winX + boxD, winY, boxZ, winW + 4, boxH, "#8d6e63"); // Wood
+
+        // Top "Soil"
+        // Connect wall to front face top
+        ctx.fillStyle = "#3e2723"; // Soil
+        ctx.beginPath();
+        const t1 = toScreen(winX, winY + (winW + 4) / 2, boxZ + boxH / 2);
+        const t2 = toScreen(winX + boxD, winY + (winW + 4) / 2, boxZ + boxH / 2);
+        const t3 = toScreen(winX + boxD, winY - (winW + 4) / 2, boxZ + boxH / 2);
+        const t4 = toScreen(winX, winY - (winW + 4) / 2, boxZ + boxH / 2);
+        ctx.moveTo(t1.x, t1.y); ctx.lineTo(t2.x, t2.y); ctx.lineTo(t3.x, t3.y); ctx.lineTo(t4.x, t4.y);
+        ctx.fill();
+
+        // Flowers/Greenery
+        ctx.fillStyle = "#2ecc71"; // Green
+        for (let i = 0; i < 3; i++) {
+            const fx = winX + 2;
+            const fy = winY - winW / 3 + i * (winW / 3);
+            const fz = boxZ + boxH / 2 + 2;
+            const p = toScreen(fx, fy, fz);
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Red Flower
+            if (i % 2 === 0) {
+                ctx.fillStyle = "#e74c3c";
+                ctx.beginPath();
+                ctx.arc(p.x, p.y - 1, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = "#2ecc71"; // Reset
+            }
+        }
+    }
 
 
     // 3. Front Wall (+Y Face)

@@ -6,7 +6,8 @@
         "roofStyle": 0,
         "doorStyle": 0,
         "windowStyle": 0,
-        "chimneyStyle": 1
+        "chimneyStyle": 1,
+        "wallStyle": 0
     },
     {
         "x": -3,
@@ -15,7 +16,8 @@
         "roofStyle": 1,
         "doorStyle": 1,
         "windowStyle": 1,
-        "chimneyStyle": 2
+        "chimneyStyle": 2,
+        "wallStyle": 1
     },
     {
         "x": -3,
@@ -24,7 +26,8 @@
         "roofStyle": 2,
         "doorStyle": 2,
         "windowStyle": 2,
-        "chimneyStyle": 3
+        "chimneyStyle": 3,
+        "wallStyle": 2
     },
     {
         "x": -3,
@@ -33,7 +36,8 @@
         "roofStyle": 3,
         "doorStyle": 3,
         "windowStyle": 3,
-        "chimneyStyle": 0
+        "chimneyStyle": 0,
+        "wallStyle": 3
     },
     {
         "x": -1,
@@ -42,7 +46,8 @@
         "roofStyle": 1,
         "doorStyle": 2,
         "windowStyle": 3,
-        "chimneyStyle": 0
+        "chimneyStyle": 0,
+        "wallStyle": 1
     },
     {
         "x": -1,
@@ -51,7 +56,8 @@
         "roofStyle": 2,
         "doorStyle": 3,
         "windowStyle": 0,
-        "chimneyStyle": 1
+        "chimneyStyle": 1,
+        "wallStyle": 2
     },
     {
         "x": -1,
@@ -60,7 +66,8 @@
         "roofStyle": 3,
         "doorStyle": 0,
         "windowStyle": 1,
-        "chimneyStyle": 2
+        "chimneyStyle": 2,
+        "wallStyle": 3
     },
     {
         "x": -1,
@@ -69,7 +76,8 @@
         "roofStyle": 0,
         "doorStyle": 1,
         "windowStyle": 2,
-        "chimneyStyle": 3
+        "chimneyStyle": 3,
+        "wallStyle": 0
     },
     {
         "x": 1,
@@ -78,7 +86,8 @@
         "roofStyle": 2,
         "doorStyle": 0,
         "windowStyle": 1,
-        "chimneyStyle": 3
+        "chimneyStyle": 3,
+        "wallStyle": 2
     },
     {
         "x": 1,
@@ -87,7 +96,8 @@
         "roofStyle": 3,
         "doorStyle": 1,
         "windowStyle": 2,
-        "chimneyStyle": 0
+        "chimneyStyle": 0,
+        "wallStyle": 3
     },
     {
         "x": 1,
@@ -96,7 +106,8 @@
         "roofStyle": 0,
         "doorStyle": 2,
         "windowStyle": 3,
-        "chimneyStyle": 1
+        "chimneyStyle": 1,
+        "wallStyle": 0
     },
     {
         "x": 1,
@@ -105,7 +116,8 @@
         "roofStyle": 1,
         "doorStyle": 3,
         "windowStyle": 0,
-        "chimneyStyle": 2
+        "chimneyStyle": 2,
+        "wallStyle": 1
     },
     {
         "x": 3,
@@ -114,7 +126,8 @@
         "roofStyle": 3,
         "doorStyle": 1,
         "windowStyle": 2,
-        "chimneyStyle": 1
+        "chimneyStyle": 1,
+        "wallStyle": 3
     },
     {
         "x": 3,
@@ -123,7 +136,8 @@
         "roofStyle": 0,
         "doorStyle": 2,
         "windowStyle": 3,
-        "chimneyStyle": 2
+        "chimneyStyle": 2,
+        "wallStyle": 1
     },
     {
         "x": 3,
@@ -132,7 +146,8 @@
         "roofStyle": 1,
         "doorStyle": 3,
         "windowStyle": 0,
-        "chimneyStyle": 3
+        "chimneyStyle": 3,
+        "wallStyle": 2
     },
     {
         "x": 3,
@@ -141,6 +156,7 @@
         "roofStyle": 2,
         "doorStyle": 0,
         "windowStyle": 1,
-        "chimneyStyle": 0
+        "chimneyStyle": 0,
+        "wallStyle": 3
     }
 ]

@@ -1,6 +1,6 @@
-version 8: added 3types of chimneys,
+version 9 : added wall designs,
 
-0. none
-1.Classic Stone (Style 1):
-2.Industrial Brick (Style 2):
-3.Creative Cottage (Style 3)
+Clapboard (Style 0): Horizontal siding lines.
+Brick (Style 1): Standard running bond brick pattern with horizontal mortar lines and staggered vertical ticks.
+Vertical Board & Batten (Style 2): Vertical strips running up the walls.
+Stone Blocks (Style 3): Larger, slightly irregular blocks for a heavy masonry look.

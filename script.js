@@ -343,11 +343,11 @@ function renderHouses() {
     // but unless we have thousands, iterating is cheap. Drawing is the cost.
 
     for (const house of sortedHouses) {
-        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle, house.windowStyle, house.chimneyStyle);
+        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle, house.windowStyle, house.chimneyStyle, house.wallStyle);
     }
 }
 
-function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyle) {
+function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyle, wallStyle) {
     const isoCenter = gridToWorld(gx, gy);
 
     function toScreen(lx, ly, lz) {
@@ -458,6 +458,184 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
         ctx.fill();
         // ctx.stroke(); // Optional stroke
     }
+
+    // --- Wall Textures Helper ---
+    function drawWallTexture(wallId, style) {
+        // wallId: 0 = Right Wall (+X), 1 = Front Wall (+Y)
+        // Style: 0=Clapboard, 1=Brick, 2=Stone, 3=Vertical
+
+        const s = (style !== undefined) ? style : 0;
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "rgba(0,0,0,0.1)"; // Subtle texture line
+
+        if (s === 0) {
+            // --- Style 0: Clapboard (Horizontal Lines) ---
+            const spacing = 5;
+            // For Right Wall (+X), running along Y. Z varies.
+            // For Front Wall (+Y), running along X. Z varies.
+            // Horizontal on a wall means constant Z lines.
+
+            for (let z = 1; z < wallHeight; z += spacing) {
+                // Skip Foundation area (0-4)
+                if (z < 5) continue;
+
+                ctx.beginPath();
+                if (wallId === 0) {
+                    // Right Wall: x=hw, y from -hd to hd (Wait, Right wall is y varies)
+                    // b1(hw,hd) -> b2(hw,-hd)
+                    const pStart = toScreen(hw, hd, z);
+                    const pEnd = toScreen(hw, -hd, z);
+                    ctx.moveTo(pStart.x, pStart.y);
+                    ctx.lineTo(pEnd.x, pEnd.y);
+                } else {
+                    // Front Wall: y=hd, x from -hw to hw
+                    // b4(-hw,hd) -> b1(hw,hd)
+                    const pStart = toScreen(-hw, hd, z);
+                    const pEnd = toScreen(hw, hd, z);
+                    ctx.moveTo(pStart.x, pStart.y);
+                    ctx.lineTo(pEnd.x, pEnd.y);
+                }
+                ctx.stroke();
+            }
+
+        } else if (s === 1) {
+            // --- Style 1: Brick ---
+            const bH = 4;
+            const bW = 8;
+            ctx.strokeStyle = "rgba(0,0,0,0.15)";
+
+            for (let z = 4; z < wallHeight; z += bH) {
+                const row = Math.floor(z / bH);
+                const offset = (row % 2) * (bW / 2);
+
+                // Horizontal Line
+                ctx.beginPath();
+                if (wallId === 0) {
+                    const pStart = toScreen(hw, hd, z);
+                    const pEnd = toScreen(hw, -hd, z);
+                    ctx.moveTo(pStart.x, pStart.y);
+                    ctx.lineTo(pEnd.x, pEnd.y);
+                } else {
+                    const pStart = toScreen(-hw, hd, z);
+                    const pEnd = toScreen(hw, hd, z);
+                    ctx.moveTo(pStart.x, pStart.y);
+                    ctx.lineTo(pEnd.x, pEnd.y);
+                }
+                ctx.stroke();
+
+                // Vertical Ticks
+                if (wallId === 0) {
+                    // Right Wall: Length is approx 2*hd = 36.
+                    for (let y = -hd + offset; y < hd; y += bW) {
+                        ctx.beginPath();
+                        const pBot = toScreen(hw, y, z);
+                        const pTop = toScreen(hw, y, z + bH);
+                        ctx.moveTo(pBot.x, pBot.y);
+                        ctx.lineTo(pTop.x, pTop.y);
+                        ctx.stroke();
+                    }
+                } else {
+                    // Front Wall: Length is 2*hw = 32
+                    for (let x = -hw + offset; x < hw; x += bW) {
+                        ctx.beginPath();
+                        const pBot = toScreen(x, hd, z);
+                        const pTop = toScreen(x, hd, z + bH);
+                        ctx.moveTo(pBot.x, pBot.y);
+                        ctx.lineTo(pTop.x, pTop.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        } else if (s === 2) {
+            // --- Style 2: Vertical Board & Batten ---
+            const spacing = 8;
+            ctx.strokeStyle = "rgba(0,0,0,0.15)";
+
+            if (wallId === 0) {
+                // Right Wall (Y varies)
+                for (let y = -hd; y <= hd; y += spacing) {
+                    ctx.beginPath();
+                    const pBot = toScreen(hw, y, 4);
+                    const pTop = toScreen(hw, y, wallHeight);
+                    ctx.moveTo(pBot.x, pBot.y);
+                    ctx.lineTo(pTop.x, pTop.y);
+                    ctx.stroke();
+                }
+            } else {
+                // Front Wall (X varies)
+                for (let x = -hw; x <= hw; x += spacing) {
+                    ctx.beginPath();
+                    const pBot = toScreen(x, hd, 4);
+                    // Calc top based on gable if needed, but wallHeight is fine for main box
+                    // Front wall has a gable above wallHeight, handled separately?
+                    // The standard wall rect goes to wallHeight.
+                    const pTop = toScreen(x, hd, wallHeight);
+                    ctx.moveTo(pBot.x, pBot.y);
+                    ctx.lineTo(pTop.x, pTop.y);
+                    ctx.stroke();
+                }
+            }
+
+        } else if (s === 3) {
+            // --- Style 3: Stone Blocks ---
+            const rowH = 8;
+
+            for (let z = 4; z < wallHeight; z += rowH) {
+                const row = Math.floor(z / rowH);
+
+                // Horizontal Line
+                ctx.beginPath();
+                if (wallId === 0) {
+                    const pStart = toScreen(hw, hd, z);
+                    const pEnd = toScreen(hw, -hd, z);
+                    ctx.moveTo(pStart.x, pStart.y);
+                    ctx.lineTo(pEnd.x, pEnd.y);
+                } else {
+                    const pStart = toScreen(-hw, hd, z);
+                    const pEnd = toScreen(hw, hd, z);
+                    ctx.moveTo(pStart.x, pStart.y);
+                    ctx.lineTo(pEnd.x, pEnd.y);
+                }
+                ctx.stroke();
+
+                // Verticals (Randomized or Offset)
+                const stoneW = (row % 2 === 0) ? 12 : 8;
+                const offset = (row * 7) % stoneW;
+
+                if (wallId === 0) {
+                    // Right Wall
+                    for (let y = -hd + offset; y < hd; y += stoneW) {
+                        ctx.beginPath();
+                        const pBot = toScreen(hw, y, z);
+                        const pTop = toScreen(hw, y, z + rowH);
+                        ctx.moveTo(pBot.x, pBot.y);
+                        ctx.lineTo(pTop.x, pTop.y);
+                        ctx.stroke();
+                    }
+                } else {
+                    // Front Wall
+                    for (let x = -hw + offset; x < hw; x += stoneW) {
+                        ctx.beginPath();
+                        const pBot = toScreen(x, hd, z);
+                        const pTop = toScreen(x, hd, z + rowH);
+                        ctx.moveTo(pBot.x, pBot.y);
+                        ctx.lineTo(pTop.x, pTop.y);
+                        ctx.stroke();
+                    }
+                }
+
+            }
+        }
+    }
+
+    // Apply Texture to Right Wall
+    // Clip to wall area to be safe? The drawing is precise, so just draw.
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(b1.x, b1.y); ctx.lineTo(b2.x, b2.y); ctx.lineTo(t2.x, t2.y); ctx.lineTo(t1.x, t1.y);
+    ctx.clip();
+    drawWallTexture(0, wallStyle);
+    ctx.restore();
 
     const wStyle = (windowStyle !== undefined) ? windowStyle : 0;
     const winY = 0; // Centered on wall Y
@@ -715,6 +893,14 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
+
+    // Apply Texture to Front Wall
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(b4.x, b4.y); ctx.lineTo(b1.x, b1.y); ctx.lineTo(t1.x, t1.y); ctx.lineTo(t4.x, t4.y);
+    ctx.clip();
+    drawWallTexture(1, wallStyle);
+    ctx.restore();
 
     // Front Wall Trim (Corners)
     ctx.fillStyle = adjustColor(wallColor, -5);

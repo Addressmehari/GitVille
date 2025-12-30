@@ -35,6 +35,8 @@ let camera = {
 let isDragging = false;
 let lastMouseX = 0;
 let lastMouseY = 0;
+let currentMouseX = 0;
+let currentMouseY = 0;
 
 // Touch state for pinch zoom
 let initialPinchDistance = null;
@@ -54,6 +56,8 @@ async function init() {
     try {
         const response = await fetch('houses.json');
         houses = await response.json();
+        // Initialize animation state
+        houses.forEach(h => h.hoverAnim = 0);
     } catch (e) {
         console.error("Failed to load houses.json", e);
         // Fallback data if file fetch fails (e.g. local file restriction)
@@ -61,6 +65,7 @@ async function init() {
             { x: 0, y: 0, color: "#ff6b6b" },
             { x: 2, y: 2, color: "#4ecdc4" }
         ];
+        houses.forEach(h => h.hoverAnim = 0);
     }
 
     requestAnimationFrame(render);
@@ -88,11 +93,22 @@ function setupInputListeners() {
         const dx = e.clientX - lastMouseX;
         const dy = e.clientY - lastMouseY;
 
+        // Update current mouse always (for hover)
+        currentMouseX = e.clientX;
+        currentMouseY = e.clientY;
+
         camera.x -= dx / camera.zoom;
         camera.y -= dy / camera.zoom;
 
         lastMouseX = e.clientX;
         lastMouseY = e.clientY;
+    });
+
+    // Track mouse move even when not dragging
+    canvas.addEventListener('mousemove', e => {
+        if (isDragging) return; // handled above
+        currentMouseX = e.clientX;
+        currentMouseY = e.clientY;
     });
 
     // Wheel Zoom
@@ -180,6 +196,16 @@ function getDistance(touch1, touch2) {
 
 // --- Core Math ---
 
+// Screen to World for Mouse interactions
+function screenToWorld(sx, sy) {
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    return {
+        x: (sx - centerX) / camera.zoom + camera.x,
+        y: (sy - centerY) / camera.zoom + camera.y
+    };
+}
+
 // Convert Grid (iso) coords to World (screen-space-like 2D plane) coords
 // Standard Isometric projection:
 // x' = (x - y) * W/2
@@ -231,7 +257,8 @@ function render() {
     // 3. Render Ground
     renderVisibleGrid();
 
-    // 4. Render Houses
+    // 4. Render Houses (Calculate hover first)
+    updateHoverState();
     renderHouses();
 
     ctx.restore();
@@ -343,19 +370,73 @@ function renderHouses() {
     // but unless we have thousands, iterating is cheap. Drawing is the cost.
 
     for (const house of sortedHouses) {
-        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle, house.windowStyle, house.chimneyStyle, house.wallStyle);
+        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle, house.windowStyle, house.chimneyStyle, house.wallStyle, house.hoverAnim, house.username);
     }
 }
 
-function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyle, wallStyle) {
+function updateHoverState() {
+    // 1. Get Mouse in World
+    const worldMouse = screenToWorld(currentMouseX, currentMouseY);
+
+    // 2. Convert to Grid
+    const gridP = worldToGrid(worldMouse.x, worldMouse.y);
+
+    // 3. Round to find tile
+    const gx = Math.round(gridP.x);
+    const gy = Math.round(gridP.y);
+
+    // 4. Update Animations
+    for (const house of houses) {
+        const isHovered = (house.x === gx && house.y === gy);
+        const target = isHovered ? 1.0 : 0.0;
+        // Smooth Lerp
+        house.hoverAnim += (target - house.hoverAnim) * 0.3;
+    }
+}
+
+function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyle, wallStyle, hoverAnim, username) {
     const isoCenter = gridToWorld(gx, gy);
+
+    // Apply Hover Lift
+    const lift = (hoverAnim || 0) * 4; // Lift 4 pixels
+    const scale = 1 + (hoverAnim || 0) * 0.02; // Slight scale up
+
+    // Apply transformation to the center for this house
+    // We can't transform the whole ctx easily inside this complex function without messing up clip paths potentially?
+    // Actually, 'toScreen' logic handles offsets. Let's just adjust 'isoCenter.y' effectively.
+    // But 'scale' needs center. 
+
+    // Let's modify 'toScreen' to include lift
 
     function toScreen(lx, ly, lz) {
         // Simple projection reuse
+        // Apply local scale? - A bit complex for simple drawing. 
+        // Let's stick to simple Lift for smoothness.
+
         const sx = isoCenter.x + (lx - ly);
-        const sy = isoCenter.y + (lx + ly) * 0.5 - lz;
+        const sy = isoCenter.y + (lx + ly) * 0.5 - lz - lift;
         return { x: sx, y: sy };
     }
+
+    // Shadow should NOT lift, so draw it first separately or adjust?
+    // Shadow is at z=0. If house lifts, shadow stays or fades?
+    // Usually shadow shrinks or stays. Let's keep shadow on ground.
+
+    // Shadow Drawing (Local Override)
+    // 1. Shadow (Circular base shadow)
+    // We want the shadow to stay on the ground (no lift).
+    const sCenter = gridToWorld(gx, gy); // Recalc original without lift
+
+    // Scale shadow down slightly when lifted to give depth effect?
+    const sScale = 1 - (hoverAnim || 0) * 0.1;
+
+    ctx.fillStyle = "rgba(0,0,0,0.15)";
+    ctx.beginPath();
+    ctx.ellipse(sCenter.x, sCenter.y, (16 * 1.5) * sScale, (18 * 0.8) * sScale, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Override toScreen for the rest of the house geometry to include LIFT
+    // (Function defined above acts as the override for subsequent calls)
 
     // House Dimensions - "Less Wide"
     const hw = 16;  // Half-Width (Side to side relative to gable)
@@ -403,11 +484,11 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
 
     // --- Draw Cycle ---
 
-    // 1. Shadow (Circular base shadow)
-    ctx.fillStyle = "rgba(0,0,0,0.15)";
-    ctx.beginPath();
-    ctx.ellipse(isoCenter.x, isoCenter.y, hw * 1.5, hd * 0.8, 0, 0, Math.PI * 2);
-    ctx.fill();
+    // 1. Shadow (Circular base shadow) - MOVED UP TO HANDLED HOVER
+    // ctx.fillStyle = "rgba(0,0,0,0.15)";
+    // ctx.beginPath();
+    // ctx.ellipse(isoCenter.x, isoCenter.y, hw * 1.5, hd * 0.8, 0, 0, Math.PI * 2);
+    // ctx.fill();
 
     // 2. Right Wall (+X facing) - The "Side" of the house
     // Let's add corner posts (trim) for better structure
@@ -1761,8 +1842,82 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
         }
     }
 
+    // --- Username Tooltip ---
+    // Render this last on top of house
+    if (username && hoverAnim > 0.05) {
+        ctx.save();
 
+        // Position: Above the Roof Peak
+        const tipX = rFront.x;
+        const tipY = rFront.y - 12; // Base position (closer, will scale up)
 
+        // Animation: Pop/Scale effect centered on the tip anchor
+        // Ease out back? Simple ease is fine.
+        // Scale from 0.5 to 1.0 based on hoverAnim?
+        // Let's do full scale 0 -> 1 for pop.
+        const scale = hoverAnim;
+
+        ctx.translate(tipX, tipY);
+        ctx.scale(scale, scale);
+        // Translate back up so 0,0 is the anchor point at bottom
+
+        ctx.font = "bold 13px 'Segoe UI', sans-serif";
+        const textMetrics = ctx.measureText(username);
+        const textW = textMetrics.width;
+        const padX = 10;
+        const padY = 6;
+        const boxH = 26;
+        const boxW = textW + padX * 2;
+
+        const bx = -boxW / 2;
+        const by = -boxH - 8; // Move up by height + arrow length
+        const rad = 6;
+
+        // Shadow
+        ctx.shadowColor = "rgba(0,0,0,0.2)";
+        ctx.shadowBlur = 6;
+        ctx.shadowOffsetY = 3;
+
+        // Draw Box Bubble
+        ctx.beginPath();
+        ctx.moveTo(bx + rad, by);
+        ctx.lineTo(bx + boxW - rad, by);
+        ctx.quadraticCurveTo(bx + boxW, by, bx + boxW, by + rad);
+        ctx.lineTo(bx + boxW, by + boxH - rad);
+        ctx.quadraticCurveTo(bx + boxW, by + boxH, bx + boxW - rad, by + boxH);
+
+        // Arrow pointing down to (0,0) - relative to translate
+        const arrowW = 6;
+        const arrowH = 6;
+        const arrowBaseY = by + boxH;
+
+        ctx.lineTo(arrowW, arrowBaseY); // Right side of arrow base
+        ctx.lineTo(0, 0); // Tip
+        ctx.lineTo(-arrowW, arrowBaseY);
+
+        ctx.lineTo(bx + rad, arrowBaseY); // Back to left corner
+        ctx.quadraticCurveTo(bx, arrowBaseY, bx, arrowBaseY - rad);
+        ctx.lineTo(bx, by + rad);
+        ctx.quadraticCurveTo(bx, by, bx + rad, by);
+
+        ctx.fillStyle = "#ffffff";
+        ctx.fill();
+
+        // Border matching house
+        ctx.shadowColor = "transparent"; // No shadow on stroke or it looks muddy
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = color; // Used the house color passed in
+        ctx.stroke();
+
+        // Text
+        ctx.fillStyle = "#2d3436"; // Dark Text
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        // Center of box
+        ctx.fillText(username, 0, by + boxH / 2);
+
+        ctx.restore();
+    }
 }
 
 // Utility to darken/lighten hex color

@@ -7,7 +7,8 @@
         "doorStyle": 0,
         "windowStyle": 0,
         "chimneyStyle": 1,
-        "wallStyle": 0
+        "wallStyle": 0,
+        "username": "CodeMaster99"
     },
     {
         "x": -3,
@@ -17,7 +18,8 @@
         "doorStyle": 1,
         "windowStyle": 1,
         "chimneyStyle": 2,
-        "wallStyle": 1
+        "wallStyle": 1,
+        "username": "DevQueen"
     },
     {
         "x": -3,
@@ -27,7 +29,8 @@
         "doorStyle": 2,
         "windowStyle": 2,
         "chimneyStyle": 3,
-        "wallStyle": 2
+        "wallStyle": 2,
+        "username": "PixelArtist"
     },
     {
         "x": -3,
@@ -37,7 +40,8 @@
         "doorStyle": 3,
         "windowStyle": 3,
         "chimneyStyle": 0,
-        "wallStyle": 3
+        "wallStyle": 3,
+        "username": "BugHunter"
     },
     {
         "x": -1,
@@ -47,7 +51,8 @@
         "doorStyle": 2,
         "windowStyle": 3,
         "chimneyStyle": 0,
-        "wallStyle": 1
+        "wallStyle": 1,
+        "username": "SysAdminJoe"
     },
     {
         "x": -1,
@@ -57,7 +62,8 @@
         "doorStyle": 3,
         "windowStyle": 0,
         "chimneyStyle": 1,
-        "wallStyle": 2
+        "wallStyle": 2,
+        "username": "CSSWizard"
     },
     {
         "x": -1,
@@ -67,7 +73,8 @@
         "doorStyle": 0,
         "windowStyle": 1,
         "chimneyStyle": 2,
-        "wallStyle": 3
+        "wallStyle": 3,
+        "username": "JSMaster"
     },
     {
         "x": -1,
@@ -77,7 +84,8 @@
         "doorStyle": 1,
         "windowStyle": 2,
         "chimneyStyle": 3,
-        "wallStyle": 0
+        "wallStyle": 0,
+        "username": "ReactGuru"
     },
     {
         "x": 1,
@@ -87,7 +95,8 @@
         "doorStyle": 0,
         "windowStyle": 1,
         "chimneyStyle": 3,
-        "wallStyle": 2
+        "wallStyle": 2,
+        "username": "NodeNinja"
     },
     {
         "x": 1,
@@ -97,7 +106,8 @@
         "doorStyle": 1,
         "windowStyle": 2,
         "chimneyStyle": 0,
-        "wallStyle": 3
+        "wallStyle": 3,
+        "username": "Pythonista"
     },
     {
         "x": 1,
@@ -107,7 +117,8 @@
         "doorStyle": 2,
         "windowStyle": 3,
         "chimneyStyle": 1,
-        "wallStyle": 0
+        "wallStyle": 0,
+        "username": "RubyGem"
     },
     {
         "x": 1,
@@ -117,7 +128,8 @@
         "doorStyle": 3,
         "windowStyle": 0,
         "chimneyStyle": 2,
-        "wallStyle": 1
+        "wallStyle": 1,
+        "username": "GitExpert"
     },
     {
         "x": 3,
@@ -127,7 +139,8 @@
         "doorStyle": 1,
         "windowStyle": 2,
         "chimneyStyle": 1,
-        "wallStyle": 3
+        "wallStyle": 3,
+        "username": "DockerFan"
     },
     {
         "x": 3,
@@ -137,7 +150,8 @@
         "doorStyle": 2,
         "windowStyle": 3,
         "chimneyStyle": 2,
-        "wallStyle": 1
+        "wallStyle": 1,
+        "username": "LinuxLover"
     },
     {
         "x": 3,
@@ -147,7 +161,8 @@
         "doorStyle": 3,
         "windowStyle": 0,
         "chimneyStyle": 3,
-        "wallStyle": 2
+        "wallStyle": 2,
+        "username": "WebDev101"
     },
     {
         "x": 3,
@@ -157,6 +172,7 @@
         "doorStyle": 0,
         "windowStyle": 1,
         "chimneyStyle": 0,
-        "wallStyle": 3
+        "wallStyle": 3,
+        "username": "FullStackDev"
     }
 ]

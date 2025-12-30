@@ -1,6 +1,1 @@
-version 9 : added wall designs,
-
-Clapboard (Style 0): Horizontal siding lines.
-Brick (Style 1): Standard running bond brick pattern with horizontal mortar lines and staggered vertical ticks.
-Vertical Board & Batten (Style 2): Vertical strips running up the walls.
-Stone Blocks (Style 3): Larger, slightly irregular blocks for a heavy masonry look.
+version 10: hover modulate & name appear

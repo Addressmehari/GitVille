@@ -11,23 +11,5 @@
         "username": "addressmehari",
         "facing": "down",
         "has_terrace": false
-    },
-    {
-        "x": 3.0,
-        "y": -3.0,
-        "obstacle": "tree"
-    },
-    {
-        "x": 5.0,
-        "y": -3.0,
-        "color": "#88c0a0",
-        "roofStyle": 0,
-        "doorStyle": 0,
-        "windowStyle": 0,
-        "chimneyStyle": 0,
-        "wallStyle": 2,
-        "username": "beatrix-chan",
-        "facing": "left",
-        "has_terrace": false
     }
 ]

@@ -1,0 +1,38 @@
+name: Add Stargazer to City
+
+on:
+  watch:
+    types: [started]
+
+permissions:
+  contents: write
+
+jobs:
+  add-stargazer:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Add new stargazer
+        run: |
+          python fetch_stargazers.py "${{ github.event.sender.login }}"
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add stargazers_houses.json roads.json
+          # Only commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Add new stargazer @${{ github.event.sender.login }} to GitVille"
+            git push
+          fi

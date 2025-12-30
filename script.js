@@ -44,6 +44,7 @@ let initialZoom = null;
 
 // World Data
 let houses = []; // Will be loaded from JSON
+let worldConfig = { weather: "none" }; // Default config
 
 // --- Initialization ---
 async function init() {
@@ -54,18 +55,20 @@ async function init() {
 
     // Load data
     try {
-        const response = await fetch('houses.json');
-        houses = await response.json();
+        const [housesRes, worldRes] = await Promise.all([
+            fetch('houses.json'),
+            fetch('world.json')
+        ]);
+
+        houses = await housesRes.json();
+        worldConfig = await worldRes.json();
+
         // Initialize animation state
         houses.forEach(h => h.hoverAnim = 0);
     } catch (e) {
-        console.error("Failed to load houses.json", e);
-        // Fallback data if file fetch fails (e.g. local file restriction)
-        houses = [
-            { x: 0, y: 0, color: "#ff6b6b" },
-            { x: 2, y: 2, color: "#4ecdc4" }
-        ];
-        houses.forEach(h => h.hoverAnim = 0);
+        console.error("Failed to load data", e);
+        // Fallback data
+        houses = [{ x: 0, y: 0, color: "#ff6b6b", hoverAnim: 0 }];
     }
 
     requestAnimationFrame(render);
@@ -261,9 +264,68 @@ function render() {
     updateHoverState();
     renderHouses();
 
+    // 5. Draw Weather (Overlay)
+    drawWeather();
+
     ctx.restore();
 
     requestAnimationFrame(render);
+}
+
+// --- Weather Components ---
+let rainDrops = [];
+function drawWeather() {
+    if (worldConfig.weather !== 'rain') return;
+
+    // Reset overlay transform to draw HUD-style rain or World-style?
+    // Rain looks best as a screen overlay (HUD style) so it covers everything including UI scale
+    // But currently we are inside ctx.save()/restore() with camera transform applied.
+    // If we want screen-space rain, we should restore first? 
+    // Actually, render() restores at end. We can briefly restore or just invert transform?
+    // EASIEST: Just draw large area covering camera view, but screen space is better for "lens effect".
+
+    // Let's do Screen Space Rain.
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset to Identity (Screen Coordinates)
+
+    const w = canvas.width;
+    const h = canvas.height;
+
+    // Init Rain if needed
+    if (rainDrops.length < 500) {
+        for (let i = 0; i < 50; i++) {
+            rainDrops.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                l: Math.random() * 20 + 10,
+                v: Math.random() * 10 + 15
+            });
+        }
+    }
+
+    ctx.strokeStyle = "rgba(174, 194, 224, 0.5)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+
+    for (let i = 0; i < rainDrops.length; i++) {
+        const d = rainDrops[i];
+
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x - 2, d.y + d.l); // Slight tilt
+
+        // Update
+        d.y += d.v;
+        d.x -= 0.5; // Wind
+
+        // Reset
+        if (d.y > h) {
+            d.y = -d.l;
+            d.x = Math.random() * w;
+        }
+    }
+    ctx.stroke();
+
+    ctx.restore();
 }
 
 function renderVisibleGrid() {

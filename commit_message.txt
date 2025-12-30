@@ -1,1 +1,1 @@
-version 12: Added `has_terrace` property to houses and render a second floor with an upper window when present.
+version 13: added rain feature

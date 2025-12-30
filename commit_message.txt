@@ -1,1 +1,1 @@
-version 29: added the working day-night-rain cycle with git workflows
+version 30: immediately return collected data when API indicates no more results

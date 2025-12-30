@@ -39,7 +39,7 @@ def get_stargazers(owner, repo, token=None, limit=1000):
                         
                     if not data:
                         success = True # End of results
-                        break
+                        return stargazers
                     
                     remaining = limit - len(stargazers)
                     stargazers.extend(data[:remaining])
@@ -507,7 +507,7 @@ def get_followers(username, token=None, limit=1000):
                         
                     if not data:
                         success = True
-                        break
+                        return followers
                     
                     # Wrap followers to match stargazer structure: {'user': user_obj}
                     # API returns list of users directly: [{'login':...}, ...]

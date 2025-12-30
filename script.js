@@ -125,6 +125,44 @@ function setupInputListeners() {
         lastMouseY = e.clientY;
     });
 
+    // Interaction Click
+    canvas.addEventListener('click', e => {
+        // Prevent click if we dragged
+        // We can track drag distance, but for now let's assume if it wasn't a long drag
+        // Wait, standard click behavior is fine usually.
+
+        // 1. Get World Pos
+        const worldPos = screenToWorld(e.clientX, e.clientY);
+        // 2. Get Grid Pos
+        const gridPos = worldToGrid(worldPos.x, worldPos.y);
+        const gx = Math.round(gridPos.x);
+        const gy = Math.round(gridPos.y);
+
+        // 3. Check House
+        const house = houses.find(h => h.x === gx && h.y === gy);
+        if (house) {
+            // Spawn NPC from this house center
+            // NPC coords are Cartesian (Grid * Scale)
+            // Scale = TILE_WIDTH / 2
+            const scale = TILE_WIDTH / 2;
+            if (npcManager) {
+                // Offset to spawn outside door
+                // Default door is at local Y+, Right-facing door is at local X+
+                let spawnX = gx * scale;
+                let spawnY = gy * scale;
+                const offset = 20; // House depth (18) + Buffer
+
+                if (house.facing === 'right') {
+                    spawnX += offset;
+                } else {
+                    spawnY += offset;
+                }
+
+                npcManager.spawnNPC(spawnX, spawnY);
+            }
+        }
+    });
+
     window.addEventListener('mouseup', () => isDragging = false);
 
     window.addEventListener('mousemove', e => {

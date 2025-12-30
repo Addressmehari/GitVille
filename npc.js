@@ -1,5 +1,5 @@
 class NPC {
-    constructor(id, x, y) {
+    constructor(id, x, y, isTemporary = false, homeX = 0, homeY = 0) {
         this.id = id;
         this.x = x;
         this.y = y;
@@ -10,8 +10,15 @@ class NPC {
         this.targetX = x;
         this.targetY = y;
         this.speed = 0.5 + Math.random() * 0.5;
-        this.state = 'idle'; // idle, moving
+        this.state = 'idle'; // idle, moving, returning
         this.idleTimer = 0;
+
+        // Temporary NPC Logic
+        this.isTemporary = isTemporary;
+        this.homeX = homeX;
+        this.homeY = homeY;
+        this.lifeTime = 300 + Math.random() * 300; // Frames before returning (5-10 sec)
+        this.shouldDelete = false;
 
         // Visuals
         this.height = 16;
@@ -31,19 +38,29 @@ class NPC {
             this.idleTimer--;
             this.bounce = 0;
             if (this.idleTimer <= 0) {
-                this.pickNewTarget();
+                if (this.isTemporary && this.lifeTime <= 0) {
+                    this.state = 'returning';
+                    this.targetX = this.homeX;
+                    this.targetY = this.homeY;
+                } else {
+                    this.pickNewTarget();
+                }
             }
-        } else if (this.state === 'moving') {
+        } else if (this.state === 'moving' || this.state === 'returning') {
             this.move();
         }
+
+        if (this.isTemporary) this.lifeTime--;
     }
 
     pickNewTarget() {
         // Pick a random spot nearby
-        // Range +/- 300
-        const range = 200;
-        this.targetX = this.x + (Math.random() - 0.5) * range;
-        this.targetY = this.y + (Math.random() - 0.5) * range;
+        // Range +/- 800 (General)
+        // If Temporary (House resident), stay close to home!
+        const range = this.isTemporary ? 30 : 800; // 30 is just a few steps
+
+        this.targetX = (this.isTemporary ? this.homeX : this.x) + (Math.random() - 0.5) * range;
+        this.targetY = (this.isTemporary ? this.homeY : this.y) + (Math.random() - 0.5) * range;
         this.state = 'moving';
     }
 
@@ -55,8 +72,13 @@ class NPC {
         if (dist < 1) {
             this.x = this.targetX;
             this.y = this.targetY;
-            this.state = 'idle';
-            this.idleTimer = 60 + Math.random() * 120; // 1-3 seconds pause
+
+            if (this.state === 'returning') {
+                this.shouldDelete = true; // Arrived home
+            } else {
+                this.state = 'idle';
+                this.idleTimer = 60 + Math.random() * 120; // 1-3 seconds pause
+            }
             return;
         }
 
@@ -151,12 +173,26 @@ class NPCManager {
     constructor(count = 10) {
         this.npcs = [];
         for (let i = 0; i < count; i++) {
-            this.npcs.push(new NPC(i, (Math.random() - 0.5) * 500, (Math.random() - 0.5) * 500));
+            this.npcs.push(new NPC(i, (Math.random() - 0.5) * 2000, (Math.random() - 0.5) * 2000));
         }
     }
 
     update() {
         this.npcs.forEach(npc => npc.update());
+        // Remove dead NPCs
+        this.npcs = this.npcs.filter(npc => !npc.shouldDelete);
+    }
+
+    spawnNPC(x, y) {
+        // Check if an NPC is already active for this home location
+        // Allowing a small tolerance for floating point comparisons
+        const existing = this.npcs.find(n => n.isTemporary && Math.abs(n.homeX - x) < 1 && Math.abs(n.homeY - y) < 1);
+        if (existing) return; // Prevent spam
+
+        // Spawn a temporary NPC at location that returns to location
+        const id = Date.now() + Math.random();
+        // Start slightly offset so they don't clip instantly
+        this.npcs.push(new NPC(id, x + 5, y + 5, true, x, y));
     }
 
     render(ctx) {

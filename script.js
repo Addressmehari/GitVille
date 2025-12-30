@@ -343,11 +343,11 @@ function renderHouses() {
     // but unless we have thousands, iterating is cheap. Drawing is the cost.
 
     for (const house of sortedHouses) {
-        drawHouse(house.x, house.y, house.color, house.roofStyle);
+        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle);
     }
 }
 
-function drawHouse(gx, gy, color, roofStyle) {
+function drawHouse(gx, gy, color, roofStyle, doorStyle) {
     const isoCenter = gridToWorld(gx, gy);
 
     function toScreen(lx, ly, lz) {
@@ -528,73 +528,230 @@ function drawHouse(gx, gy, color, roofStyle) {
     ctx.fill();
 
     // Door on Front Wall
-    // Coordinates
+    const dStyle = (doorStyle !== undefined) ? doorStyle : 0;
     const dW = 6;
     const dH = 22;
     const dFrame = 1.5;
     const doory = hd + 0.5; // Surface of wall + epsilon
 
-    // 1. Door Frame
-    const df_bl = toScreen(-dW - dFrame, doory, 0);
-    const df_br = toScreen(dW + dFrame, doory, 0);
-    const df_tr = toScreen(dW + dFrame, doory, dH + dFrame);
-    const df_tl = toScreen(-dW - dFrame, doory, dH + dFrame);
+    // Helper to draw door rect
+    function drawDoorRect(x, z, w, h, color, doStroke) {
+        // x center, z bottom
+        const p_bl = toScreen(x - w / 2, doory, z);
+        const p_br = toScreen(x + w / 2, doory, z);
+        const p_tr = toScreen(x + w / 2, doory, z + h);
+        const p_tl = toScreen(x - w / 2, doory, z + h);
 
-    ctx.fillStyle = "#dfe6e9"; // White/Grey Frame
-    ctx.beginPath();
-    ctx.moveTo(df_bl.x, df_bl.y);
-    ctx.lineTo(df_br.x, df_br.y);
-    ctx.lineTo(df_tr.x, df_tr.y);
-    ctx.lineTo(df_tl.x, df_tl.y);
-    ctx.fill();
-    ctx.stroke();
-
-    // 2. Door Leaf (Inset)
-    const d_bl = toScreen(-dW, doory, 0);
-    const d_br = toScreen(dW, doory, 0);
-    const d_tr = toScreen(dW, doory, dH);
-    const d_tl = toScreen(-dW, doory, dH);
-
-    ctx.fillStyle = "#5d4037"; // Dark Wood
-    ctx.beginPath();
-    ctx.moveTo(d_bl.x, d_bl.y);
-    ctx.lineTo(d_br.x, d_br.y);
-    ctx.lineTo(d_tr.x, d_tr.y);
-    ctx.lineTo(d_tl.x, d_tl.y);
-    ctx.fill();
-    ctx.stroke();
-
-    // 3. Panels
-    function drawPanel(lx, lz, w, h) {
-        const p_bl = toScreen(lx - w / 2, doory, lz - h / 2);
-        const p_br = toScreen(lx + w / 2, doory, lz - h / 2);
-        const p_tr = toScreen(lx + w / 2, doory, lz + h / 2);
-        const p_tl = toScreen(lx - w / 2, doory, lz + h / 2);
-
-        ctx.fillStyle = "rgba(0,0,0,0.2)"; // Shadow inset
+        ctx.fillStyle = color;
         ctx.beginPath();
         ctx.moveTo(p_bl.x, p_bl.y);
         ctx.lineTo(p_br.x, p_br.y);
         ctx.lineTo(p_tr.x, p_tr.y);
         ctx.lineTo(p_tl.x, p_tl.y);
         ctx.fill();
+        if (doStroke) {
+            ctx.strokeStyle = "rgba(0,0,0,0.15)";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
     }
 
-    const panW = 2.5;
-    const panH = 7;
+    if (dStyle === 0) {
+        // --- Style 0: Classic Panelled ---
+        // 1. Door Frame
+        const df_bl = toScreen(-dW - dFrame, doory, 0);
+        const df_br = toScreen(dW + dFrame, doory, 0);
+        const df_tr = toScreen(dW + dFrame, doory, dH + dFrame);
+        const df_tl = toScreen(-dW - dFrame, doory, dH + dFrame);
 
-    // Four Panels
-    drawPanel(-dW / 2, 6, panW, panH);
-    drawPanel(dW / 2, 6, panW, panH);
-    drawPanel(-dW / 2, 16, panW, panH);
-    drawPanel(dW / 2, 16, panW, panH);
+        ctx.fillStyle = "#dfe6e9"; // White/Grey Frame
+        ctx.beginPath();
+        ctx.moveTo(df_bl.x, df_bl.y);
+        ctx.lineTo(df_br.x, df_br.y);
+        ctx.lineTo(df_tr.x, df_tr.y);
+        ctx.lineTo(df_tl.x, df_tl.y);
+        ctx.fill();
+        ctx.stroke();
 
-    // Doorknob
-    const kn = toScreen(dW - 2, doory, dH / 2);
-    ctx.fillStyle = "#ffb142"; // Gold
-    ctx.beginPath();
-    ctx.arc(kn.x, kn.y, 1.5, 0, Math.PI * 2);
-    ctx.fill();
+        // 2. Door Leaf (Inset)
+        drawDoorRect(0, 0, dW * 2, dH, "#5d4037"); // Dark Wood
+
+        // 3. Panels
+        const panW = 2.5;
+        const panH = 7;
+        const panColor = "rgba(0,0,0,0.3)";
+
+        drawDoorRect(-dW / 2, 3, panW, panH, panColor);
+        drawDoorRect(dW / 2, 3, panW, panH, panColor);
+        drawDoorRect(-dW / 2, 12, panW, panH, panColor);
+        drawDoorRect(dW / 2, 12, panW, panH, panColor);
+
+        // Doorknob
+        const kn = toScreen(dW - 2, doory, dH / 2);
+        ctx.fillStyle = "#ffb142"; // Gold
+        ctx.beginPath();
+        ctx.arc(kn.x, kn.y, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+
+    } else if (dStyle === 1) {
+        // --- Style 1: Arched / Round Top ---
+        const archH = 16; // Height where arch starts
+        const totalH = dH;
+
+        // Frame Background
+        const fw = dW + dFrame;
+        const fh = dH + dFrame;
+
+        ctx.fillStyle = "#b2bec3"; // Stone/Grey Frame
+        ctx.beginPath();
+
+        // Frame points
+        const f_bl = toScreen(-fw, doory, 0);
+        const f_br = toScreen(fw, doory, 0);
+        const f_tr_start = toScreen(fw, doory, archH);
+
+        ctx.moveTo(f_bl.x, f_bl.y);
+        ctx.lineTo(f_br.x, f_br.y);
+        ctx.lineTo(f_tr_start.x, f_tr_start.y);
+
+        // Accurate Isometric Arch Trace
+        const steps = 16;
+        for (let i = 1; i <= steps; i++) {
+            const t = (i / steps) * Math.PI; // 0 to PI
+            const lx = Math.cos(t) * fw;
+            const lz = Math.sin(t) * (totalH + 2 - archH);
+            const p = toScreen(lx, doory, archH + lz);
+            ctx.lineTo(p.x, p.y);
+        }
+
+        ctx.lineTo(f_bl.x, f_bl.y);
+        ctx.fill();
+        ctx.stroke();
+
+        // Door Leaf
+        ctx.fillStyle = "#6d4c41"; // Medium Wood Brown
+        ctx.beginPath();
+        const d_bl = toScreen(-dW, doory, 0);
+        const d_br = toScreen(dW, doory, 0);
+        const d_tr_start = toScreen(dW, doory, archH);
+
+        ctx.moveTo(d_bl.x, d_bl.y);
+        ctx.lineTo(d_br.x, d_br.y);
+        ctx.lineTo(d_tr_start.x, d_tr_start.y);
+
+        // Arch Trace for Door
+        for (let i = 1; i <= steps; i++) {
+            const t = (i / steps) * Math.PI;
+            const lx = Math.cos(t) * dW;
+            const lz = Math.sin(t) * (totalH - archH);
+            const p = toScreen(lx, doory, archH + lz);
+            ctx.lineTo(p.x, p.y);
+        }
+
+        ctx.lineTo(d_bl.x, d_bl.y);
+        ctx.fill();
+
+        // Vertical Planks
+        ctx.strokeStyle = "rgba(0,0,0,0.2)";
+        ctx.beginPath();
+        for (let i = -1; i <= 1; i += 1) {
+            if (i === 0) continue;
+            const lx = i * (dW / 2);
+            const p_bot = toScreen(lx, doory, 0);
+            const p_top = toScreen(lx, doory, totalH - 1);
+            ctx.moveTo(p_bot.x, p_bot.y);
+            ctx.lineTo(p_top.x, p_top.y);
+        }
+        ctx.stroke();
+
+        // Ring Handle
+        const kn = toScreen(dW / 2, doory, dH / 2);
+        ctx.fillStyle = "#2d3436";
+        ctx.beginPath();
+        ctx.arc(kn.x, kn.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+
+    } else if (dStyle === 2) {
+        // --- Style 2: Modern Glass ---
+        // Dark minimal frame
+        drawDoorRect(0, 0, dW * 2 + 2, dH + 1, "#2d3436");
+
+        // Grey Door Leaf
+        drawDoorRect(0, 0, dW * 2, dH, "#636e72");
+
+        // Vertical Glass Insert
+        drawDoorRect(0, 2, 4, dH - 4, "#81ecec");
+
+        // Long Bar Handle
+        const hVal = 12;
+        const hBot = dH / 2 - 5;
+        const hTop = dH / 2 + 5;
+        const hX = dW - 2;
+
+        const h_b = toScreen(hX, doory + 0.2, hBot);
+        const h_t = toScreen(hX, doory + 0.2, hTop);
+
+        ctx.strokeStyle = "#dfe6e9";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(h_b.x, h_b.y);
+        ctx.lineTo(h_t.x, h_t.y);
+        ctx.stroke();
+
+    } else {
+        // --- Style 3: Double French Glass Doors ---
+        // Wide Frame (White/Grey)
+        drawDoorRect(0, 0, dW * 2 + 2, dH + 1, "#b2bec3", true);
+
+        // Split leaves (Left and Right)
+        const leafW = dW - 0.2;
+        // Left Leaf (White)
+        drawDoorRect(-dW / 2, 0, leafW * 2, dH, "#ecf0f1", true);
+        // Right Leaf (White)
+        drawDoorRect(dW / 2, 0, leafW * 2, dH, "#ecf0f1", true);
+
+        // Central seam
+        ctx.strokeStyle = "#b2bec3";
+        ctx.lineWidth = 1;
+        const seamB = toScreen(0, doory + 0.1, 0);
+        const seamT = toScreen(0, doory + 0.1, dH);
+        ctx.beginPath();
+        ctx.moveTo(seamB.x, seamB.y);
+        ctx.lineTo(seamT.x, seamT.y);
+        ctx.stroke();
+
+        // Glass Panes (Grid on each door)
+        // 2 cols x 3 rows per door
+        const paneW = 2;
+        const paneH = 4;
+        const glassColor = "#81ecec";
+
+        // Helper for panes
+        function drawPanes(centerX) {
+            for (let r = 0; r < 3; r++) {
+                // Top half of door
+                const pz = dH - 3 - (r * (paneH + 1));
+                // Left col
+                drawDoorRect(centerX - 1.5, pz, paneW, paneH, glassColor);
+                // Right col
+                drawDoorRect(centerX + 1.5, pz, paneW, paneH, glassColor);
+            }
+        }
+
+        drawPanes(-dW / 2);
+        drawPanes(dW / 2);
+
+        // Handles (Two small knobs in center)
+        const kh = dH / 2 - 2;
+        const k1 = toScreen(-1, doory + 0.3, kh);
+        const k2 = toScreen(1, doory + 0.3, kh);
+
+        ctx.fillStyle = "#2d3436";
+        ctx.beginPath();
+        ctx.arc(k1.x, k1.y, 1, 0, Math.PI * 2);
+        ctx.arc(k2.x, k2.y, 1, 0, Math.PI * 2);
+        ctx.fill();
+    }
 
     // 4. Gable Triangle (Wall material, flush with walls)
     // Runs from t4 to t1 to Peak(0, hd, wallHeight + roofHeight)

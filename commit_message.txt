@@ -1,6 +1,6 @@
-version 5: 4 types of roof,
+version 6: 4 types of door,
 
-0.Scalloped (Soft, classic)
-1.Brick (Ordered, solid)
-2.Standing Seam (Vertical, modern)
-3.Sawtooth (Sharp, rustic)
+0: Classic Panelled (Standard door with knob and 4 panels)
+1: Arched / Round Top (Wooden door with a rounded top and vertical planks)
+2: Modern Glass (Sleek dark frame with a vertical glass slit)
+3: Double French Glass Doors (White double doors with glass window panes)

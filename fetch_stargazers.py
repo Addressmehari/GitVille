@@ -162,7 +162,7 @@ def generate_city_slots(limit):
     # 3. Quadrant-to-Quadrant: 12 units (Main Avenue)
     
     HOUSE_GAP = 2
-    STREET_GAP = 4
+    STREET_GAP = 2 # Reduced from 4 to be closer
     MAIN_AVENUE_WIDTH = 6
     
     CLUSTER_ROWS = 4
@@ -279,7 +279,77 @@ def generate_city_slots(limit):
                 
                 houses_placed += 1
                 
-    return slots, facing_dir
+    road_tiles = set()
+    if slots:
+        min_x = int(min(s[0] for s in slots))
+        max_x = int(max(s[0] for s in slots))
+        min_y = int(min(s[1] for s in slots))
+        max_y = int(max(s[1] for s in slots))
+        
+        # Grid lines logic
+        # Axis: 0 (Main Avenue)
+        # Block Width: 6. Start offset: 3.
+        # First Road at: 3 (start) + 6 (width) + 1 (half gap) = 10.
+        # Stride: 6 + 2 = 8.
+        
+        def get_grid_lines(min_val, max_val):
+            lines = set()
+            lines.add(0) # Main Avenue
+            
+            # Positive
+            curr = 10
+            while curr <= max_val + 2:
+                lines.add(curr)
+                curr += 8
+            
+            # Negative
+            curr = -10
+            while curr >= min_val - 2:
+                lines.add(curr)
+                curr -= 8
+            return lines
+
+        x_lines = get_grid_lines(min_x, max_x)
+        y_lines = get_grid_lines(min_y, max_y)
+        
+        # Fill grid
+        # Add Horizontal roads (+/- 2 padding for visual connection)
+        for y in y_lines:
+            for x in range(min_x - 3, max_x + 4):
+                road_tiles.add((x, y))
+                
+        # Add Vertical roads
+        for x in x_lines:
+            for y in range(min_y - 3, max_y + 4):
+                road_tiles.add((x, y))
+                
+        # --- Central House Adjustment ---
+        # 1. Clear the road UNDER the central house (0,0) and immediate avenue connections
+        # to make space for the ring.
+        # Central house is at (0,0).
+        # We want to clear (0,0) and maybe (0, +/-1), (+/-1, 0)?
+        # Let's clear a 3x3 box in the center from the Main Avenues.
+        
+        for i in range(-2, 3):
+             if (0, i) in road_tiles: road_tiles.remove((0, i))
+             if (i, 0) in road_tiles: road_tiles.remove((i, 0))
+             
+        # 2. Add Ring Road around Central House
+        # House at 0,0. Ring at +/- 2.
+        ring_min = -2
+        ring_max = 2
+        
+        # Horizontal segments
+        for x in range(ring_min, ring_max + 1):
+            road_tiles.add((x, ring_min))
+            road_tiles.add((x, ring_max))
+            
+        # Vertical segments
+        for y in range(ring_min, ring_max + 1):
+            road_tiles.add((ring_min, y))
+            road_tiles.add((ring_max, y))
+                
+    return slots, facing_dir, list(road_tiles)
 
 def generate_houses(stargazers, contributors, owner_name):
     # Sort
@@ -295,7 +365,7 @@ def generate_houses(stargazers, contributors, owner_name):
     full_list = [owner_entry] + stargazers
     
     # Get Slots
-    slots, facings = generate_city_slots(len(full_list))
+    slots, facings, roads = generate_city_slots(len(full_list))
     
     processed_houses = []
     
@@ -325,7 +395,7 @@ def generate_houses(stargazers, contributors, owner_name):
         }
         processed_houses.append(house)
 
-    return processed_houses
+    return processed_houses, roads
 
 def main():
     if len(sys.argv) < 2:
@@ -344,14 +414,22 @@ def main():
         
     owner, repo = repo_input.split('/')
     
-    stargazers = get_stargazers(owner, repo, token, limit=1000)
-    contributors = get_contributors(owner, repo, token, limit=2000)
+    stargazers = get_stargazers(owner, repo, token, limit=100)
+    contributors = get_contributors(owner, repo, token, limit=100)
     
     if stargazers:
-        houses = generate_houses(stargazers, contributors, owner)
+        houses, roads = generate_houses(stargazers, contributors, owner)
+        
         with open("stargazers_houses.json", "w") as f:
             json.dump(houses, f, indent=4)
+            
+        # Format roads for JSON
+        road_data = [{"x": int(r[0]), "y": int(r[1])} for r in roads]
+        with open("roads.json", "w") as f:
+            json.dump(road_data, f, indent=4)
+            
         print(f"Successfully generated {len(houses)} houses in stargazers_houses.json")
+        print(f"Successfully generated {len(road_data)} road tiles in roads.json")
     else:
         print("No stargazers found (or error).")
 

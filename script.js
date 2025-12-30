@@ -57,7 +57,7 @@ async function init() {
     // Load data
     try {
         const [housesRes, worldRes, roadsRes] = await Promise.all([
-            fetch('houses.json'),
+            fetch('stargazers_houses.json'),
             fetch('world.json'),
             fetch('roads.json').catch(e => ({ json: () => [] })) // Fallback for roads
         ]);

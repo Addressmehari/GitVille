@@ -1,1 +1,1 @@
-version 14: added data file generation from github Repo with python. House arrangement improved.
+version 15: updated the world generation logic

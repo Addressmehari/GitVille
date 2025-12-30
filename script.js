@@ -343,117 +343,169 @@ function renderHouses() {
     // but unless we have thousands, iterating is cheap. Drawing is the cost.
 
     for (const house of sortedHouses) {
-        drawCube(house.x, house.y, house.color);
+        drawHouse(house.x, house.y, house.color);
     }
 }
 
-function drawCube(gx, gy, color) {
+function drawHouse(gx, gy, color) {
     const pos = gridToWorld(gx, gy);
-
-    // We are at the center of the tile.
-    // The cube's base should sit on the tile.
-    // Tile center is at pos.y. Tile bottom is at pos.y + TILE_HEIGHT/2.
-    // Actually, in isometric standard, the (x,y) usually refers to the 'center' of the footprint.
-    // So visual center is correct.
-
     const x = pos.x;
     const y = pos.y; // Center of the tile footprint
 
-    // Cube dimensions
-    // We want the cube to almost fill the tile
-    const margin = 5;
-    const w = TILE_WIDTH;
-    const h = TILE_HEIGHT;
+    // House Dimensions
+    const spread = 0.8; // How much of the tile the house covers
+    const w = TILE_WIDTH * spread;
+    const h = TILE_HEIGHT * spread;
 
-    // Vertices relative to center (x, y)
-    // Base diamond is same as tile
+    // Wall Dimensions
+    const wallHeight = 50;
+    const roofHeight = 30;
 
-    // Top Face: Floating above the base by HOUSE_HEIGHT
-    // Top-Center: (0, -HOUSE_HEIGHT)
-    // But it's a diamond. 
-    // Top of TopFace: (0, -H/2 - HOUSE_HEIGHT)
-    // Bottom of TopFace: (0, H/2 - HOUSE_HEIGHT)
-    // Left of TopFace: (-W/2, -HOUSE_HEIGHT)
-    // Right of TopFace: (W/2, -HOUSE_HEIGHT)
+    // Relative offsets for base corners (Ground)
+    // 0: Top, 1: Right, 2: Bottom, 3: Left
+    const hw = w / 2;
+    const hh = h / 2;
 
-    // Let's compute 7 key points
-    // Center of base: (0, 0)
-    // Top of base (back corner): (0, -h/2) -> B_Back
-    // Right of base: (w/2, 0) -> B_Right
-    // Bottom of base (front corner): (0, h/2) -> B_Front
-    // Left of base: (-w/2, 0) -> B_Left
+    // Corners relative to (x,y)
+    // T: (0, -hh), R: (hw, 0), B: (0, hh), L: (-hw, 0)
 
-    // Corresponding top points (shifted up by HOUSE_HEIGHT)
-    // T_Back, T_Right, T_Front, T_Left
+    // Screen coords for Ground Corners
+    // Note: y is vertically centered. H is height of diamond.
+    // So Top is y - hh, Bottom is y + hh
+    const groundTop = { x: x, y: y - hh };
+    const groundRight = { x: x + hw, y: y };
+    const groundBottom = { x: x, y: y + hh };
+    const groundLeft = { x: x - hw, y: y };
 
-    // We only need to draw 3 faces: Top, Front-Left, Front-Right
+    // Eave Points (Top of walls) - shifted up by wallHeight
+    const eaveTop = { x: groundTop.x, y: groundTop.y - wallHeight };
+    const eaveRight = { x: groundRight.x, y: groundRight.y - wallHeight };
+    const eaveBottom = { x: groundBottom.x, y: groundBottom.y - wallHeight };
+    const eaveLeft = { x: groundLeft.x, y: groundLeft.y - wallHeight };
 
-    const halfW = w / 2;
-    const halfH = h / 2;
-    const hh = HOUSE_HEIGHT;
+    // Ridge Points (Roof Peaks)
+    // We will align the gable with the "Left" face (Bottom-Left in iso view).
+    // This means the ridge runs from the center of the Left Face to the center of the Right Face? 
+    // No, standard gable: Ridge runs parallel to one set of walls.
+    // Let's make the Ridge run from "Front-Left Center" to "Back-Right Center".
+    // Wait, ISO view:
+    // "Left Face" is the wall between GroundLeft and GroundBottom.
+    // "Right Face" is the wall between GroundBottom and GroundRight.
 
-    // Adjust spread for a smaller cube if desired, otherwise it touches edges
-    const spread = 0.8;
-    const sw = halfW * spread;
-    const sh = halfH * spread;
+    // Configuration: Gable Triangle on the Left Face.
+    // Ridge Start: Midpoint of EaveLeft and EaveBottom, shifted UP by roofHeight.
+    const ridgeStartX = (eaveLeft.x + eaveBottom.x) / 2;
+    const ridgeStartY = (eaveLeft.y + eaveBottom.y) / 2 - roofHeight;
 
-    // Top Face Points (Diamond)
-    const tTopY = y - sh - hh;
-    const tRightX = x + sw;
-    const tRightY = y - hh;
-    const tBottomY = y + sh - hh;
-    const tLeftX = x - sw;
-    const tLeftY = y - hh;
+    // Ridge End: Midpoint of EaveTop and EaveRight, shifted UP by roofHeight.
+    const ridgeEndX = (eaveTop.x + eaveRight.x) / 2;
+    const ridgeEndY = (eaveTop.y + eaveRight.y) / 2 - roofHeight;
 
-    // Bottom Face Points (for side connection)
-    const bRightY = y;
-    const bBottomY = y + sh;
-    const bLeftY = y;
+    // --- Drawing ---
 
-    // Colors
-    // We need to parse the hex color to darken it
-
-    // Draw Top Face
-    ctx.fillStyle = color; // or lighten(color)
+    // 1. Shadows (Optional, simple oval)
+    ctx.fillStyle = "rgba(0,0,0,0.1)";
     ctx.beginPath();
-    ctx.moveTo(x, tTopY);
-    ctx.lineTo(tRightX, tRightY);
-    ctx.lineTo(x, tBottomY);
-    ctx.lineTo(tLeftX, tLeftY);
-    ctx.closePath();
+    ctx.ellipse(x, y, w / 2, h / 2, 0, 0, Math.PI * 2);
     ctx.fill();
-    ctx.strokeStyle = "rgba(0,0,0,0.1)";
-    ctx.stroke();
 
-    // Draw Right Face (Right side of diamond down)
-    ctx.fillStyle = adjustColor(color, -20); // Darker
+    // 2. Right Wall (Rectangular version)
+    // Vertices: GroundBottom -> GroundRight -> EaveRight -> EaveBottom
+    ctx.fillStyle = adjustColor(color, -40); // Darker shade
     ctx.beginPath();
-    ctx.moveTo(tRightX, tRightY);
-    ctx.lineTo(tRightX, tRightY + hh); // Down to bottom right
-    // Actually, bottom right is simply (x+sw, y) if we went straight down? 
-    // No, isometric vertical lines are straight.
-    // The bottom point corresponds to the base diamond right corner (x+sw, y).
-    // Let's re-verify:
-    // T_Right is (x+sw, y-hh). 
-    // B_Right is (x+sw, y).
-    // B_Bottom is (x, y+sh). T_Bottom is (x, y+sh-hh).
-
-    ctx.lineTo(x, bBottomY);          // To Bottom Center
-    ctx.lineTo(x, tBottomY);          // Up to Top Bottom Center
+    ctx.moveTo(groundBottom.x, groundBottom.y);
+    ctx.lineTo(groundRight.x, groundRight.y);
+    ctx.lineTo(eaveRight.x, eaveRight.y);
+    ctx.lineTo(eaveBottom.x, eaveBottom.y);
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
 
-    // Draw Left Face
-    ctx.fillStyle = adjustColor(color, -40); // Even Darker
+    // 3. Left Wall (Gable End)
+    // Vertices: GroundLeft -> GroundBottom -> EaveBottom -> RidgeStart -> EaveLeft
+    ctx.fillStyle = color; // Main color
     ctx.beginPath();
-    ctx.moveTo(tLeftX, tLeftY);
-    ctx.lineTo(tLeftX, tLeftY + hh); // Down to base left
-    ctx.lineTo(x, bBottomY);         // To Bottom Center
-    ctx.lineTo(x, tBottomY);         // Up to Top Bottom Center
+    ctx.moveTo(groundLeft.x, groundLeft.y);
+    ctx.lineTo(groundBottom.x, groundBottom.y);
+    ctx.lineTo(eaveBottom.x, eaveBottom.y);
+    ctx.lineTo(ridgeStartX, ridgeStartY); // Peak
+    ctx.lineTo(eaveLeft.x, eaveLeft.y);
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
+
+    // 4. Roof (Slope on the Right Side)
+    // Vertices: RidgeStart -> RidgeEnd -> EaveRight -> EaveBottom
+    // Use a standard roof color or a very dark version of house color
+    const roofColor = "#455a64"; // Blue-Grey Roof
+    // const roofColor = adjustColor(color, 40); // Or lighter version of house
+
+    ctx.fillStyle = roofColor;
+    ctx.beginPath();
+    ctx.moveTo(ridgeStartX, ridgeStartY);
+    ctx.lineTo(ridgeEndX, ridgeEndY);
+    ctx.lineTo(eaveRight.x, eaveRight.y);
+    ctx.lineTo(eaveBottom.x, eaveBottom.y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.lineJoin = 'round'; // Soften spikes
+    ctx.stroke();
+
+    // 5. Door (On Gable End / Left Wall)
+    // Centered on the Left Wall base line
+    // Left Wall Base Line is from GroundLeft to GroundBottom
+    const doorW = w * 0.15;
+    const doorH = wallHeight * 0.5;
+
+    // Midpoint of Base Left-Bottom
+    const baseMidX = (groundLeft.x + groundBottom.x) / 2;
+    const baseMidY = (groundLeft.y + groundBottom.y) / 2;
+
+    // We need to move logic "along" the wall vector? 
+    // Simple vertical door is fine, but perspective is better.
+    // The wall baseline slopes down.
+    // Door Bottom Left: Mid - delta
+    // Door Bottom Right: Mid + delta
+
+    const dx = (groundBottom.x - groundLeft.x) * 0.15; // Vector scale
+    const dy = (groundBottom.y - groundLeft.y) * 0.15;
+
+    const dblX = baseMidX - dx;
+    const dblY = baseMidY - dy;
+    const dbrX = baseMidX + dx;
+    const dbrY = baseMidY + dy;
+
+    // Door Top
+    const dtlX = dblX;
+    const dtlY = dblY - doorH;
+    const dtrX = dbrX;
+    const dtrY = dbrY - doorH;
+
+    ctx.fillStyle = "#2d3436";
+    ctx.beginPath();
+    ctx.moveTo(dblX, dblY);
+    ctx.lineTo(dbrX, dbrY);
+    ctx.lineTo(dtrX, dtrY);
+    ctx.lineTo(dtlX, dtlY);
+    ctx.closePath();
+    ctx.fill();
+
+    // Frame
+    ctx.strokeStyle = "rgba(255,255,255,0.2)";
+    ctx.stroke();
+
+    // 6. Window (Circular or Rect on Right Wall)
+    // Center of Right Wall: (GroundRight + GroundBottom + EaveRight + EaveBottom) / 4
+    const rwCenterX = (groundRight.x + groundBottom.x + eaveRight.x + eaveBottom.x) / 4;
+    const rwCenterY = (groundRight.y + groundBottom.y + eaveRight.y + eaveBottom.y) / 4;
+
+    ctx.fillStyle = "#81ecec"; // Glassy
+    ctx.beginPath();
+    ctx.arc(rwCenterX, rwCenterY, wallHeight * 0.15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#fff";
+    ctx.stroke();
+
 }
 
 // Utility to darken/lighten hex color

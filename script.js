@@ -16,8 +16,28 @@ const TILE_HEIGHT = 50;
 const HOUSE_HEIGHT = 60; // Height of the cube house
 
 // Colors
-const COLOR_GROUND_LIGHT = '#bef5be'; // Pastel Green Light
-const COLOR_GROUND_DARK = '#adf0ad';  // Pastel Green Dark
+// Colors
+const PALETTE = {
+    day: {
+        bg: '#81c784',
+        groundLight: '#81c784',
+        groundDark: '#66bb6a',
+        grassBase: '#81c784',
+        grassDark: '#66bb6a',
+        grassLight: '#a5d6a7',
+        windowLit: false
+    },
+    night: {
+        bg: '#0f2027', // Deep Midnight Blue
+        groundLight: '#15202b', // Dull Dark Blue-Grey
+        groundDark: '#101921',
+        grassBase: '#15202b',
+        grassDark: '#101921',
+        grassLight: '#1e2c3b', // Slightly lighter dull blue
+        windowLit: true
+    }
+};
+
 const GRID_LINE_COLOR = 'rgba(0, 0, 0, 0)'; // Transparent
 const HOUSE_SIDE_SHADE = 0.8; // Multiplier for side face
 const HOUSE_TOP_SHADE = 1.0;  // Multiplier for top face
@@ -46,6 +66,8 @@ let initialZoom = null;
 let houses = []; // Will be loaded from JSON
 let roads = new Set(); // Set of "x,y" strings
 let worldConfig = { weather: "none" }; // Default config
+let cloudSystem; // Cloud Manager
+let npcManager; // NPC Manager
 
 // --- Initialization ---
 async function init() {
@@ -77,9 +99,13 @@ async function init() {
         houses.forEach(h => h.hoverAnim = 0);
     } catch (e) {
         console.error("Failed to load data", e);
-        // Fallback data
         houses = [{ x: 0, y: 0, color: "#ff6b6b", hoverAnim: 0 }];
     }
+
+    // Init Clouds
+    cloudSystem = new CloudSystem();
+    // Init NPCs
+    npcManager = new NPCManager(15);
 
     requestAnimationFrame(render);
 }
@@ -254,8 +280,13 @@ function worldToGrid(worldX, worldY) {
 
 // --- Rendering ---
 function render() {
+    // 0. Determine Palette
+    const time = worldConfig.timeOfDay || 'day'; // 'day' or 'night'
+    const colors = PALETTE[time] || PALETTE.day;
+    const isNight = time === 'night';
+
     // 1. Clear background
-    ctx.fillStyle = "#9df3a5"; // matches CSS var
+    ctx.fillStyle = colors.bg;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // 2. Setup transform
@@ -274,8 +305,20 @@ function render() {
     updateHoverState();
     renderHouses();
 
+    // 4b. Render NPCs (Ideally integrated with houses for depth, but overlaid for now)
+    if (npcManager) {
+        npcManager.update();
+        npcManager.render(ctx);
+    }
+
     // 5. Draw Smoke / Particles (World Space)
     drawParticles();
+
+    // 5b. Draw Clouds (Day Only)
+    if (cloudSystem && worldConfig.timeOfDay !== 'night') {
+        cloudSystem.update();
+        cloudSystem.render(ctx);
+    }
 
     // 6. Draw Weather (Overlay)
     drawWeather();
@@ -321,6 +364,8 @@ function spawnSmoke(x, y) {
     });
 }
 
+// --- Weather Components ---
+let rainDrops = [];
 function drawWeather() {
     if (worldConfig.weather !== 'rain') return;
 
@@ -439,15 +484,17 @@ function renderVisibleGrid() {
                 drawRoadTile(gx, gy, worldPos);
             } else {
                 // Natural Grass Pattern
+                const colors = PALETTE[worldConfig.timeOfDay || 'day'] || PALETTE.day;
+
                 // Use a pseudo-random hash to pick distinct grass shades
                 // Simple deterministic noise
                 const seed = Math.sin(gx * 12.9898 + gy * 78.233) * 43758.5453; // common GLSL pseudo-random
                 const noise = Math.abs(seed - Math.floor(seed));
 
-                // 3 subtle variants (Pastel)
-                if (noise < 0.6) ctx.fillStyle = "#bef5be";      // Base (Matches BG)
-                else if (noise < 0.9) ctx.fillStyle = "#b5f0b5"; // Slightly Darker
-                else ctx.fillStyle = "#c8facc";                  // Slightly Lighter
+                // 3 subtle variants
+                if (noise < 0.6) ctx.fillStyle = colors.grassBase;      // Base
+                else if (noise < 0.9) ctx.fillStyle = colors.grassDark; // Slightly Darker
+                else ctx.fillStyle = colors.grassLight;                  // Slightly Lighter
 
                 // Draw Diamond path
                 ctx.beginPath();
@@ -847,6 +894,32 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
         color = "#535c68"; // Override roof to dark grey
         glassColor1 = "#2d3436"; // Broken/Dark
         glassColor2 = "#2d3436";
+    } else {
+        // Night Mode Window Light Logic
+        const isNight = worldConfig.timeOfDay === 'night';
+        // Randomly light up windows if night (mostly on)
+        if (isNight) {
+            // Hash for stable randomness per house
+            const seed = Math.abs(Math.sin(gx * 12.9898 + gy * 78.233) * 43758.5453);
+            const isLit = seed > 0.2; // 80% of houses lit
+
+            if (isLit) {
+                glassColor1 = "#f1c40f"; // Warm Yellow Light
+                glassColor2 = "#f39c12"; // Oranger Light
+            } else {
+                glassColor1 = "#2c3e50"; // Dark Blue (Unlit at night)
+                glassColor2 = "#34495e";
+            }
+
+            // Darken Walls and Roof for Night
+            // Slightly blue-tined grey for walls at night
+            wallColor = "#90a4ae";
+            wallShadow = "#607d8b";
+            // Darken Roof Color (Simple overlay)
+            // We'll use adjustColor helper to darken significantly
+            color = adjustColor(color, -60);
+
+        }
     }
 
     const roofColorMain = adjustColor(color, -20);

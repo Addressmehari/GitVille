@@ -1,4 +1,1 @@
-version 21: made the world feel alive.
-1.chimney smoke
-2.grass color
-3.small swaying grasses
+version 22 : added NPC and cloud systems, integrate day/night color palette, and update ground rendering.

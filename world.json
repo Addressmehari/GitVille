@@ -1,5 +1,4 @@
 {
-    "weather": "rain",
-    "timeOfDay": "day",
-    "houseCount": 16
+    "weather": "none",
+    "timeOfDay": "night"
 }

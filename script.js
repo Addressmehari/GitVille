@@ -348,163 +348,421 @@ function renderHouses() {
 }
 
 function drawHouse(gx, gy, color) {
-    const pos = gridToWorld(gx, gy);
-    const x = pos.x;
-    const y = pos.y; // Center of the tile footprint
+    const isoCenter = gridToWorld(gx, gy);
 
-    // House Dimensions
-    const spread = 0.8; // How much of the tile the house covers
-    const w = TILE_WIDTH * spread;
-    const h = TILE_HEIGHT * spread;
+    function toScreen(lx, ly, lz) {
+        // Simple projection reuse
+        const sx = isoCenter.x + (lx - ly);
+        const sy = isoCenter.y + (lx + ly) * 0.5 - lz;
+        return { x: sx, y: sy };
+    }
 
-    // Wall Dimensions
-    const wallHeight = 50;
-    const roofHeight = 30;
+    // House Dimensions - "Less Wide"
+    const hw = 16;  // Half-Width (Side to side relative to gable)
+    const hd = 18;  // Half-Depth (Front to back)
+    const wallHeight = 35;
+    const roofHeight = 30; // Higher roof looks cozier
+    const overhang = 4;    // Roof overhang magnitude (Key for 'good' look)
 
-    // Relative offsets for base corners (Ground)
-    // 0: Top, 1: Right, 2: Bottom, 3: Left
-    const hw = w / 2;
-    const hh = h / 2;
+    // Colors
+    const wallColor = "#fdfbf7";
+    const wallShadow = "#e0dad1";
+    const roofColorMain = adjustColor(color, -20);
+    const roofColorDark = adjustColor(color, -40);
+    const roofEdgeColor = adjustColor(color, -50);
 
-    // Corners relative to (x,y)
-    // T: (0, -hh), R: (hw, 0), B: (0, hh), L: (-hw, 0)
+    // --- Geometry Points ---
 
-    // Screen coords for Ground Corners
-    // Note: y is vertically centered. H is height of diamond.
-    // So Top is y - hh, Bottom is y + hh
-    const groundTop = { x: x, y: y - hh };
-    const groundRight = { x: x + hw, y: y };
-    const groundBottom = { x: x, y: y + hh };
-    const groundLeft = { x: x - hw, y: y };
+    // 1. Wall Ground Corners
+    // Note: With rotation logic, let's say "Front" is +Y face (Bottom Left on screen)
+    // "Side" is +X face (Bottom Right on screen)
+    const b1 = toScreen(hw, hd, 0);   // Front-Bottom Corner
+    const b2 = toScreen(hw, -hd, 0);  // Right-Bottom Corner
+    const b3 = toScreen(-hw, -hd, 0); // Back-Bottom
+    const b4 = toScreen(-hw, hd, 0);  // Left-Bottom
 
-    // Eave Points (Top of walls) - shifted up by wallHeight
-    const eaveTop = { x: groundTop.x, y: groundTop.y - wallHeight };
-    const eaveRight = { x: groundRight.x, y: groundRight.y - wallHeight };
-    const eaveBottom = { x: groundBottom.x, y: groundBottom.y - wallHeight };
-    const eaveLeft = { x: groundLeft.x, y: groundLeft.y - wallHeight };
+    // 2. Wall Top Corners
+    const t1 = toScreen(hw, hd, wallHeight);
+    const t2 = toScreen(hw, -hd, wallHeight);
+    const t3 = toScreen(-hw, -hd, wallHeight);
+    const t4 = toScreen(-hw, hd, wallHeight);
 
-    // Ridge Points (Roof Peaks)
-    // We will align the gable with the "Left" face (Bottom-Left in iso view).
-    // This means the ridge runs from the center of the Left Face to the center of the Right Face? 
-    // No, standard gable: Ridge runs parallel to one set of walls.
-    // Let's make the Ridge run from "Front-Left Center" to "Back-Right Center".
-    // Wait, ISO view:
-    // "Left Face" is the wall between GroundLeft and GroundBottom.
-    // "Right Face" is the wall between GroundBottom and GroundRight.
+    // 3. Roof Geometry (With Overhangs)
+    const rhw = hw + overhang; // Roof width radius
+    const rhd = hd + overhang; // Roof depth radius
 
-    // Configuration: Gable Triangle on the Left Face.
-    // Ridge Start: Midpoint of EaveLeft and EaveBottom, shifted UP by roofHeight.
-    const ridgeStartX = (eaveLeft.x + eaveBottom.x) / 2;
-    const ridgeStartY = (eaveLeft.y + eaveBottom.y) / 2 - roofHeight;
+    // Ridge (Peak) - Centered X, runs along Y
+    const rFront = toScreen(0, rhd, wallHeight + roofHeight);
+    const rBack = toScreen(0, -rhd, wallHeight + roofHeight);
 
-    // Ridge End: Midpoint of EaveTop and EaveRight, shifted UP by roofHeight.
-    const ridgeEndX = (eaveTop.x + eaveRight.x) / 2;
-    const ridgeEndY = (eaveTop.y + eaveRight.y) / 2 - roofHeight;
+    // Eaves (Bottom corners of roof slope)
+    const eFrontRight = toScreen(rhw, rhd, wallHeight);
+    const eBackRight = toScreen(rhw, -rhd, wallHeight);
+    const eFrontLeft = toScreen(-rhw, rhd, wallHeight);
+    // eBackLeft not visible
 
-    // --- Drawing ---
+    // --- Draw Cycle ---
 
-    // 1. Shadows (Optional, simple oval)
-    ctx.fillStyle = "rgba(0,0,0,0.1)";
+    // 1. Shadow (Circular base shadow)
+    ctx.fillStyle = "rgba(0,0,0,0.15)";
     ctx.beginPath();
-    ctx.ellipse(x, y, w / 2, h / 2, 0, 0, Math.PI * 2);
+    ctx.ellipse(isoCenter.x, isoCenter.y, hw * 1.5, hd * 0.8, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // 2. Right Wall (Rectangular version)
-    // Vertices: GroundBottom -> GroundRight -> EaveRight -> EaveBottom
-    ctx.fillStyle = adjustColor(color, -40); // Darker shade
+    // 2. Right Wall (+X facing) - The "Side" of the house
+    // Let's add corner posts (trim) for better structure
+    const trimW = 2; // Width of corner trim
+
+    ctx.fillStyle = wallShadow;
     ctx.beginPath();
-    ctx.moveTo(groundBottom.x, groundBottom.y);
-    ctx.lineTo(groundRight.x, groundRight.y);
-    ctx.lineTo(eaveRight.x, eaveRight.y);
-    ctx.lineTo(eaveBottom.x, eaveBottom.y);
+    ctx.moveTo(b1.x, b1.y);
+    ctx.lineTo(b2.x, b2.y);
+    ctx.lineTo(t2.x, t2.y);
+    ctx.lineTo(t1.x, t1.y);
     ctx.closePath();
     ctx.fill();
+    ctx.strokeStyle = "rgba(0,0,0,0.1)";
     ctx.stroke();
 
-    // 3. Left Wall (Gable End)
-    // Vertices: GroundLeft -> GroundBottom -> EaveBottom -> RidgeStart -> EaveLeft
-    ctx.fillStyle = color; // Main color
+    // Right Wall Corner Trim (Right Edge)
+    ctx.fillStyle = adjustColor(wallColor, -10); // Slightly distinct trim
     ctx.beginPath();
-    ctx.moveTo(groundLeft.x, groundLeft.y);
-    ctx.lineTo(groundBottom.x, groundBottom.y);
-    ctx.lineTo(eaveBottom.x, eaveBottom.y);
-    ctx.lineTo(ridgeStartX, ridgeStartY); // Peak
-    ctx.lineTo(eaveLeft.x, eaveLeft.y);
-    ctx.closePath();
+    ctx.moveTo(b2.x, b2.y); // Bottom Right
+    ctx.lineTo(toScreen(hw - trimW, -hd, 0).x, toScreen(hw - trimW, -hd, 0).y); // In slightly
+    ctx.lineTo(toScreen(hw - trimW, -hd, wallHeight).x, toScreen(hw - trimW, -hd, wallHeight).y); // Up
+    ctx.lineTo(t2.x, t2.y); // Top Right
     ctx.fill();
-    ctx.stroke();
 
-    // 4. Roof (Slope on the Right Side)
-    // Vertices: RidgeStart -> RidgeEnd -> EaveRight -> EaveBottom
-    // Use a standard roof color or a very dark version of house color
-    const roofColor = "#455a64"; // Blue-Grey Roof
-    // const roofColor = adjustColor(color, 40); // Or lighter version of house
+    // Window on Right Wall
+    // 1. Setup Helper for Right Wall Rects (facing +X)
+    function drawRightRect(cx, cy, cz, w, h, color) {
+        // Center (cx, cy, cz). Width w (along Y), Height h (along Z)
+        // Rect on plane X = cx
+        const y1 = cy - w / 2;
+        const y2 = cy + w / 2;
+        const z1 = cz - h / 2;
+        const z2 = cz + h / 2;
 
-    ctx.fillStyle = roofColor;
-    ctx.beginPath();
-    ctx.moveTo(ridgeStartX, ridgeStartY);
-    ctx.lineTo(ridgeEndX, ridgeEndY);
-    ctx.lineTo(eaveRight.x, eaveRight.y);
-    ctx.lineTo(eaveBottom.x, eaveBottom.y);
-    ctx.closePath();
-    ctx.fill();
-    ctx.lineJoin = 'round'; // Soften spikes
-    ctx.stroke();
+        const p1 = toScreen(cx, y2, z1); // BL
+        const p2 = toScreen(cx, y1, z1); // BR 
+        const p3 = toScreen(cx, y1, z2); // TR
+        const p4 = toScreen(cx, y2, z2); // TL
 
-    // 5. Door (On Gable End / Left Wall)
-    // Centered on the Left Wall base line
-    // Left Wall Base Line is from GroundLeft to GroundBottom
-    const doorW = w * 0.15;
-    const doorH = wallHeight * 0.5;
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.lineTo(p3.x, p3.y);
+        ctx.lineTo(p4.x, p4.y);
+        ctx.closePath();
+        ctx.fill();
+        // ctx.stroke(); // Optional stroke
+    }
 
-    // Midpoint of Base Left-Bottom
-    const baseMidX = (groundLeft.x + groundBottom.x) / 2;
-    const baseMidY = (groundLeft.y + groundBottom.y) / 2;
-
-    // We need to move logic "along" the wall vector? 
-    // Simple vertical door is fine, but perspective is better.
-    // The wall baseline slopes down.
-    // Door Bottom Left: Mid - delta
-    // Door Bottom Right: Mid + delta
-
-    const dx = (groundBottom.x - groundLeft.x) * 0.15; // Vector scale
-    const dy = (groundBottom.y - groundLeft.y) * 0.15;
-
-    const dblX = baseMidX - dx;
-    const dblY = baseMidY - dy;
-    const dbrX = baseMidX + dx;
-    const dbrY = baseMidY + dy;
-
-    // Door Top
-    const dtlX = dblX;
-    const dtlY = dblY - doorH;
-    const dtrX = dbrX;
-    const dtrY = dbrY - doorH;
-
-    ctx.fillStyle = "#2d3436";
-    ctx.beginPath();
-    ctx.moveTo(dblX, dblY);
-    ctx.lineTo(dbrX, dbrY);
-    ctx.lineTo(dtrX, dtrY);
-    ctx.lineTo(dtlX, dtlY);
-    ctx.closePath();
-    ctx.fill();
+    const winY = 0;
+    const winZ = wallHeight / 2 + 2;
+    const winW = 10; // Total Width
+    const winH = 14; // Total Height
+    const winX = hw + 0.2; // Surface
 
     // Frame
-    ctx.strokeStyle = "rgba(255,255,255,0.2)";
+    drawRightRect(winX, winY, winZ, winW + 3, winH + 3, "#dfe6e9");
+
+    // Glass Background
+    drawRightRect(winX + 0.5, winY, winZ, winW, winH, "#74b9ff");
+
+    // Muntins (Cross)
+    const bar = 1.2;
+    // Vertical
+    drawRightRect(winX + 0.6, winY, winZ, bar, winH, "#dfe6e9");
+    // Horizontal
+    drawRightRect(winX + 0.6, winY, winZ, winW, bar, "#dfe6e9");
+
+    // Sill
+    const sillW = winW + 5;
+    const sillH = 2;
+    // Sill sticks out? We simulate by drawing a slightly larger/lower rect
+    drawRightRect(winX + 1, winY, winZ - winH / 2 - 1, sillW, sillH, "#b2bec3");
+
+
+    // 3. Front Wall (+Y Face)
+    ctx.fillStyle = wallColor;
+    ctx.beginPath();
+    ctx.moveTo(b4.x, b4.y);
+    ctx.lineTo(b1.x, b1.y);
+    ctx.lineTo(t1.x, t1.y);
+    ctx.lineTo(t4.x, t4.y);
+    ctx.closePath();
+    ctx.fill();
     ctx.stroke();
 
-    // 6. Window (Circular or Rect on Right Wall)
-    // Center of Right Wall: (GroundRight + GroundBottom + EaveRight + EaveBottom) / 4
-    const rwCenterX = (groundRight.x + groundBottom.x + eaveRight.x + eaveBottom.x) / 4;
-    const rwCenterY = (groundRight.y + groundBottom.y + eaveRight.y + eaveBottom.y) / 4;
-
-    ctx.fillStyle = "#81ecec"; // Glassy
+    // Front Wall Trim (Corners)
+    ctx.fillStyle = adjustColor(wallColor, -5);
+    // Left Corner Trim
     ctx.beginPath();
-    ctx.arc(rwCenterX, rwCenterY, wallHeight * 0.15, 0, Math.PI * 2);
+    ctx.moveTo(b4.x, b4.y);
+    ctx.lineTo(toScreen(-hw, hd - trimW, 0).x, toScreen(-hw, hd - trimW, 0).y);
+    ctx.lineTo(toScreen(-hw, hd - trimW, wallHeight).x, toScreen(-hw, hd - trimW, wallHeight).y);
+    ctx.lineTo(t4.x, t4.y);
+    ctx.fill();
+
+    // Foundation / Base Plinth
+    // A dark band at the bottom of both visible walls
+    const plinthH = 4;
+    ctx.fillStyle = "#636e72"; // Grey Stone
+
+    // Right Base
+    ctx.beginPath();
+    ctx.moveTo(b1.x, b1.y);
+    ctx.lineTo(b2.x, b2.y);
+    ctx.lineTo(toScreen(hw, -hd, plinthH).x, toScreen(hw, -hd, plinthH).y);
+    ctx.lineTo(toScreen(hw, hd, plinthH).x, toScreen(hw, hd, plinthH).y);
+    ctx.fill();
+
+    // Front Base
+    ctx.beginPath();
+    ctx.moveTo(b4.x, b4.y);
+    ctx.lineTo(b1.x, b1.y);
+    ctx.lineTo(toScreen(hw, hd, plinthH).x, toScreen(hw, hd, plinthH).y);
+    ctx.lineTo(toScreen(-hw, hd, plinthH).x, toScreen(-hw, hd, plinthH).y);
+    ctx.fill();
+
+    // Door on Front Wall
+    // Coordinates
+    const dW = 6;
+    const dH = 22;
+    const dFrame = 1.5;
+    const doory = hd + 0.5; // Surface of wall + epsilon
+
+    // 1. Door Frame
+    const df_bl = toScreen(-dW - dFrame, doory, 0);
+    const df_br = toScreen(dW + dFrame, doory, 0);
+    const df_tr = toScreen(dW + dFrame, doory, dH + dFrame);
+    const df_tl = toScreen(-dW - dFrame, doory, dH + dFrame);
+
+    ctx.fillStyle = "#dfe6e9"; // White/Grey Frame
+    ctx.beginPath();
+    ctx.moveTo(df_bl.x, df_bl.y);
+    ctx.lineTo(df_br.x, df_br.y);
+    ctx.lineTo(df_tr.x, df_tr.y);
+    ctx.lineTo(df_tl.x, df_tl.y);
+    ctx.fill();
+    ctx.stroke();
+
+    // 2. Door Leaf (Inset)
+    const d_bl = toScreen(-dW, doory, 0);
+    const d_br = toScreen(dW, doory, 0);
+    const d_tr = toScreen(dW, doory, dH);
+    const d_tl = toScreen(-dW, doory, dH);
+
+    ctx.fillStyle = "#5d4037"; // Dark Wood
+    ctx.beginPath();
+    ctx.moveTo(d_bl.x, d_bl.y);
+    ctx.lineTo(d_br.x, d_br.y);
+    ctx.lineTo(d_tr.x, d_tr.y);
+    ctx.lineTo(d_tl.x, d_tl.y);
+    ctx.fill();
+    ctx.stroke();
+
+    // 3. Panels
+    function drawPanel(lx, lz, w, h) {
+        const p_bl = toScreen(lx - w / 2, doory, lz - h / 2);
+        const p_br = toScreen(lx + w / 2, doory, lz - h / 2);
+        const p_tr = toScreen(lx + w / 2, doory, lz + h / 2);
+        const p_tl = toScreen(lx - w / 2, doory, lz + h / 2);
+
+        ctx.fillStyle = "rgba(0,0,0,0.2)"; // Shadow inset
+        ctx.beginPath();
+        ctx.moveTo(p_bl.x, p_bl.y);
+        ctx.lineTo(p_br.x, p_br.y);
+        ctx.lineTo(p_tr.x, p_tr.y);
+        ctx.lineTo(p_tl.x, p_tl.y);
+        ctx.fill();
+    }
+
+    const panW = 2.5;
+    const panH = 7;
+
+    // Four Panels
+    drawPanel(-dW / 2, 6, panW, panH);
+    drawPanel(dW / 2, 6, panW, panH);
+    drawPanel(-dW / 2, 16, panW, panH);
+    drawPanel(dW / 2, 16, panW, panH);
+
+    // Doorknob
+    const kn = toScreen(dW - 2, doory, dH / 2);
+    ctx.fillStyle = "#ffb142"; // Gold
+    ctx.beginPath();
+    ctx.arc(kn.x, kn.y, 1.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 4. Gable Triangle (Wall material, flush with walls)
+    // Runs from t4 to t1 to Peak(0, hd, wallHeight + roofHeight)
+    // Wait, the peak of the wall is aligned with the wall plane y=hd.
+    // The roof peak rFront is at y=rhd (overhanging). 
+    // We need a Wall Peak at y=hd.
+    const wallPeak = toScreen(0, hd, wallHeight + roofHeight);
+
+    ctx.fillStyle = wallColor;
+    ctx.beginPath();
+    ctx.moveTo(t4.x, t4.y);
+    ctx.lineTo(t1.x, t1.y);
+    ctx.lineTo(wallPeak.x, wallPeak.y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Attic Window (Round)
+    const awC = toScreen(0, hd + 0.5, wallHeight + roofHeight * 0.4);
+    ctx.fillStyle = "#55efc4";
+    ctx.beginPath();
+    ctx.arc(awC.x, awC.y, 4, 0, Math.PI * 2);
     ctx.fill();
     ctx.strokeStyle = "#fff";
     ctx.stroke();
+
+    // 5. Roof - Underside of Overhangs (Darker)
+    // Visible on the front-right overhang area?
+    // Front Overhang: rFront -> eFrontRight -> t1 -> wallPeak
+    // Skipped for now.
+
+    // 6. Main Roof Slope (Right Side)
+    // Vertices: rFront -> rBack -> eBackRight -> eFrontRight
+    // To make it curved ("Asian" or "Fairytale" style curve), we need control points.
+    // The curve dips INWARDS usually.
+    // We draw from Ridge to Eave.
+
+    // Helper to get midpoint dip
+    function getCurveCP(p1, p2) {
+        // Midpoint
+        const mx = (p1.x + p2.x) / 2;
+        const my = (p1.y + p2.y) / 2;
+        // Dip amount 
+        return { x: mx, y: my + 5 };
+    }
+
+    ctx.fillStyle = roofColorMain;
+    ctx.beginPath();
+    ctx.moveTo(rFront.x, rFront.y); // Start at Front Peak
+    ctx.lineTo(rBack.x, rBack.y);   // Line to Back Peak (Ridge is straight)
+
+    // Curve down from Back Peak to Back Eave
+    const cpBack = getCurveCP(rBack, eBackRight);
+    ctx.quadraticCurveTo(cpBack.x, cpBack.y, eBackRight.x, eBackRight.y);
+
+    // Line along Eave (Straight)
+    ctx.lineTo(eFrontRight.x, eFrontRight.y);
+
+    // Curve up from Front Eave to Front Peak
+    const cpFront = getCurveCP(eFrontRight, rFront);
+    ctx.quadraticCurveTo(cpFront.x, cpFront.y, rFront.x, rFront.y);
+
+    ctx.closePath();
+    ctx.fill();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = roofEdgeColor;
+    ctx.stroke();
+
+    // 7. Roof Thickness / Fascia (Right edge)
+    ctx.fillStyle = roofColorDark;
+    ctx.beginPath();
+    ctx.moveTo(eFrontRight.x, eFrontRight.y);
+    ctx.lineTo(eBackRight.x, eBackRight.y);
+    // Drop down slighty for thickness
+    const thick = 3;
+    const eBackRightDown = { x: eBackRight.x, y: eBackRight.y + thick };
+    const eFrontRightDown = { x: eFrontRight.x, y: eFrontRight.y + thick };
+    ctx.lineTo(eBackRightDown.x, eBackRightDown.y);
+    ctx.lineTo(eFrontRightDown.x, eFrontRightDown.y);
+    ctx.closePath();
+    ctx.fill();
+
+    // 8. Front Eave / Gable Edge (Fascia Board)
+
+    // We need to draw the "Face" of the board.
+    // Top Edge is the Roof Line (Curved).
+    // Bottom Edge is parallel to Top Edge, shifted down by 'fasciaHeight'.
+    const fasciaHeight = 4;
+
+    ctx.fillStyle = adjustColor(roofColorMain, -10);
+    ctx.strokeStyle = roofEdgeColor;
+
+    ctx.beginPath();
+
+    // 1. Trace Top Edge (Left to Right)
+    ctx.moveTo(eFrontLeft.x, eFrontLeft.y);
+    const cpLeft = getCurveCP(eFrontLeft, rFront);
+    ctx.quadraticCurveTo(cpLeft.x, cpLeft.y, rFront.x, rFront.y);
+
+    const cpRight = getCurveCP(rFront, eFrontRight);
+    ctx.quadraticCurveTo(cpRight.x, cpRight.y, eFrontRight.x, eFrontRight.y);
+
+    // 2. Trace Right Side down
+    ctx.lineTo(eFrontRight.x, eFrontRight.y + fasciaHeight);
+
+    // 3. Trace Bottom Edge (Right to Left) - Reverse curves with Y shift
+    const cpRightBottom = { x: cpRight.x, y: cpRight.y + fasciaHeight };
+    const rFrontBottom = { x: rFront.x, y: rFront.y + fasciaHeight };
+    const cpLeftBottom = { x: cpLeft.x, y: cpLeft.y + fasciaHeight };
+    const eFrontLeftBottom = { x: eFrontLeft.x, y: eFrontLeft.y + fasciaHeight };
+
+    ctx.quadraticCurveTo(cpRightBottom.x, cpRightBottom.y, rFrontBottom.x, rFrontBottom.y);
+    ctx.quadraticCurveTo(cpLeftBottom.x, cpLeftBottom.y, eFrontLeftBottom.x, eFrontLeftBottom.y);
+
+    // 4. Close Left Side
+    ctx.lineTo(eFrontLeft.x, eFrontLeft.y);
+
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // 9. Chimney (Small and cute)
+    const cw = 5;
+    const ch = 12;
+    // Position on Right Slope
+    const cPos = { lx: 10, ly: -5 }; // Moved down from 6 to 10
+    // Z height on slope?
+    // Slope goes from Z=wall (at x=rhw) to Z=wall+roof (at x=0).
+    const slopeRatio = 1 - (cPos.lx / rhw);
+    const cBaseZ = wallHeight + roofHeight * slopeRatio - 2; // Embed slightly
+
+    const cb1 = toScreen(cPos.lx + cw, cPos.ly + cw, cBaseZ);
+    const ct1 = toScreen(cPos.lx + cw, cPos.ly + cw, cBaseZ + ch);
+    const ct2 = toScreen(cPos.lx + cw, cPos.ly - cw, cBaseZ + ch);
+    const ct3 = toScreen(cPos.lx - cw, cPos.ly - cw, cBaseZ + ch);
+    const ct4 = toScreen(cPos.lx - cw, cPos.ly + cw, cBaseZ + ch);
+
+    // Side Face
+    ctx.fillStyle = "#636e72";
+    ctx.beginPath();
+    ctx.moveTo(cb1.x, cb1.y);
+    ctx.lineTo(toScreen(cPos.lx + cw, cPos.ly - cw, cBaseZ).x, toScreen(cPos.lx + cw, cPos.ly - cw, cBaseZ).y);
+    ctx.lineTo(ct2.x, ct2.y);
+    ctx.lineTo(ct1.x, ct1.y);
+    ctx.fill();
+    ctx.stroke();
+
+    // Front Face
+    ctx.fillStyle = "#b2bec3";
+    ctx.beginPath();
+    ctx.moveTo(cb1.x, cb1.y);
+    ctx.lineTo(toScreen(cPos.lx - cw, cPos.ly + cw, cBaseZ).x, toScreen(cPos.lx - cw, cPos.ly + cw, cBaseZ).y);
+    ctx.lineTo(ct4.x, ct4.y);
+    ctx.lineTo(ct1.x, ct1.y);
+    ctx.fill();
+    ctx.stroke();
+
+    // Top
+    ctx.fillStyle = "#2d3436";
+    ctx.beginPath();
+    ctx.moveTo(ct1.x, ct1.y);
+    ctx.lineTo(ct2.x, ct2.y);
+    ctx.lineTo(ct3.x, ct3.y);
+    ctx.lineTo(ct4.x, ct4.y);
+    ctx.closePath();
+    ctx.fill();
+
+
 
 }
 

@@ -1,1 +1,1 @@
-version 2: cubes look like a hut (small house)
+version 3: better looking houses with good window,door, body and Roof

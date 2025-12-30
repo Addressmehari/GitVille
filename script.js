@@ -140,7 +140,7 @@ function setupInputListeners() {
 
         // 3. Check House
         const house = houses.find(h => h.x === gx && h.y === gy);
-        if (house) {
+        if (house && !house.obstacle) {
             // Spawn NPC from this house center
             // NPC coords are Cartesian (Grid * Scale)
             // Scale = TILE_WIDTH / 2
@@ -786,9 +786,15 @@ function renderHouses() {
     // but unless we have thousands, iterating is cheap. Drawing is the cost.
 
     for (const house of sortedHouses) {
-        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle, house.windowStyle, house.chimneyStyle, house.wallStyle, house.hoverAnim, house.username, house.abandoned, house.facing, house.has_terrace);
+        if (house.obstacle === 'tree') {
+            drawTree(house.x, house.y, ctx);
+        } else {
+            drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle, house.windowStyle, house.chimneyStyle, house.wallStyle, house.hoverAnim, house.username, house.abandoned, house.facing, house.has_terrace);
+        }
     }
 }
+
+
 
 function updateHoverState() {
     // 1. Get Mouse in World

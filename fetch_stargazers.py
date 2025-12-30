@@ -330,6 +330,8 @@ def generate_city_slots(limit):
                 
     return slots, facing_dir, list(road_tiles)
 
+import random
+
 def generate_houses(stargazers, contributors, owner_name):
     # Sort
     stargazers.sort(key=lambda x: x['starred_at'])
@@ -344,35 +346,66 @@ def generate_houses(stargazers, contributors, owner_name):
     full_list = [owner_entry] + stargazers
     
     # Get Slots
-    slots, facings, roads = generate_city_slots(len(full_list))
+    # Request extra slots to accommodate trees (e.g. 20% more)
+    estimated_total = int(len(full_list) * 1.3)
+    # Ensure minimum buffer
+    if estimated_total < len(full_list) + 5: estimated_total = len(full_list) + 5
+    
+    slots, facings, roads = generate_city_slots(estimated_total)
     
     processed_houses = []
+    stargazer_idx = 0
     
-    for i, strgzr in enumerate(full_list):
-        if i >= len(slots): break
+    for i, (slot_x, slot_y) in enumerate(slots):
+        # Stop if we've placed all stargazers
+        if stargazer_idx >= len(full_list):
+            break
+            
+        remaining_slots = len(slots) - i
+        remaining_houses = len(full_list) - stargazer_idx
         
-        username = strgzr['user']['login']
-        attrs = string_to_pseudo_random(username)
-        x, y = slots[i]
-        facing = facings[i]
+        # Decide if we place a tree here
+        # Rules:
+        # 1. Never at index 0 (Reserved for Owner)
+        # 2. Only if we have enough spare slots so we don't run out for houses
+        # 3. 20% Chance
         
-        # Check if contributor
-        has_terrace = username in contributors
-        
-        house = {
-            "x": x,
-            "y": y,
-            "color": string_to_color(username),
-            "roofStyle": attrs[0],
-            "doorStyle": attrs[1],
-            "windowStyle": attrs[2],
-            "chimneyStyle": attrs[3],
-            "wallStyle": attrs[4],
-            "username": username,
-            "facing": facing,
-            "has_terrace": has_terrace
-        }
-        processed_houses.append(house)
+        place_tree = False
+        if i > 0 and remaining_slots > remaining_houses:
+            if random.random() < 0.2:
+                place_tree = True
+                
+        if place_tree:
+            processed_houses.append({
+                "x": slot_x,
+                "y": slot_y,
+                "obstacle": "tree"
+            })
+            # Do NOT increment stargazer_idx, we still need to place that house
+        else:
+            strgzr = full_list[stargazer_idx]
+            username = strgzr['user']['login']
+            attrs = string_to_pseudo_random(username)
+            facing = facings[i]
+            
+            # Check if contributor
+            has_terrace = username in contributors
+            
+            house = {
+                "x": slot_x,
+                "y": slot_y,
+                "color": string_to_color(username),
+                "roofStyle": attrs[0],
+                "doorStyle": attrs[1],
+                "windowStyle": attrs[2],
+                "chimneyStyle": attrs[3],
+                "wallStyle": attrs[4],
+                "username": username,
+                "facing": facing,
+                "has_terrace": has_terrace
+            }
+            processed_houses.append(house)
+            stargazer_idx += 1
 
     return processed_houses, roads
 
@@ -408,7 +441,7 @@ def add_user(username):
         houses = json.load(f)
         
     # Check if user exists
-    if any(h['username'] == username for h in houses):
+    if any(h.get('username') == username for h in houses):
         print(f"User {username} already exists in the city.")
         return
 
@@ -428,6 +461,14 @@ def add_user(username):
         "facing": "down",
         "has_terrace": False # Default for manual add
     }
+    
+    # Randomly add a tree before the user (20% chance) to maintain density
+    if random.random() < 0.2:
+        print("Randomly planting a new tree...")
+        houses.append({
+            "x": 0, "y": 0, # Position set by recalculate_layout
+            "obstacle": "tree"
+        })
     
     houses.append(new_house)
     print(f"Adding new house for {username}...")

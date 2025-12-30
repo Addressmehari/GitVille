@@ -1,1 +1,1 @@
-version 23: tapping houses will spawn temporary npcs
+version 24: added obstacles tree, adjusted python code according to spawn trees between world

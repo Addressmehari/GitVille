@@ -77,29 +77,39 @@ async function init() {
     setupInputListeners();
 
     // Load data
+    // Load data
     try {
+        console.log("Fetching data...");
         const [housesRes, worldRes, roadsRes] = await Promise.all([
-            fetch('stargazers_houses.json'),
+            fetch('https://raw.githubusercontent.com/Addressmehari/GitVille/dev-me/stargazers_houses.json?t=' + Date.now()),
             fetch('world.json'),
-            fetch('roads.json').catch(e => ({ json: () => [] })) // Fallback for roads
+            fetch('roads.json').catch(e => null) // Fallback for roads
         ]);
 
+        if (!housesRes.ok) throw new Error(`Houses fetch failed: ${housesRes.status}`);
+        if (!worldRes.ok) throw new Error(`World fetch failed: ${worldRes.status}`);
+
         houses = await housesRes.json();
+        console.log("Loaded houses:", houses.length);
+
         worldConfig = await worldRes.json();
 
-        try {
-            const roadData = await roadsRes.json();
-            if (Array.isArray(roadData)) {
-                roadData.forEach(r => roads.add(`${r.x},${r.y}`));
-            }
-        } catch (e) { console.log("No roads found"); }
-
+        if (roadsRes && roadsRes.ok) {
+            try {
+                const roadData = await roadsRes.json();
+                if (Array.isArray(roadData)) {
+                    roadData.forEach(r => roads.add(`${r.x},${r.y}`));
+                }
+            } catch (e) { console.log("No roads found or invalid JSON"); }
+        }
 
         // Initialize animation state
         houses.forEach(h => h.hoverAnim = 0);
     } catch (e) {
-        console.error("Failed to load data", e);
-        houses = [{ x: 0, y: 0, color: "#ff6b6b", hoverAnim: 0 }];
+        console.error("Failed to load data detailed:", e);
+        // Fallback for visual debugging
+        houses = [{ x: 0, y: 0, color: "#ff6b6b", hoverAnim: 0, username: "Error" }];
+        alert("Failed to load data. Check console (F12) for details.\n" + e.message);
     }
 
     // Init Clouds

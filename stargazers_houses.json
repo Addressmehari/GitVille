@@ -11,5 +11,31 @@
         "username": "addressmehari",
         "facing": "down",
         "has_terrace": false
+    },
+    {
+        "x": 3.0,
+        "y": -3.0,
+        "color": "#6e911c",
+        "roofStyle": 2,
+        "doorStyle": 2,
+        "windowStyle": 1,
+        "chimneyStyle": 1,
+        "wallStyle": 1,
+        "username": "hp-echo",
+        "facing": "left",
+        "has_terrace": false
+    },
+    {
+        "x": 5.0,
+        "y": -3.0,
+        "color": "#f63bd4",
+        "roofStyle": 3,
+        "doorStyle": 2,
+        "windowStyle": 3,
+        "chimneyStyle": 3,
+        "wallStyle": 1,
+        "username": "hodge007",
+        "facing": "left",
+        "has_terrace": false
     }
 ]

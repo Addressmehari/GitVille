@@ -1,6 +1,6 @@
-version 7: added 4types of windows,
+version 8: added 3types of chimneys,
 
-Index 0: Classic Muntins (Standard rectangular window with cross bars)
-Index 1: Arched Window (Tall window with a semi-circular top)
-Index 2: Canvas Awning (Window with a red & white striped canopy)
-Index 3: Flower Box (Diamond-paned window with a planter box)
+0. none
+1.Classic Stone (Style 1):
+2.Industrial Brick (Style 2):
+3.Creative Cottage (Style 3)

@@ -343,11 +343,11 @@ function renderHouses() {
     // but unless we have thousands, iterating is cheap. Drawing is the cost.
 
     for (const house of sortedHouses) {
-        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle, house.windowStyle);
+        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle, house.windowStyle, house.chimneyStyle);
     }
 }
 
-function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle) {
+function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyle) {
     const isoCenter = gridToWorld(gx, gy);
 
     function toScreen(lx, ly, lz) {
@@ -1257,51 +1257,323 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle) {
     ctx.fill();
     ctx.stroke();
 
-    // 9. Chimney (Small and cute)
-    const cw = 5;
-    const ch = 12;
-    // Position on Right Slope
-    const cPos = { lx: 10, ly: -5 }; // Moved down from 6 to 10
-    // Z height on slope?
-    // Slope goes from Z=wall (at x=rhw) to Z=wall+roof (at x=0).
-    const slopeRatio = 1 - (cPos.lx / rhw);
-    const cBaseZ = wallHeight + roofHeight * slopeRatio - 2; // Embed slightly
+    // 9. Chimney
+    const cStyle = (chimneyStyle !== undefined) ? chimneyStyle : 0;
 
-    const cb1 = toScreen(cPos.lx + cw, cPos.ly + cw, cBaseZ);
-    const ct1 = toScreen(cPos.lx + cw, cPos.ly + cw, cBaseZ + ch);
-    const ct2 = toScreen(cPos.lx + cw, cPos.ly - cw, cBaseZ + ch);
-    const ct3 = toScreen(cPos.lx - cw, cPos.ly - cw, cBaseZ + ch);
-    const ct4 = toScreen(cPos.lx - cw, cPos.ly + cw, cBaseZ + ch);
+    if (cStyle !== 0) {
+        let cw, ch, cPos, cColorMain, cColorSide, cColorTop;
+        // Texturing flags
+        let doBricks = false;
+        let doStones = false;
+        let doCap = false;
 
-    // Side Face
-    ctx.fillStyle = "#636e72";
-    ctx.beginPath();
-    ctx.moveTo(cb1.x, cb1.y);
-    ctx.lineTo(toScreen(cPos.lx + cw, cPos.ly - cw, cBaseZ).x, toScreen(cPos.lx + cw, cPos.ly - cw, cBaseZ).y);
-    ctx.lineTo(ct2.x, ct2.y);
-    ctx.lineTo(ct1.x, ct1.y);
-    ctx.fill();
-    ctx.stroke();
+        if (cStyle === 1) {
+            // --- Style 1: Classic Stone with Flue ---
+            cw = 4; // reduced from 5
+            ch = 12; // reduced from 14
+            cPos = { lx: 10, ly: -5 };
+            cColorMain = "#7f8c8d"; // Concrete
+            cColorSide = "#556068";
+            cColorTop = "#95a5a6";
+            doCap = true;
 
-    // Front Face
-    ctx.fillStyle = "#b2bec3";
-    ctx.beginPath();
-    ctx.moveTo(cb1.x, cb1.y);
-    ctx.lineTo(toScreen(cPos.lx - cw, cPos.ly + cw, cBaseZ).x, toScreen(cPos.lx - cw, cPos.ly + cw, cBaseZ).y);
-    ctx.lineTo(ct4.x, ct4.y);
-    ctx.lineTo(ct1.x, ct1.y);
-    ctx.fill();
-    ctx.stroke();
+        } else if (cStyle === 2) {
+            // --- Style 2: Industrial Brick with Stone Cap ---
+            cw = 4; // reduced from 5
+            ch = 18; // reduced from 20
+            cPos = { lx: 8, ly: -6 };
+            cColorMain = "#a04000"; // Darker Burnt Orange/Brown
+            cColorSide = "#6e2c00"; // Dark contrast side
+            cColorTop = "#d35400";
+            doBricks = true;
+            doCap = true; // Add cap for stone finish
+        } else if (cStyle === 3) {
+            // --- Style 3: Creative Cottage (Double Pot) ---
+            cw = 6; // reduced from 7
+            ch = 7; // reduced from 8
+            cPos = { lx: 10, ly: -4 };
+            cColorMain = "#95a5a6"; // Stone Grey
+            cColorSide = "#7f8c8d";
+            cColorTop = "#bdc3c7"; // Light stone top
+            doStones = true; // Keep stone texture on base
+        }
 
-    // Top
-    ctx.fillStyle = "#2d3436";
-    ctx.beginPath();
-    ctx.moveTo(ct1.x, ct1.y);
-    ctx.lineTo(ct2.x, ct2.y);
-    ctx.lineTo(ct3.x, ct3.y);
-    ctx.lineTo(ct4.x, ct4.y);
-    ctx.closePath();
-    ctx.fill();
+        // --- Slanted Base Logic ---
+        function getRoofH(lx) {
+            const ratio = 1 - (Math.abs(lx) / rhw);
+            return wallHeight + roofHeight * ratio - 2;
+        }
+
+        const xInner = cPos.lx - cw;
+        const xOuter = cPos.lx + cw;
+        const yFront = cPos.ly + cw;
+        const yBack = cPos.ly - cw;
+
+        const zInner = getRoofH(xInner);
+        const zOuter = getRoofH(xOuter);
+        const zCenterBase = getRoofH(cPos.lx);
+
+        let zTop = zCenterBase + ch;
+        if (doCap) zTop -= 2; // Reserve space for cap
+
+        // Vertices for Main Shaft
+        // Front Face (+Y)
+        const p_tf_tl = toScreen(xInner, yFront, zTop);
+        const p_tf_tr = toScreen(xOuter, yFront, zTop);
+        const p_tf_br = toScreen(xOuter, yFront, zOuter);
+        const p_tf_bl = toScreen(xInner, yFront, zInner);
+
+        // Side Face (+X)
+        const p_sf_tr = toScreen(xOuter, yBack, zTop);
+        const p_sf_br = toScreen(xOuter, yBack, zOuter);
+
+        // Top Points (for Top Face or Cap Base)
+        const p_top_bl = toScreen(xInner, yBack, zTop);
+
+
+        // 1. Draw Side Face (+X)
+        ctx.fillStyle = cColorSide;
+        ctx.beginPath();
+        ctx.moveTo(p_tf_tr.x, p_tf_tr.y);
+        ctx.lineTo(p_sf_tr.x, p_sf_tr.y);
+        ctx.lineTo(p_sf_br.x, p_sf_br.y);
+        ctx.lineTo(p_tf_br.x, p_tf_br.y);
+        ctx.fill();
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "rgba(0,0,0,0.1)";
+        ctx.stroke();
+
+        // 2. Draw Front Face (+Y)
+        ctx.fillStyle = cColorMain;
+        ctx.beginPath();
+        ctx.moveTo(p_tf_tl.x, p_tf_tl.y);
+        ctx.lineTo(p_tf_tr.x, p_tf_tr.y);
+        ctx.lineTo(p_tf_br.x, p_tf_br.y);
+        ctx.lineTo(p_tf_bl.x, p_tf_bl.y);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // --- Textures ---
+        if (doBricks) {
+            ctx.strokeStyle = "rgba(255,255,255,0.3)"; // Lighter Mortar
+            ctx.lineWidth = 1;
+            const brickH = 4;
+
+            // Calc constants for inverse roof height (Slope)
+            const h_peak = wallHeight + roofHeight - 2;
+            const slope = roofHeight / rhw; // drop per unit x
+
+            // Draw lines on Front Face (+Y, vary X) and Side Face (+X, vary Y)
+            // Start from zTop go down
+            for (let z = zTop - brickH; z > zOuter + 0.5; z -= brickH) {
+                // Front Face Line (Along X)
+                // CLIPPING: The bottom edge is diagonal from (xInner, zInner) to (xOuter, zOuter).
+                // If z < zInner, the wall starts at x > xInner.
+
+                let bxStart = xInner;
+                if (z < zInner) {
+                    // z = h_peak - slope * x  =>  x = (h_peak - z) / slope
+                    bxStart = (h_peak - z) / slope;
+                    // Safety clamp
+                    if (bxStart < xInner) bxStart = xInner;
+                }
+
+                // If our start point is beyond the outer edge, don't draw (shouldn't happen with z > zOuter)
+                if (bxStart < xOuter) {
+                    ctx.beginPath();
+                    const b_start = toScreen(bxStart, yFront, z);
+                    const b_end = toScreen(xOuter, yFront, z);
+                    ctx.moveTo(b_start.x, b_start.y);
+                    ctx.lineTo(b_end.x, b_end.y);
+                    ctx.stroke();
+                }
+
+                // Side Face Line (Along Y)
+                // Side face bottom is flat at zOuter, so just check z > zOuter
+                if (z > zOuter) {
+                    ctx.beginPath();
+                    const s_start = toScreen(xOuter, yFront, z);
+                    const s_end = toScreen(xOuter, yBack, z);
+                    ctx.moveTo(s_start.x, s_start.y);
+                    ctx.lineTo(s_end.x, s_end.y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+
+
+        // --- Cap / Top Logic ---
+        if (doCap) {
+            // Draw a wider, short box on top
+            const capOut = 1.5;
+            const capH = 2;
+            const czBot = zTop;
+            const czTop = zTop + capH;
+
+            // Cap Coords
+            const cx1 = xInner - capOut;
+            const cx2 = xOuter + capOut;
+            const cy1 = yFront + capOut;
+            const cy2 = yBack - capOut;
+
+            // Helper to draw Cap Prism
+            const c_fl_bot = toScreen(cx1, cy1, czBot);
+            const c_fr_bot = toScreen(cx2, cy1, czBot);
+            const c_fr_top = toScreen(cx2, cy1, czTop);
+            const c_fl_top = toScreen(cx1, cy1, czTop);
+            const c_br_top = toScreen(cx2, cy2, czTop);
+            const c_bl_top = toScreen(cx1, cy2, czTop);
+            const c_br_bot = toScreen(cx2, cy2, czBot);
+
+            // Cap Front
+            ctx.fillStyle = adjustColor(cColorMain, 10);
+            ctx.beginPath();
+            ctx.moveTo(c_fl_bot.x, c_fl_bot.y); ctx.lineTo(c_fr_bot.x, c_fr_bot.y);
+            ctx.lineTo(c_fr_top.x, c_fr_top.y); ctx.lineTo(c_fl_top.x, c_fl_top.y);
+            ctx.fill(); ctx.stroke();
+
+            // Cap Side
+            ctx.fillStyle = adjustColor(cColorSide, 10);
+            ctx.beginPath();
+            ctx.moveTo(c_fr_bot.x, c_fr_bot.y); ctx.lineTo(c_br_bot.x, c_br_bot.y);
+            ctx.lineTo(c_br_top.x, c_br_top.y); ctx.lineTo(c_fr_top.x, c_fr_top.y);
+            ctx.fill(); ctx.stroke();
+
+            // Cap Top
+            ctx.fillStyle = cColorTop;
+            ctx.beginPath();
+            ctx.moveTo(c_fl_top.x, c_fl_top.y); ctx.lineTo(c_fr_top.x, c_fr_top.y);
+            ctx.lineTo(c_br_top.x, c_br_top.y); ctx.lineTo(c_bl_top.x, c_bl_top.y);
+            ctx.closePath();
+            ctx.fill();
+
+        } else {
+            // Standard Top Face
+            ctx.fillStyle = cColorTop;
+            ctx.beginPath();
+            ctx.moveTo(p_tf_tl.x, p_tf_tl.y);
+            ctx.lineTo(p_tf_tr.x, p_tf_tr.y);
+            ctx.lineTo(p_sf_tr.x, p_sf_tr.y);
+            ctx.lineTo(p_top_bl.x, p_top_bl.y);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        // Decoration: Style 1 Flue Box
+        if (cStyle === 1) {
+            // Rectangular Flue Liner sticking out
+            const fH = 2.5;
+            const fW = 2; // Reduced from 2.5
+            const fBase = zTop + 2;
+
+            const fColor = "#e17055"; // Clay
+
+            // Box
+            const fx1 = cPos.lx - fW;
+            const fx2 = cPos.lx + fW;
+            const fy1 = cPos.ly + fW;
+            const fy2 = cPos.ly - fW;
+
+            const fl_fl_bot = toScreen(fx1, fy1, fBase);
+            const fl_fr_bot = toScreen(fx2, fy1, fBase);
+            const fl_fl_top = toScreen(fx1, fy1, fBase + fH);
+            const fl_fr_top = toScreen(fx2, fy1, fBase + fH);
+
+            const fl_br_bot = toScreen(fx2, fy2, fBase);
+            const fl_br_top = toScreen(fx2, fy2, fBase + fH);
+            const fl_bl_top = toScreen(fx1, fy2, fBase + fH);
+
+            // Front
+            ctx.fillStyle = fColor;
+            ctx.beginPath();
+            ctx.moveTo(fl_fl_bot.x, fl_fl_bot.y); ctx.lineTo(fl_fr_bot.x, fl_fr_bot.y);
+            ctx.lineTo(fl_fr_top.x, fl_fr_top.y); ctx.lineTo(fl_fl_top.x, fl_fl_top.y);
+            ctx.fill();
+
+            // Side
+            ctx.fillStyle = adjustColor(fColor, -15);
+            ctx.beginPath();
+            ctx.moveTo(fl_fr_bot.x, fl_fr_bot.y); ctx.lineTo(fl_br_bot.x, fl_br_bot.y);
+            ctx.lineTo(fl_br_top.x, fl_br_top.y); ctx.lineTo(fl_fr_top.x, fl_fr_top.y);
+            ctx.fill();
+
+            // Top rim/hole
+            ctx.fillStyle = "#2d3436";
+            ctx.beginPath();
+            ctx.moveTo(fl_fl_top.x, fl_fl_top.y); ctx.lineTo(fl_fr_top.x, fl_fr_top.y);
+            ctx.lineTo(fl_br_top.x, fl_br_top.y); ctx.lineTo(fl_bl_top.x, fl_bl_top.y);
+            ctx.fill();
+
+            // Rim highlight
+            ctx.strokeStyle = adjustColor(fColor, 20);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(fl_fl_top.x, fl_fl_top.y); ctx.lineTo(fl_fr_top.x, fl_fr_top.y);
+            ctx.lineTo(fl_br_top.x, fl_br_top.y); ctx.lineTo(fl_bl_top.x, fl_bl_top.y);
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        // Decoration: Pot for Style 2
+        if (cStyle === 2) {
+            const potBaseZ = doCap ? (zTop + 2) : zTop;
+            const potC = toScreen(cPos.lx, cPos.ly, potBaseZ);
+            ctx.fillStyle = "#e67e22";
+            ctx.beginPath();
+            ctx.ellipse(potC.x, potC.y, 3, 1.5, 0, 0, Math.PI * 2);
+            ctx.fill();
+            // Pot Rim/Hole
+            ctx.fillStyle = "#d35400";
+            ctx.beginPath();
+            ctx.ellipse(potC.x, potC.y, 1.5, 0.7, 0, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Decoration: Double Pots for Style 3 (Creative Cottage)
+        if (cStyle === 3) {
+            // 1. Two Chimney Pots
+            const potH = 8; // Reduced height
+            const potRad = 2; // Reduced radius
+            const potColor = "#e67e22";
+
+            // Positions on the flat top
+            const pot1Pos = { x: cPos.lx - 2, y: cPos.ly };
+            const pot2Pos = { x: cPos.lx + 2, y: cPos.ly };
+
+            [pot1Pos, pot2Pos].forEach(pos => {
+                const b = toScreen(pos.x, pos.y, zTop);
+                // Draw Cylinder
+                const t = toScreen(pos.x, pos.y, zTop + potH);
+
+                // Body (Simple Rect for iso cylinder)
+                // const w = potRad * 2; 
+                ctx.fillStyle = potColor;
+                ctx.beginPath();
+                // Bottom is ellipse-ish... just draw box for now essentially
+                const b_l = toScreen(pos.x, pos.y + potRad, zTop);
+                const b_r = toScreen(pos.x, pos.y - potRad, zTop);
+                const t_r = toScreen(pos.x, pos.y - potRad, zTop + potH);
+                const t_l = toScreen(pos.x, pos.y + potRad, zTop + potH);
+
+                ctx.moveTo(b_l.x, b_l.y); ctx.lineTo(b_r.x, b_r.y);
+                ctx.lineTo(t_r.x, t_r.y); ctx.lineTo(t_l.x, t_l.y);
+                ctx.fill();
+
+                // Rim
+                ctx.fillStyle = "#d35400"; // Darker rim
+                ctx.beginPath();
+                ctx.ellipse(t.x, t.y, 3, 1.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+                // Hole
+                ctx.fillStyle = "#2d3436";
+                ctx.beginPath();
+                ctx.ellipse(t.x, t.y, 1.5, 0.8, 0, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+    }
 
 
 

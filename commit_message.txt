@@ -1,1 +1,1 @@
-version 11 : add `abandoned` and `facing` house properties.
+version 12: Added `has_terrace` property to houses and render a second floor with an upper window when present.

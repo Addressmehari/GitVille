@@ -9,7 +9,8 @@
         "chimneyStyle": 1,
         "wallStyle": 0,
         "username": "CodeMaster99",
-        "facing": "right"
+        "facing": "right",
+        "has_terrace": true
     },
     {
         "x": -2,
@@ -106,7 +107,8 @@
         "chimneyStyle": 3,
         "wallStyle": 2,
         "username": "NodeNinja",
-        "facing": "left"
+        "facing": "left",
+        "has_terrace": true
     },
     {
         "x": 2,

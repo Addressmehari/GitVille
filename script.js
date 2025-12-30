@@ -370,7 +370,7 @@ function renderHouses() {
     // but unless we have thousands, iterating is cheap. Drawing is the cost.
 
     for (const house of sortedHouses) {
-        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle, house.windowStyle, house.chimneyStyle, house.wallStyle, house.hoverAnim, house.username, house.abandoned, house.facing);
+        drawHouse(house.x, house.y, house.color, house.roofStyle, house.doorStyle, house.windowStyle, house.chimneyStyle, house.wallStyle, house.hoverAnim, house.username, house.abandoned, house.facing, house.has_terrace);
     }
 }
 
@@ -394,7 +394,7 @@ function updateHoverState() {
     }
 }
 
-function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyle, wallStyle, hoverAnim, username, abandoned, facing) {
+function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyle, wallStyle, hoverAnim, username, abandoned, facing, has_terrace) {
     const isoCenter = gridToWorld(gx, gy);
 
     // --- "Sketchy" Style Hook (Abandoned Only) ---
@@ -497,7 +497,9 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
     // House Dimensions - "Less Wide"
     const hw = 16;  // Half-Width (Side to side relative to gable)
     const hd = 18;  // Half-Depth (Front to back)
-    const wallHeight = 35;
+    let wallHeight = 35;
+    if (has_terrace) wallHeight = 60; // 2 Floors
+
     let roofHeight = 30; // Higher roof looks cozier
     if (abandoned) roofHeight = 22; // Collapsed look
     const overhang = 4;    // Roof overhang magnitude (Key for 'good' look)
@@ -1439,6 +1441,45 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
         ctx.arc(k1.x, k1.y, 1, 0, Math.PI * 2);
         ctx.arc(k2.x, k2.y, 1, 0, Math.PI * 2);
         ctx.fill();
+    }
+
+    // --- Terrace / 2nd Floor (No divider band, just taller wall) ---
+    if (has_terrace) {
+        // Divider Band REMOVED per user request
+
+        // Just the Upper Window logic follows...
+        const floorH = 35; // Needed for calculation
+
+        // Add a secondary window on the 2nd floor front?
+        // Let's add simple one
+        const uWinY = hd + 0.2;
+        const uWinZ = floorH + (wallHeight - floorH) / 2 + 2;
+
+        // Use manual rect for Front Wall Face (+Y face)
+        // topRightRect was for +X face.
+
+        function drawFrontRect(cx, cy, cz, w, h, color) {
+            const x1 = cx - w / 2;
+            const x2 = cx + w / 2;
+            const z1 = cz - h / 2;
+            const z2 = cz + h / 2;
+
+            const p_bl = toScreen(x1, cy, z1);
+            const p_br = toScreen(x2, cy, z1);
+            const p_tr = toScreen(x2, cy, z2);
+            const p_tl = toScreen(x1, cy, z2);
+
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(p_bl.x, p_bl.y);
+            ctx.lineTo(p_br.x, p_br.y);
+            ctx.lineTo(p_tr.x, p_tr.y);
+            ctx.lineTo(p_tl.x, p_tl.y);
+            ctx.fill();
+        }
+
+        drawFrontRect(0, uWinY, uWinZ, 10, 10, "#dfe6e9"); // Frame
+        drawFrontRect(0, uWinY + 0.1, uWinZ, 8, 8, abandoned ? "#2d3436" : "#74b9ff"); // Glass
     }
 
     // 4. Gable Triangle (Wall material, flush with walls)

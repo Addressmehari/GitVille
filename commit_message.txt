@@ -1,1 +1,1 @@
-version 24: added obstacles tree, adjusted python code according to spawn trees between world
+version 25: adjusted python code to fetch the followers list for special repo. owner/owner

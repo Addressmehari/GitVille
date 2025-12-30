@@ -334,7 +334,7 @@ import random
 
 def generate_houses(stargazers, contributors, owner_name):
     # Sort
-    stargazers.sort(key=lambda x: x['starred_at'])
+    stargazers.sort(key=lambda x: x.get('starred_at', '0'))
     
     # Prepend Owner
     # Create a mock entry
@@ -474,6 +474,70 @@ def add_user(username):
     print(f"Adding new house for {username}...")
     recalculate_layout(houses)
 
+def get_followers(username, token=None, limit=1000):
+    url = f"https://api.github.com/users/{username}/followers"
+    followers = []
+    page = 1
+    per_page = 100
+    
+    headers = {
+        "Accept": "application/vnd.github.v3+json",
+        "User-Agent": "GitVille-Follower-Fetcher"
+    }
+    if token:
+        headers["Authorization"] = f"token {token}"
+        
+    print(f"Fetching max {limit} followers for user {username}...")
+    
+    import time
+    
+    while len(followers) < limit:
+        attempts = 0
+        success = False
+        
+        while attempts < 3:
+            try:
+                req = urllib.request.Request(f"{url}?page={page}&per_page={per_page}", headers=headers)
+                with urllib.request.urlopen(req, timeout=10) as response:
+                    content = response.read().decode()
+                    if not content.strip():
+                        data = []
+                    else:
+                        data = json.loads(content)
+                        
+                    if not data:
+                        success = True
+                        break
+                    
+                    # Wrap followers to match stargazer structure: {'user': user_obj}
+                    # API returns list of users directly: [{'login':...}, ...]
+                    wrapped_data = [{'user': user} for user in data]
+                    
+                    remaining = limit - len(followers)
+                    followers.extend(wrapped_data[:remaining])
+                    
+                    print(f"Fetched followers page {page} (+{len(wrapped_data[:remaining])}, total {len(followers)})")
+                    
+                    if len(data) < per_page:
+                        success = True
+                    else:
+                        success = True
+                        
+                    page += 1
+                    break
+                    
+            except (urllib.error.HTTPError, urllib.error.URLError, Exception) as e:
+                print(f"Follower fetch attempt {attempts+1} failed: {e}")
+                attempts += 1
+                time.sleep(2)
+                
+        if not success or (len(followers) >= limit):
+            if not success:
+                print("Failed to fetch followers page after retries.")
+            break
+            
+    return followers
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python fetch_stargazers.py owner/repo [count] [token]")
@@ -503,10 +567,18 @@ def main():
     owner, repo = repo_input.split('/')
     
     print(f"Fetch limit set to: {limit}")
-    stargazers = get_stargazers(owner, repo, token, limit=limit)
-    contributors = get_contributors(owner, repo, token, limit=limit)
     
-    if stargazers:
+    # Special Case: Profile Repo (owner == repo) -> Fetch Followers
+    if owner == repo:
+        print(f"Detected Profile Repository '{owner}/{repo}'. Fetching FOLLOWERS instead of Stargazers.")
+        stargazers = get_followers(owner, token, limit=limit)
+        contributors = set() # Skip contributors for profile repo
+    else:
+        stargazers = get_stargazers(owner, repo, token, limit=limit)
+        contributors = get_contributors(owner, repo, token, limit=limit)
+    
+    # We proceed even if stargazers is empty, because we always generate the owner's house
+    if stargazers is not None:
         houses, roads = generate_houses(stargazers, contributors, owner)
         
         with open("stargazers_houses.json", "w") as f:
@@ -520,7 +592,7 @@ def main():
         print(f"Successfully generated {len(houses)} houses in stargazers_houses.json")
         print(f"Successfully generated {len(road_data)} road tiles in roads.json")
     else:
-        print("No stargazers found (or error).")
+        print("Error fetching users.")
 
 if __name__ == "__main__":
     main()

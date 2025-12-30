@@ -16,9 +16,9 @@ const TILE_HEIGHT = 50;
 const HOUSE_HEIGHT = 60; // Height of the cube house
 
 // Colors
-const COLOR_GROUND_LIGHT = '#e8f5e9'; // Light checker pattern 1
-const COLOR_GROUND_DARK = '#c8e6c9';  // Light checker pattern 2
-const GRID_LINE_COLOR = 'rgba(0, 0, 0, 0.05)';
+const COLOR_GROUND_LIGHT = '#bef5be'; // Pastel Green Light
+const COLOR_GROUND_DARK = '#adf0ad';  // Pastel Green Dark
+const GRID_LINE_COLOR = 'rgba(0, 0, 0, 0)'; // Transparent
 const HOUSE_SIDE_SHADE = 0.8; // Multiplier for side face
 const HOUSE_TOP_SHADE = 1.0;  // Multiplier for top face
 const HOUSE_FRONT_SHADE = 0.9; // Multiplier for front face
@@ -255,7 +255,7 @@ function worldToGrid(worldX, worldY) {
 // --- Rendering ---
 function render() {
     // 1. Clear background
-    ctx.fillStyle = "#f0f4f8"; // matches CSS var
+    ctx.fillStyle = "#9df3a5"; // matches CSS var
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // 2. Setup transform
@@ -274,7 +274,10 @@ function render() {
     updateHoverState();
     renderHouses();
 
-    // 5. Draw Weather (Overlay)
+    // 5. Draw Smoke / Particles (World Space)
+    drawParticles();
+
+    // 6. Draw Weather (Overlay)
     drawWeather();
 
     ctx.restore();
@@ -282,8 +285,42 @@ function render() {
     requestAnimationFrame(render);
 }
 
-// --- Weather Components ---
-let rainDrops = [];
+
+// --- Particle System (Smoke) ---
+let particles = [];
+function drawParticles() {
+    // Update and Draw in one loop
+    for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.life -= 0.01;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.radius += 0.05; // Expand
+
+        if (p.life <= 0) {
+            particles.splice(i, 1);
+            continue;
+        }
+
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.life * 0.4})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+// Helper to spawn smoke
+function spawnSmoke(x, y) {
+    particles.push({
+        x: x,
+        y: y,
+        vx: (Math.random() - 0.5) * 0.5 + 0.5, // Drift right (wind)
+        vy: -0.5 - Math.random() * 0.5, // Float up
+        life: 1.0,
+        radius: 2 + Math.random() * 2
+    });
+}
+
 function drawWeather() {
     if (worldConfig.weather !== 'rain') return;
 
@@ -401,9 +438,16 @@ function renderVisibleGrid() {
             if (roads.has(tileKey)) {
                 drawRoadTile(gx, gy, worldPos);
             } else {
-                // Checkboard pattern
-                const isDark = (gx + gy) % 2 !== 0; // Simple parity check
-                ctx.fillStyle = isDark ? COLOR_GROUND_DARK : COLOR_GROUND_LIGHT;
+                // Natural Grass Pattern
+                // Use a pseudo-random hash to pick distinct grass shades
+                // Simple deterministic noise
+                const seed = Math.sin(gx * 12.9898 + gy * 78.233) * 43758.5453; // common GLSL pseudo-random
+                const noise = Math.abs(seed - Math.floor(seed));
+
+                // 3 subtle variants (Pastel)
+                if (noise < 0.6) ctx.fillStyle = "#bef5be";      // Base (Matches BG)
+                else if (noise < 0.9) ctx.fillStyle = "#b5f0b5"; // Slightly Darker
+                else ctx.fillStyle = "#c8facc";                  // Slightly Lighter
 
                 // Draw Diamond path
                 ctx.beginPath();
@@ -413,11 +457,68 @@ function renderVisibleGrid() {
                 ctx.lineTo(worldPos.x - TILE_WIDTH / 2, worldPos.y);
                 ctx.closePath();
 
+                // Fill with slightly overlapped rect to prevent subpixel lines? 
+                // Canvas path fill is usually okay.
                 ctx.fill();
 
-                // Toggleable grid lines (drawing them always for now as they are subtle)
-                ctx.strokeStyle = GRID_LINE_COLOR;
-                ctx.stroke();
+                // Organic Details (Procedural Placement + Wind)
+                // Threshold: noise > 0.70 means 30% of tiles get something
+                if (noise > 0.70) {
+                    const decType = Math.floor((seed * 100) % 10);
+                    // Generate a pseudo-random offset from center
+                    const ox = ((seed * 57.1) % 40) - 20;
+                    const oy = ((seed * 21.3) % 18) - 9;
+                    const tx = worldPos.x + ox;
+                    const ty = worldPos.y + oy;
+
+                    // Wind Animation
+                    const time = Date.now() * 0.002;
+                    const sway = Math.sin(time + tx * 0.02 + ty * 0.03) * 2;
+
+                    if (decType < 6) {
+                        // Grass Tuft (Small strokes)
+                        ctx.strokeStyle = "#76c47c"; // Slightly darker pastel green for contrast
+                        ctx.lineWidth = 1.5;
+                        ctx.beginPath();
+                        ctx.moveTo(tx, ty); ctx.lineTo(tx - 3 + sway, ty - 4);
+                        ctx.moveTo(tx, ty); ctx.lineTo(tx + 2 + sway, ty - 5);
+                        ctx.stroke();
+                    } else if (decType < 9) {
+                        // Flowers (Simple dots)
+                        const colors = ["#ffb7b2", "#ffdac1", "#e2f0cb", "#b5ead7", "#c7ceea"]; // Pastel Rainbow
+                        const cIdx = Math.floor((seed * 13) % colors.length);
+
+                        const fx = tx + sway * 0.5;
+
+                        ctx.fillStyle = colors[cIdx];
+                        ctx.beginPath();
+                        ctx.arc(fx, ty - 3, 2, 0, Math.PI * 2);
+                        ctx.fill();
+
+                        // Stem
+                        ctx.strokeStyle = "#76c47c";
+                        ctx.beginPath();
+                        ctx.moveTo(tx, ty); ctx.lineTo(fx, ty - 3);
+                        ctx.stroke();
+
+                        // White center
+                        ctx.fillStyle = "#fff";
+                        ctx.beginPath();
+                        ctx.arc(fx, ty - 3, 0.8, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else {
+                        // Small Bush
+                        ctx.fillStyle = "#8dd693"; // Bush Pastel Green
+                        const bx = tx + sway * 0.3;
+                        ctx.beginPath();
+                        ctx.arc(bx, ty, 4, 0, Math.PI * 2);
+                        ctx.arc(bx + 3, ty + 1, 3, 0, Math.PI * 2);
+                        ctx.arc(bx - 2, ty + 2, 3, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                // No grid lines for natural look
             }
         }
     }
@@ -2337,8 +2438,14 @@ function drawHouse(gx, gy, color, roofStyle, doorStyle, windowStyle, chimneyStyl
                 ctx.fillStyle = "#2d3436";
                 ctx.beginPath();
                 ctx.ellipse(t.x, t.y, 1.5, 0.8, 0, 0, Math.PI * 2);
-                ctx.fill();
             });
+        }
+
+        // --- Smoke Emitter ---
+        // Chance to spawn smoke
+        if (Math.random() < 0.05) {
+            const tip = toScreen(cPos.lx, cPos.ly, zTop + 3);
+            spawnSmoke(tip.x, tip.y);
         }
     }
 

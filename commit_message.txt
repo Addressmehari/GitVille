@@ -1,1 +1,4 @@
-version 20: fixed the house building logic, fetching count can be given in the terminal itself
+version 21: made the world feel alive.
+1.chimney smoke
+2.grass color
+3.small swaying grasses

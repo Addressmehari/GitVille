@@ -2,15 +2,27 @@
     {
         "x": 0,
         "y": 0,
-        "color": "#0e8cb2",
-        "roofStyle": 0,
-        "doorStyle": 2,
-        "windowStyle": 0,
-        "chimneyStyle": 0,
+        "color": "#5c22fc",
+        "roofStyle": 1,
+        "doorStyle": 0,
+        "windowStyle": 2,
+        "chimneyStyle": 2,
         "wallStyle": 3,
-        "username": "addressmehari",
+        "username": "Addressmehari",
         "facing": "down",
+        "has_terrace": true
+    },
+    {
+        "x": 3.0,
+        "y": -3.0,
+        "color": "#6e911c",
+        "roofStyle": 2,
+        "doorStyle": 2,
+        "windowStyle": 1,
+        "chimneyStyle": 1,
+        "wallStyle": 1,
+        "username": "hp-echo",
+        "facing": "left",
         "has_terrace": false
     }
-    
 ]

@@ -1,1 +1,1 @@
-version 30: immediately return collected data when API indicates no more results
+Update README.md

@@ -293,12 +293,12 @@ function generate() {
     let height = maxY - minY;
     
     // Zoom In Effect
-    const zoom = 1.85; 
+    const zoom = 1.9; 
     let newW = width / zoom;
     const newH = height / zoom;
     
     // Cinematic Aspect Ratio Force (Wide 2.35:1 or at least 2:1)
-    const aspect = 1.95;
+    const aspect = 1.2;
     if (newW / newH < aspect) {
          newW = newH * aspect;
     }
@@ -324,6 +324,10 @@ function generate() {
             <stop offset="70%" style="stop-color:rgb(0,0,0);stop-opacity:0" />
             <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:0.3" />
         </radialGradient>
+        <linearGradient id="sunlight" x1="0%" y1="0%" x2="100%" y2="100%">
+             <stop offset="0%" style="stop-color:#fffce6;stop-opacity:0.25" />
+             <stop offset="60%" style="stop-color:#fffce6;stop-opacity:0" />
+        </linearGradient>
         <style>
             @keyframes treeSway {
                 0%, 100% { transform: skewX(0deg); }
@@ -346,6 +350,57 @@ function generate() {
             .cloud-base { opacity: 0.9; }
             .c-slow { animation: cloudDriftSlow 60s linear infinite alternate; }
             .c-fast { animation: cloudDriftFast 40s linear infinite alternate; }
+            
+            @keyframes fireflyFloat {
+                0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+                50% { opacity: 1; transform: translate(10px, -15px); }
+            }
+            .firefly { animation: fireflyFloat 4s ease-in-out infinite alternate; }
+            
+            @keyframes cameraPan {
+                0% { transform: translate(0, 0); }
+                33% { transform: translate(-15px, -5px); }
+                66% { transform: translate(5px, -10px); }
+                100% { transform: translate(0, 0); }
+            }
+            .world-sway {
+                animation: cameraPan 20s ease-in-out infinite;
+                transform-origin: center center;
+            }
+            
+            @keyframes smokeRise {
+                0% { transform: translate(0, 0) scale(0.5); opacity: 0.6; }
+                100% { transform: translate(15px, -50px) scale(2.5); opacity: 0; }
+            }
+            .smoke {
+                transform-box: fill-box;
+                transform-origin: center center;
+            }
+            
+            @keyframes birdFly {
+                0% { transform: translateX(0) translateY(0); }
+                25% { transform: translateX(100px) translateY(15px); }
+                50% { transform: translateX(200px) translateY(-5px); }
+                75% { transform: translateX(300px) translateY(10px); }
+                100% { transform: translateX(400px) translateY(0); }
+            }
+            .bird { animation: birdFly 20s linear infinite; }
+            
+            @keyframes grassWave {
+                0%, 100% { transform: rotate(0deg); }
+                50% { transform: rotate(10deg); }
+            }
+            .grass-anim {
+                transform-box: fill-box;
+                transform-origin: bottom center;
+                animation: grassWave 3s ease-in-out infinite;
+            }
+            
+            @keyframes floatAnim {
+                0%, 100% { transform: translate(0, 0); }
+                50% { transform: translate(0, -3px); }
+            }
+            .citizen { animation: floatAnim 1s ease-in-out infinite; }
         </style>
     </defs>
     `;
@@ -354,6 +409,9 @@ function generate() {
     const drawRoadTile = sandbox.drawRoadTile;
     const drawHouse = sandbox.drawHouse;
     const drawTree = sandbox.drawTree;
+    
+    // Start World Sway Group
+    svgOut += '<g class="world-sway">';
     
     // --- LAYER 1: GROUND (Grass & Roads) ---
     // Iterate Grid
@@ -367,6 +425,18 @@ function generate() {
             // Check if Road
             if (sandbox.roads.has(tileKey)) {
                 drawRoadTile(gx, gy, worldPos);
+                
+                // Chance to spawn a Citizen
+                if (Math.random() < 0.1) { // 10% chance per road tile
+                    const cx = worldPos.x;
+                    const cy = worldPos.y;
+                    // Random bright color
+                    const cColors = ["#E91E63", "#9C27B0", "#2196F3", "#FF9800", "#F44336"];
+                    const cc = cColors[Math.floor(Math.random() * cColors.length)];
+                    // Draw Citizen (Simple Dot with bounce)
+                    myContext.svgBuffer.push(`<circle cx="${cx}" cy="${cy}" r="4" fill="${cc}" stroke="white" stroke-width="1" class="citizen" style="animation-delay: -${Math.random()}s" />`);
+                }
+                
             } else {
                 // Draw Natural Grass (Logic matching script.js renderVisibleGrid)
                 const seed = Math.sin(gx * 12.9898 + gy * 78.233) * 43758.5453;
@@ -400,6 +470,8 @@ function generate() {
                      const tx = worldPos.x + ox;
                      const ty = worldPos.y + oy;
                      
+                     myContext.svgBuffer.push(`<g class="grass-anim" style="animation-delay: -${Math.random()*2}s">`);
+                     
                      if (decType < 6) {
                          // Tuft
                          myContext.strokeStyle = "#76c47c";
@@ -417,12 +489,14 @@ function generate() {
                          myContext.arc(tx, ty-3, 2, 0, Math.PI*2);
                          myContext.fill();
                      }
+                     
+                     myContext.svgBuffer.push(`</g>`);
                 }
             }
         }
     }
     
-    // --- LAYER 2: OBJECTS (Houses & Trees) ---
+    // --- LAYER 2: OBJECTS (Houses & Trees & Smoke) ---
     // Sorted by Depth (x+y)
     
     // Filter entities to just House/Tree
@@ -441,11 +515,46 @@ function generate() {
             drawTree(h.x, h.y, myContext);
             myContext.endGroup();
         } else {
+             // Drop Shadow for House
+             const pos = gridToWorld(h.x, h.y);
+             myContext.fillStyle = "rgba(0, 0, 0, 0.2)";
+             myContext.beginPath();
+             // Ellipse shadow
+             myContext.ellipse(pos.x, pos.y, 40, 20, 0, 0, Math.PI*2);
+             myContext.fill();
+
             drawHouse(
                 h.x, h.y, h.color, h.roofStyle, h.doorStyle, h.windowStyle, h.chimneyStyle, h.wallStyle, 0, h.username, h.abandoned, h.facing, h.has_terrace
             );
+            
+            // Render Smoke if inhabited
+            if (!h.abandoned) {
+                // Approximate Chimney pos (Center top - offset)
+                const sx = pos.x;
+                const sy = pos.y - 65; 
+                
+                // SVG group for smoke
+                myContext.svgBuffer.push(`<g class="smoke-stack">`);
+                for(let k=0; k<3; k++) {
+                   const delay = -Math.random() * 3;
+                   const r = 3 + Math.random()*2;
+                   myContext.svgBuffer.push(`<circle cx="${sx}" cy="${sy}" r="${r}" fill="rgba(255,255,255,0.4)" class="smoke" style="animation: smokeRise 4s ease-out infinite; animation-delay: ${delay}s;" />`);
+                }
+                myContext.svgBuffer.push(`</g>`);
+            }
         }
     });
+
+    // --- BIRDS ---
+    myContext.beginGroup('class="birds" opacity="0.6"');
+    for(let i=0; i<5; i++) {
+        const bx = minX + Math.random() * width * 0.5;
+        const by = minY + Math.random() * height * 0.4;
+        const delay = -Math.random() * 20;
+        // Simple V shape path
+        myContext.svgBuffer.push(`<path d="M ${bx} ${by} L ${bx+5} ${by+2} L ${bx+10} ${by}" fill="none" stroke="#333" stroke-width="1.5" class="bird" style="animation-duration: ${15+Math.random()*10}s; animation-delay:${delay}s;" />`);
+    }
+    myContext.endGroup();
 
     // --- LAYER 3: REALISTIC CLOUDS ---
     // Helper for fluffy cloud
@@ -483,19 +592,65 @@ function generate() {
         drawCloud(cx, cy, 0.8);
     }
     myContext.endGroup();
-
-    // --- OVERLAY: VIGNETTE & LOGO ---
+    
+    // --- OVERLAY: UI ELEMENTS ---
     
     // Close the buffer iteration first to append final SVG tags
     svgOut += myContext.svgBuffer.join("\n");
     
-    // Append Overlay rects directly
-    // Vignette
+    // End World Sway Group (Close AFTER content)
+    svgOut += '</g>';
+    
+    // Calculate Stats
+    const population = housesData.filter(h => !h.obstacle).length;
+    
+    // UI Constants
+    const cardPadding = 25;
+    const footerHeight = 70;
+    const frameMargin = 15;
+    
+    // Frame Coordinates
+    const fx = viewBoxX + frameMargin;
+    const fy = viewBoxY + frameMargin;
+    const fw = newW - (frameMargin * 2);
+    const fh = newH - (frameMargin * 2);
+    
+    // Determine Owner (assumed at 0,0 or first valid user)
+    const ownerHouse = housesData.find(h => h.x === 0 && h.y === 0 && h.username) || housesData.find(h => h.username);
+    const titleText = ownerHouse ? `${ownerHouse.username}'s GitVille` : "GitVille";
+
+    // Append Overlay UI
     svgOut += `
+    <!-- Sunlight Overlay -->
+    <rect x="${viewBoxX}" y="${viewBoxY}" width="${newW}" height="${newH}" fill="url(#sunlight)" pointer-events="none" style="mix-blend-mode: overlay;" />
+    
+    <!-- Vignette -->
     <rect x="${minX-500}" y="${minY-500}" width="${width+1000}" height="${height+1000}" fill="url(#vignette)" pointer-events="none" />
     
-    <!-- Aesthetic Outline Frame -->
-    <rect x="${viewBoxX + 10}" y="${viewBoxY + 10}" width="${newW - 20}" height="${newH - 20}" fill="none" stroke="#ffffff" stroke-width="8" opacity="0.6" />
+    <!-- Fireflies (Foreground Particles) -->
+    <g class="fireflies" pointer-events="none">
+    `;
+    
+    // Generate 15 Fireflies
+    for(let i=0; i<15; i++) {
+        const fx = minX + Math.random() * width;
+        const fy = minY + Math.random() * height;
+        const delay = -Math.random() * 5;
+        const dur = 3 + Math.random() * 4;
+        svgOut += `<circle cx="${fx.toFixed(2)}" cy="${fy.toFixed(2)}" r="${(1+Math.random()*1.5).toFixed(1)}" fill="#fff59d" class="firefly" style="animation-delay:${delay}s; animation-duration:${dur}s;" />\n`;
+    }
+    
+    svgOut += `</g>
+    
+    <!-- Floating Footer Info (No Background) -->
+    <g transform="translate(${fx}, ${fy + fh - footerHeight + 20})">
+        <!-- Text Content (Strong Shadow for readability) -->
+        <text x="30" y="30" fill="white" font-family="'Segoe UI', -apple-system, sans-serif" font-weight="bold" font-size="32" style="text-shadow: 0 3px 8px rgba(0,0,0,0.8);">${titleText}</text>
+        <text x="${fw - 30}" y="30" fill="white" font-family="'Segoe UI', -apple-system, sans-serif" font-size="22" text-anchor="end" font-weight="600" style="text-shadow: 0 3px 8px rgba(0,0,0,0.8);">Population: ${population}</text>
+    </g>
+    
+    <!-- Outer Rounded Frame -->
+    <rect x="${fx}" y="${fy}" width="${fw}" height="${fh}" rx="20" ry="20" fill="none" stroke="#ffffff" stroke-width="6" opacity="0.8" />
     `;
 
     svgOut += "\n</svg>";

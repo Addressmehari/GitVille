@@ -10,7 +10,9 @@
         "wallStyle": 3,
         "username": "Addressmehari",
         "facing": "down",
-        "has_terrace": true
+        "has_terrace": true,
+        "last_seen": "2026-01-14T11:27:30.645066",
+        "joined_at": "2026-01-14T11:27:30.645066"
     },
     {
         "x": 3.0,
@@ -23,6 +25,44 @@
         "wallStyle": 1,
         "username": "hp-echo",
         "facing": "left",
-        "has_terrace": false
+        "has_terrace": false,
+        "abandoned": true
+    },
+    {
+        "x": 5.0,
+        "y": -3.0,
+        "color": "#88c0a0",
+        "roofStyle": 0,
+        "doorStyle": 0,
+        "windowStyle": 0,
+        "chimneyStyle": 0,
+        "wallStyle": 2,
+        "username": "beatrix-chan",
+        "facing": "left",
+        "has_terrace": false,
+        "abandoned": false,
+        "joined_at": "2026-01-14T11:27:30.645066",
+        "last_seen": "2026-01-14T11:27:30.645066"
+    },
+    {
+        "x": 7.0,
+        "y": -3.0,
+        "obstacle": "tree"
+    },
+    {
+        "x": 9.0,
+        "y": -3.0,
+        "color": "#97ffe2",
+        "roofStyle": 1,
+        "doorStyle": 3,
+        "windowStyle": 3,
+        "chimneyStyle": 3,
+        "wallStyle": 2,
+        "username": "BUVANESH-047",
+        "facing": "left",
+        "has_terrace": false,
+        "abandoned": false,
+        "joined_at": "2026-01-14T11:27:30.645066",
+        "last_seen": "2026-01-14T11:27:30.645066"
     }
 ]

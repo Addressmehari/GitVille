@@ -81,9 +81,9 @@ async function init() {
     try {
         console.log("Fetching data...");
         const [housesRes, worldRes, roadsRes] = await Promise.all([
-            fetch('https://raw.githubusercontent.com/Addressmehari/GitVille/main/stargazers_houses.json?t=' + Date.now()),
-            fetch('https://raw.githubusercontent.com/Addressmehari/GitVille/main/world.json?t=' + Date.now()),
-            fetch('https://raw.githubusercontent.com/Addressmehari/GitVille/main/roads.json?t=' + Date.now()).catch(e => null) // Fallback for roads
+            fetch('./stargazers_houses.json?t=' + Date.now()),
+            fetch('./world.json?t=' + Date.now()),
+            fetch('./roads.json?t=' + Date.now()).catch(e => null) // Fallback for roads
         ]);
 
         if (!housesRes.ok) throw new Error(`Houses fetch failed: ${housesRes.status}`);
@@ -112,10 +112,37 @@ async function init() {
         alert("Failed to load data. Check console (F12) for details.\n" + e.message);
     }
 
+    // Customize UI for Owner
+    if (houses.length > 0) {
+        let owner = houses[0].username;
+        // Basic sanitization
+        owner = owner.replace(/[^a-zA-Z0-9_-]/g, ''); 
+        
+        const titleEl = document.getElementById('city-title');
+        if (titleEl) titleEl.innerText = `${owner}'s City`;
+        
+        const badgeEl = document.getElementById('city-badge');
+        if (badgeEl) {
+            // Create a pseudo-hex ID from the name for "tech" feel
+            let hash = 0;
+            for (let i = 0; i < owner.length; i++) {
+                hash = owner.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
+            const hexId = "00000".substring(0, 6 - c.length) + c;
+            
+            badgeEl.innerText = `gitville:SECTOR-${hexId}`;
+        }
+    }
+
     // Init Clouds
     cloudSystem = new CloudSystem();
     // Init NPCs
     npcManager = new NPCManager(15);
+    
+    // Hide Loading Screen
+    const loader = document.getElementById('loading-screen');
+    if (loader) loader.classList.add('hidden');
 
     requestAnimationFrame(render);
 }

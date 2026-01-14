@@ -1,19 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"
+    />
+    <title>GitVille | Your GitHub Community City</title>
+    <meta
+      name="description"
+      content="A living, breathing isometric city built from your GitHub stargazers and followers."
+    />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
-    <title>GitVille Isometric World</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="GitVille - GitHub Isometric City" />
+    <meta
+      property="og:description"
+      content="Visualizing GitHub communities as a dynamic isometric world."
+    />
+    <meta
+      property="og:image"
+      content="https://repository-images.githubusercontent.com/placeholder"
+    />
 
-<body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <div class="loader-content">
+        <div class="spinner"></div>
+        <h2>Building City...</h2>
+      </div>
+    </div>
+
+    <!-- UI Overlay (Clean View) -->
+    <div id="ui-layer">
+        <header class="hud-header">
+            <h1 id="city-title">GitVille</h1>
+        </header>
+        <footer class="hud-footer">
+            <a href="https://github.com/Addressmehari/GitVille" target="_blank" id="city-badge">gitville:core</a>
+        </footer>
+    </div>
+
     <canvas id="gameCanvas"></canvas>
+
     <script src="clouds.js"></script>
     <script src="npc.js"></script>
     <script src="tree.js"></script>
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>

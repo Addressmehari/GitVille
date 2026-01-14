@@ -530,6 +530,14 @@ def main():
             json.dump(road_data, f, indent=4)
             
         print(f"Updated city with {len(houses)} entities.")
+        
+        # Generate Snapshot using Node.js (Exact Replica)
+        import subprocess
+        try:
+            print("Generating SVG snapshot using script.js logic...")
+            subprocess.run(["node", "generate_svg.js"], check=True)
+        except Exception as e:
+            print(f"Failed to generate SVG: {e}")
     else:
         print("Error fetching users.")
 

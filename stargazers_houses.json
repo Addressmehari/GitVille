@@ -11,25 +11,11 @@
         "username": "Addressmehari",
         "facing": "down",
         "has_terrace": true,
-        "last_seen": "2026-01-14T11:27:30.645066",
+        "last_seen": "2026-01-14T12:20:25.966526",
         "joined_at": "2026-01-14T11:27:30.645066"
     },
     {
         "x": 3.0,
-        "y": -3.0,
-        "color": "#6e911c",
-        "roofStyle": 2,
-        "doorStyle": 2,
-        "windowStyle": 1,
-        "chimneyStyle": 1,
-        "wallStyle": 1,
-        "username": "hp-echo",
-        "facing": "left",
-        "has_terrace": false,
-        "abandoned": true
-    },
-    {
-        "x": 5.0,
         "y": -3.0,
         "color": "#88c0a0",
         "roofStyle": 0,
@@ -42,15 +28,15 @@
         "has_terrace": false,
         "abandoned": false,
         "joined_at": "2026-01-14T11:27:30.645066",
-        "last_seen": "2026-01-14T11:27:30.645066"
+        "last_seen": "2026-01-14T12:20:25.966526"
     },
     {
-        "x": 7.0,
+        "x": 5.0,
         "y": -3.0,
         "obstacle": "tree"
     },
     {
-        "x": 9.0,
+        "x": 7.0,
         "y": -3.0,
         "color": "#97ffe2",
         "roofStyle": 1,
@@ -63,6 +49,20 @@
         "has_terrace": false,
         "abandoned": false,
         "joined_at": "2026-01-14T11:27:30.645066",
-        "last_seen": "2026-01-14T11:27:30.645066"
+        "last_seen": "2026-01-14T12:20:25.966526"
+    },
+    {
+        "x": 9.0,
+        "y": -3.0,
+        "color": "#6e911c",
+        "roofStyle": 2,
+        "doorStyle": 2,
+        "windowStyle": 1,
+        "chimneyStyle": 1,
+        "wallStyle": 1,
+        "username": "hp-echo",
+        "facing": "left",
+        "has_terrace": false,
+        "abandoned": true
     }
 ]

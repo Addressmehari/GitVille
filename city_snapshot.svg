@@ -1,0 +1,1607 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-221.62 -266.22 843.24 432.43" style="background-color: #81c784;">
+
+    <defs>
+        <filter id="cloudBlur" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
+        </filter>
+        <radialGradient id="vignette" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+            <stop offset="70%" style="stop-color:rgb(0,0,0);stop-opacity:0" />
+            <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:0.3" />
+        </radialGradient>
+        <style>
+            @keyframes treeSway {
+                0%, 100% { transform: skewX(0deg); }
+                50% { transform: skewX(2deg); }
+            }
+            .tree-anim {
+                transform-origin: bottom center;
+                animation: treeSway 4s ease-in-out infinite;
+            }
+            
+            @keyframes cloudDriftSlow {
+                0% { transform: translateX(0px); }
+                100% { transform: translateX(100px); }
+            }
+            @keyframes cloudDriftFast {
+                0% { transform: translateX(0px); }
+                100% { transform: translateX(200px); }
+            }
+            
+            .cloud-base { opacity: 0.9; }
+            .c-slow { animation: cloudDriftSlow 60s linear infinite alternate; }
+            .c-fast { animation: cloudDriftFast 40s linear infinite alternate; }
+        </style>
+    </defs>
+    <path d="M 400.00 -425.00 L 450.00 -400.00 L 400.00 -375.00 L 350.00 -400.00 Z" style="fill:#66bb6a; stroke:none;" />
+<circle cx="396.39" cy="-397.28" r="2" fill="#c7ceea" />
+<path d="M 450.00 -400.00 L 500.00 -375.00 L 450.00 -350.00 L 400.00 -375.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 500.00 -375.00 L 550.00 -350.00 L 500.00 -325.00 L 450.00 -350.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 550.00 -350.00 L 600.00 -325.00 L 550.00 -300.00 L 500.00 -325.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 499.54 -350.87 L 496.54 -354.87 M 499.54 -350.87 L 501.54 -355.87" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 600.00 -325.00 L 650.00 -300.00 L 600.00 -275.00 L 550.00 -300.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 650.00 -300.00 L 700.00 -275.00 L 650.00 -250.00 L 600.00 -275.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 700.00 -275.00 L 750.00 -250.00 L 700.00 -225.00 L 650.00 -250.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 642.93 -265.92 L 639.93 -269.92 M 642.93 -265.92 L 644.93 -270.92" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 750.00 -250.00 L 800.00 -225.00 L 750.00 -200.00 L 700.00 -225.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 800.00 -225.00 L 850.00 -200.00 L 800.00 -175.00 L 750.00 -200.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 850.00 -200.00 L 900.00 -175.00 L 850.00 -150.00 L 800.00 -175.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 790.96 -201.87 L 787.96 -205.87 M 790.96 -201.87 L 792.96 -206.87" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 900.00 -175.00 L 950.00 -150.00 L 900.00 -125.00 L 850.00 -150.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 950.00 -150.00 L 1000.00 -125.00 L 950.00 -100.00 L 900.00 -125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 1000.00 -125.00 L 1050.00 -100.00 L 1000.00 -75.00 L 950.00 -100.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 1050.00 -100.00 L 1100.00 -75.00 L 1050.00 -50.00 L 1000.00 -75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 1100.00 -75.00 L 1150.00 -50.00 L 1100.00 -25.00 L 1050.00 -50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 1150.00 -50.00 L 1200.00 -25.00 L 1150.00 0.00 L 1100.00 -25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 1200.00 -25.00 L 1250.00 0.00 L 1200.00 25.00 L 1150.00 0.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 350.00 -400.00 L 400.00 -375.00 L 350.00 -350.00 L 300.00 -375.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 400.00 -375.00 L 450.00 -350.00 L 400.00 -325.00 L 350.00 -350.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 450.00 -350.00 L 500.00 -325.00 L 450.00 -300.00 L 400.00 -325.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 394.64 -348.14 L 391.64 -352.14 M 394.64 -348.14 L 396.64 -353.14" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 500.00 -325.00 L 550.00 -300.00 L 500.00 -275.00 L 450.00 -300.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 450.93 -316.98 L 447.93 -320.98 M 450.93 -316.98 L 452.93 -321.98" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 550.00 -300.00 L 600.00 -275.00 L 550.00 -250.00 L 500.00 -275.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 600.00 -275.00 L 650.00 -250.00 L 600.00 -225.00 L 550.00 -250.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 590.02 -252.12 L 587.02 -256.12 M 590.02 -252.12 L 592.02 -257.12" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 650.00 -250.00 L 700.00 -225.00 L 650.00 -200.00 L 600.00 -225.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 700.00 -225.00 L 750.00 -200.00 L 700.00 -175.00 L 650.00 -200.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 750.00 -200.00 L 800.00 -175.00 L 750.00 -150.00 L 700.00 -175.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 800.00 -175.00 L 850.00 -150.00 L 800.00 -125.00 L 750.00 -150.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 850.00 -150.00 L 900.00 -125.00 L 850.00 -100.00 L 800.00 -125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 900.00 -125.00 L 950.00 -100.00 L 900.00 -75.00 L 850.00 -100.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 950.00 -100.00 L 1000.00 -75.00 L 950.00 -50.00 L 900.00 -75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 1000.00 -75.00 L 1050.00 -50.00 L 1000.00 -25.00 L 950.00 -50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 1050.00 -50.00 L 1100.00 -25.00 L 1050.00 0.00 L 1000.00 -25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 1100.00 -25.00 L 1150.00 0.00 L 1100.00 25.00 L 1050.00 0.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 1150.00 0.00 L 1200.00 25.00 L 1150.00 50.00 L 1100.00 25.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 1094.82 3.81 L 1091.82 -0.19 M 1094.82 3.81 L 1096.82 -1.19" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 300.00 -375.00 L 350.00 -350.00 L 300.00 -325.00 L 250.00 -350.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 282.34 -341.37 L 279.34 -345.37 M 282.34 -341.37 L 284.34 -346.37" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 350.00 -350.00 L 400.00 -325.00 L 350.00 -300.00 L 300.00 -325.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 400.00 -325.00 L 450.00 -300.00 L 400.00 -275.00 L 350.00 -300.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 450.00 -300.00 L 500.00 -275.00 L 450.00 -250.00 L 400.00 -275.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 500.00 -275.00 L 550.00 -250.00 L 500.00 -225.00 L 450.00 -250.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 500.00 -265.00 L 530.00 -250.00 L 500.00 -235.00 L 470.00 -250.00" style="fill:#34495e; stroke:none;" />
+<path d="M 470.00 -250.00 L 500.00 -235.00 L 490.00 -230.00 L 460.00 -245.00" style="fill:#34495e; stroke:none;" />
+<path d="M 530.00 -250.00 L 500.00 -235.00 L 510.00 -230.00 L 540.00 -245.00" style="fill:#34495e; stroke:none;" />
+<path d="M 475.00 -237.50 Q 500.00 -250.00 525.00 -237.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 500.00 -265.00 L 530.00 -250.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 460.00 -245.00 L 470.00 -250.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 490.00 -230.00 L 500.00 -235.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 540.00 -245.00 L 530.00 -250.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 510.00 -230.00 L 500.00 -235.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 500.00 -265.00 L 470.00 -250.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 550.00 -250.00 L 600.00 -225.00 L 550.00 -200.00 L 500.00 -225.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 550.00 -240.00 L 580.00 -225.00 L 550.00 -210.00 L 520.00 -225.00" style="fill:#34495e; stroke:none;" />
+<path d="M 580.00 -225.00 L 550.00 -210.00 L 560.00 -205.00 L 590.00 -220.00" style="fill:#34495e; stroke:none;" />
+<path d="M 550.00 -240.00 L 520.00 -225.00 L 510.00 -230.00 L 540.00 -245.00" style="fill:#34495e; stroke:none;" />
+<path d="M 525.00 -237.50 L 575.00 -212.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 550.00 -240.00 L 580.00 -225.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 520.00 -225.00 L 550.00 -210.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 590.00 -220.00 L 580.00 -225.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 560.00 -205.00 L 550.00 -210.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 540.00 -245.00 L 550.00 -240.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 510.00 -230.00 L 520.00 -225.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 600.00 -225.00 L 650.00 -200.00 L 600.00 -175.00 L 550.00 -200.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 600.00 -215.00 L 630.00 -200.00 L 600.00 -185.00 L 570.00 -200.00" style="fill:#34495e; stroke:none;" />
+<path d="M 630.00 -200.00 L 600.00 -185.00 L 610.00 -180.00 L 640.00 -195.00" style="fill:#34495e; stroke:none;" />
+<path d="M 600.00 -215.00 L 570.00 -200.00 L 560.00 -205.00 L 590.00 -220.00" style="fill:#34495e; stroke:none;" />
+<path d="M 575.00 -212.50 L 625.00 -187.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 600.00 -215.00 L 630.00 -200.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 570.00 -200.00 L 600.00 -185.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 640.00 -195.00 L 630.00 -200.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 610.00 -180.00 L 600.00 -185.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 590.00 -220.00 L 600.00 -215.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 560.00 -205.00 L 570.00 -200.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 650.00 -200.00 L 700.00 -175.00 L 650.00 -150.00 L 600.00 -175.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 650.00 -190.00 L 680.00 -175.00 L 650.00 -160.00 L 620.00 -175.00" style="fill:#34495e; stroke:none;" />
+<path d="M 680.00 -175.00 L 650.00 -160.00 L 660.00 -155.00 L 690.00 -170.00" style="fill:#34495e; stroke:none;" />
+<path d="M 650.00 -190.00 L 620.00 -175.00 L 610.00 -180.00 L 640.00 -195.00" style="fill:#34495e; stroke:none;" />
+<path d="M 625.00 -187.50 L 675.00 -162.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 650.00 -190.00 L 680.00 -175.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 620.00 -175.00 L 650.00 -160.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 690.00 -170.00 L 680.00 -175.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 660.00 -155.00 L 650.00 -160.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 640.00 -195.00 L 650.00 -190.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 610.00 -180.00 L 620.00 -175.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 700.00 -175.00 L 750.00 -150.00 L 700.00 -125.00 L 650.00 -150.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 700.00 -165.00 L 730.00 -150.00 L 700.00 -135.00 L 670.00 -150.00" style="fill:#34495e; stroke:none;" />
+<path d="M 730.00 -150.00 L 700.00 -135.00 L 710.00 -130.00 L 740.00 -145.00" style="fill:#34495e; stroke:none;" />
+<path d="M 700.00 -165.00 L 670.00 -150.00 L 660.00 -155.00 L 690.00 -170.00" style="fill:#34495e; stroke:none;" />
+<path d="M 675.00 -162.50 L 725.00 -137.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 700.00 -165.00 L 730.00 -150.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 670.00 -150.00 L 700.00 -135.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 740.00 -145.00 L 730.00 -150.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 710.00 -130.00 L 700.00 -135.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 690.00 -170.00 L 700.00 -165.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 660.00 -155.00 L 670.00 -150.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 750.00 -150.00 L 800.00 -125.00 L 750.00 -100.00 L 700.00 -125.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 750.00 -140.00 L 780.00 -125.00 L 750.00 -110.00 L 720.00 -125.00" style="fill:#34495e; stroke:none;" />
+<path d="M 780.00 -125.00 L 750.00 -110.00 L 760.00 -105.00 L 790.00 -120.00" style="fill:#34495e; stroke:none;" />
+<path d="M 750.00 -140.00 L 720.00 -125.00 L 710.00 -130.00 L 740.00 -145.00" style="fill:#34495e; stroke:none;" />
+<path d="M 725.00 -137.50 L 775.00 -112.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 750.00 -140.00 L 780.00 -125.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 720.00 -125.00 L 750.00 -110.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 790.00 -120.00 L 780.00 -125.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 760.00 -105.00 L 750.00 -110.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 740.00 -145.00 L 750.00 -140.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 710.00 -130.00 L 720.00 -125.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 800.00 -125.00 L 850.00 -100.00 L 800.00 -75.00 L 750.00 -100.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 800.00 -115.00 L 830.00 -100.00 L 800.00 -85.00 L 770.00 -100.00" style="fill:#34495e; stroke:none;" />
+<path d="M 830.00 -100.00 L 800.00 -85.00 L 810.00 -80.00 L 840.00 -95.00" style="fill:#34495e; stroke:none;" />
+<path d="M 800.00 -115.00 L 770.00 -100.00 L 760.00 -105.00 L 790.00 -120.00" style="fill:#34495e; stroke:none;" />
+<path d="M 775.00 -112.50 L 825.00 -87.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 800.00 -115.00 L 830.00 -100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 770.00 -100.00 L 800.00 -85.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 840.00 -95.00 L 830.00 -100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 810.00 -80.00 L 800.00 -85.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 790.00 -120.00 L 800.00 -115.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 760.00 -105.00 L 770.00 -100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 850.00 -100.00 L 900.00 -75.00 L 850.00 -50.00 L 800.00 -75.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 850.00 -90.00 L 880.00 -75.00 L 850.00 -60.00 L 820.00 -75.00" style="fill:#34495e; stroke:none;" />
+<path d="M 880.00 -75.00 L 850.00 -60.00 L 860.00 -55.00 L 890.00 -70.00" style="fill:#34495e; stroke:none;" />
+<path d="M 850.00 -90.00 L 820.00 -75.00 L 810.00 -80.00 L 840.00 -95.00" style="fill:#34495e; stroke:none;" />
+<path d="M 825.00 -87.50 L 875.00 -62.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 850.00 -90.00 L 880.00 -75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 820.00 -75.00 L 850.00 -60.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 890.00 -70.00 L 880.00 -75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 860.00 -55.00 L 850.00 -60.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 840.00 -95.00 L 850.00 -90.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 810.00 -80.00 L 820.00 -75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 900.00 -75.00 L 950.00 -50.00 L 900.00 -25.00 L 850.00 -50.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 900.00 -65.00 L 930.00 -50.00 L 900.00 -35.00 L 870.00 -50.00" style="fill:#34495e; stroke:none;" />
+<path d="M 930.00 -50.00 L 900.00 -35.00 L 910.00 -30.00 L 940.00 -45.00" style="fill:#34495e; stroke:none;" />
+<path d="M 900.00 -65.00 L 870.00 -50.00 L 860.00 -55.00 L 890.00 -70.00" style="fill:#34495e; stroke:none;" />
+<path d="M 875.00 -62.50 L 925.00 -37.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 900.00 -65.00 L 930.00 -50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 870.00 -50.00 L 900.00 -35.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 940.00 -45.00 L 930.00 -50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 910.00 -30.00 L 900.00 -35.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 890.00 -70.00 L 900.00 -65.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 860.00 -55.00 L 870.00 -50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 950.00 -50.00 L 1000.00 -25.00 L 950.00 0.00 L 900.00 -25.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 950.00 -40.00 L 980.00 -25.00 L 950.00 -10.00 L 920.00 -25.00" style="fill:#34495e; stroke:none;" />
+<path d="M 980.00 -25.00 L 950.00 -10.00 L 960.00 -5.00 L 990.00 -20.00" style="fill:#34495e; stroke:none;" />
+<path d="M 950.00 -40.00 L 920.00 -25.00 L 910.00 -30.00 L 940.00 -45.00" style="fill:#34495e; stroke:none;" />
+<path d="M 925.00 -37.50 L 975.00 -12.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 950.00 -40.00 L 980.00 -25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 920.00 -25.00 L 950.00 -10.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 990.00 -20.00 L 980.00 -25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 960.00 -5.00 L 950.00 -10.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 940.00 -45.00 L 950.00 -40.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 910.00 -30.00 L 920.00 -25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 1000.00 -25.00 L 1050.00 0.00 L 1000.00 25.00 L 950.00 0.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 1000.00 -15.00 L 1030.00 0.00 L 1000.00 15.00 L 970.00 0.00" style="fill:#34495e; stroke:none;" />
+<path d="M 970.00 0.00 L 1000.00 15.00 L 990.00 20.00 L 960.00 5.00" style="fill:#34495e; stroke:none;" />
+<path d="M 1000.00 -15.00 L 970.00 0.00 L 960.00 -5.00 L 990.00 -20.00" style="fill:#34495e; stroke:none;" />
+<path d="M 975.00 12.50 Q 1000.00 0.00 975.00 -12.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 1000.00 -15.00 L 1030.00 0.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 960.00 5.00 L 970.00 0.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 990.00 20.00 L 1000.00 15.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 1030.00 0.00 L 1000.00 15.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 990.00 -20.00 L 1000.00 -15.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 960.00 -5.00 L 970.00 0.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 1050.00 0.00 L 1100.00 25.00 L 1050.00 50.00 L 1000.00 25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 1100.00 25.00 L 1150.00 50.00 L 1100.00 75.00 L 1050.00 50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 250.00 -350.00 L 300.00 -325.00 L 250.00 -300.00 L 200.00 -325.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 215.37 -337.79 L 212.37 -341.79 M 215.37 -337.79 L 217.37 -342.79" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 300.00 -325.00 L 350.00 -300.00 L 300.00 -275.00 L 250.00 -300.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 350.00 -300.00 L 400.00 -275.00 L 350.00 -250.00 L 300.00 -275.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 400.00 -275.00 L 450.00 -250.00 L 400.00 -225.00 L 350.00 -250.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 359.50 -271.68 L 356.50 -275.68 M 359.50 -271.68 L 361.50 -276.68" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 450.00 -250.00 L 500.00 -225.00 L 450.00 -200.00 L 400.00 -225.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 450.00 -240.00 L 480.00 -225.00 L 450.00 -210.00 L 420.00 -225.00" style="fill:#34495e; stroke:none;" />
+<path d="M 450.00 -240.00 L 480.00 -225.00 L 490.00 -230.00 L 460.00 -245.00" style="fill:#34495e; stroke:none;" />
+<path d="M 420.00 -225.00 L 450.00 -210.00 L 440.00 -205.00 L 410.00 -220.00" style="fill:#34495e; stroke:none;" />
+<path d="M 475.00 -237.50 L 425.00 -212.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 460.00 -245.00 L 450.00 -240.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 490.00 -230.00 L 480.00 -225.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 410.00 -220.00 L 420.00 -225.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 440.00 -205.00 L 450.00 -210.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 480.00 -225.00 L 450.00 -210.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 450.00 -240.00 L 420.00 -225.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 500.00 -225.00 L 550.00 -200.00 L 500.00 -175.00 L 450.00 -200.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 550.00 -200.00 L 600.00 -175.00 L 550.00 -150.00 L 500.00 -175.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 600.00 -175.00 L 650.00 -150.00 L 600.00 -125.00 L 550.00 -150.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 608.45 -142.86 L 605.45 -146.86 M 608.45 -142.86 L 610.45 -147.86" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 650.00 -150.00 L 700.00 -125.00 L 650.00 -100.00 L 600.00 -125.00 Z" style="fill:#66bb6a; stroke:none;" />
+<circle cx="654.53" cy="-136.55" r="2" fill="#ffb7b2" />
+<path d="M 700.00 -125.00 L 750.00 -100.00 L 700.00 -75.00 L 650.00 -100.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 750.00 -100.00 L 800.00 -75.00 L 750.00 -50.00 L 700.00 -75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 800.00 -75.00 L 850.00 -50.00 L 800.00 -25.00 L 750.00 -50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 850.00 -50.00 L 900.00 -25.00 L 850.00 0.00 L 800.00 -25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 900.00 -25.00 L 950.00 0.00 L 900.00 25.00 L 850.00 0.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 847.91 -18.93 L 844.91 -22.93 M 847.91 -18.93 L 849.91 -23.93" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 950.00 0.00 L 1000.00 25.00 L 950.00 50.00 L 900.00 25.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 950.00 10.00 L 980.00 25.00 L 950.00 40.00 L 920.00 25.00" style="fill:#34495e; stroke:none;" />
+<path d="M 950.00 10.00 L 980.00 25.00 L 990.00 20.00 L 960.00 5.00" style="fill:#34495e; stroke:none;" />
+<path d="M 920.00 25.00 L 950.00 40.00 L 940.00 45.00 L 910.00 30.00" style="fill:#34495e; stroke:none;" />
+<path d="M 975.00 12.50 L 925.00 37.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 960.00 5.00 L 950.00 10.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 990.00 20.00 L 980.00 25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 910.00 30.00 L 920.00 25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 940.00 45.00 L 950.00 40.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 980.00 25.00 L 950.00 40.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 950.00 10.00 L 920.00 25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 1000.00 25.00 L 1050.00 50.00 L 1000.00 75.00 L 950.00 50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 1050.00 50.00 L 1100.00 75.00 L 1050.00 100.00 L 1000.00 75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 200.00 -325.00 L 250.00 -300.00 L 200.00 -275.00 L 150.00 -300.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<circle cx="200.20" cy="-302.77" r="2" fill="#ffb7b2" />
+<path d="M 250.00 -300.00 L 300.00 -275.00 L 250.00 -250.00 L 200.00 -275.00 Z" style="fill:#66bb6a; stroke:none;" />
+<circle cx="239.74" cy="-282.95" r="2" fill="#ffdac1" />
+<path d="M 300.00 -275.00 L 350.00 -250.00 L 300.00 -225.00 L 250.00 -250.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 350.00 -250.00 L 400.00 -225.00 L 350.00 -200.00 L 300.00 -225.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 400.00 -225.00 L 450.00 -200.00 L 400.00 -175.00 L 350.00 -200.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 400.00 -215.00 L 430.00 -200.00 L 400.00 -185.00 L 370.00 -200.00" style="fill:#34495e; stroke:none;" />
+<path d="M 400.00 -215.00 L 430.00 -200.00 L 440.00 -205.00 L 410.00 -220.00" style="fill:#34495e; stroke:none;" />
+<path d="M 370.00 -200.00 L 400.00 -185.00 L 390.00 -180.00 L 360.00 -195.00" style="fill:#34495e; stroke:none;" />
+<path d="M 425.00 -212.50 L 375.00 -187.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 410.00 -220.00 L 400.00 -215.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 440.00 -205.00 L 430.00 -200.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 360.00 -195.00 L 370.00 -200.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 390.00 -180.00 L 400.00 -185.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 430.00 -200.00 L 400.00 -185.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 400.00 -215.00 L 370.00 -200.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 450.00 -200.00 L 500.00 -175.00 L 450.00 -150.00 L 400.00 -175.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 500.00 -175.00 L 550.00 -150.00 L 500.00 -125.00 L 450.00 -150.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 550.00 -150.00 L 600.00 -125.00 L 550.00 -100.00 L 500.00 -125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 600.00 -125.00 L 650.00 -100.00 L 600.00 -75.00 L 550.00 -100.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 571.23 -116.25 L 568.23 -120.25 M 571.23 -116.25 L 573.23 -121.25" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 650.00 -100.00 L 700.00 -75.00 L 650.00 -50.00 L 600.00 -75.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 592.14 -87.01 L 589.14 -91.01 M 592.14 -87.01 L 594.14 -92.01" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 700.00 -75.00 L 750.00 -50.00 L 700.00 -25.00 L 650.00 -50.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 750.00 -50.00 L 800.00 -25.00 L 750.00 0.00 L 700.00 -25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 800.00 -25.00 L 850.00 0.00 L 800.00 25.00 L 750.00 0.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 850.00 0.00 L 900.00 25.00 L 850.00 50.00 L 800.00 25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 900.00 25.00 L 950.00 50.00 L 900.00 75.00 L 850.00 50.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 900.00 35.00 L 930.00 50.00 L 900.00 65.00 L 870.00 50.00" style="fill:#34495e; stroke:none;" />
+<path d="M 900.00 35.00 L 930.00 50.00 L 940.00 45.00 L 910.00 30.00" style="fill:#34495e; stroke:none;" />
+<path d="M 870.00 50.00 L 900.00 65.00 L 890.00 70.00 L 860.00 55.00" style="fill:#34495e; stroke:none;" />
+<path d="M 925.00 37.50 L 875.00 62.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 910.00 30.00 L 900.00 35.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 940.00 45.00 L 930.00 50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 860.00 55.00 L 870.00 50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 890.00 70.00 L 900.00 65.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 930.00 50.00 L 900.00 65.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 900.00 35.00 L 870.00 50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 950.00 50.00 L 1000.00 75.00 L 950.00 100.00 L 900.00 75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 1000.00 75.00 L 1050.00 100.00 L 1000.00 125.00 L 950.00 100.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 150.00 -300.00 L 200.00 -275.00 L 150.00 -250.00 L 100.00 -275.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 200.00 -275.00 L 250.00 -250.00 L 200.00 -225.00 L 150.00 -250.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 250.00 -250.00 L 300.00 -225.00 L 250.00 -200.00 L 200.00 -225.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 300.00 -225.00 L 350.00 -200.00 L 300.00 -175.00 L 250.00 -200.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 241.45 -212.49 L 238.45 -216.49 M 241.45 -212.49 L 243.45 -217.49" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 350.00 -200.00 L 400.00 -175.00 L 350.00 -150.00 L 300.00 -175.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 350.00 -190.00 L 380.00 -175.00 L 350.00 -160.00 L 320.00 -175.00" style="fill:#34495e; stroke:none;" />
+<path d="M 350.00 -190.00 L 380.00 -175.00 L 390.00 -180.00 L 360.00 -195.00" style="fill:#34495e; stroke:none;" />
+<path d="M 320.00 -175.00 L 350.00 -160.00 L 340.00 -155.00 L 310.00 -170.00" style="fill:#34495e; stroke:none;" />
+<path d="M 375.00 -187.50 L 325.00 -162.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 360.00 -195.00 L 350.00 -190.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 390.00 -180.00 L 380.00 -175.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 310.00 -170.00 L 320.00 -175.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 340.00 -155.00 L 350.00 -160.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 380.00 -175.00 L 350.00 -160.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 350.00 -190.00 L 320.00 -175.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 400.00 -175.00 L 450.00 -150.00 L 400.00 -125.00 L 350.00 -150.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 344.24 -163.03 L 341.24 -167.03 M 344.24 -163.03 L 346.24 -168.03" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 450.00 -150.00 L 500.00 -125.00 L 450.00 -100.00 L 400.00 -125.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 407.08 -141.45 L 404.08 -145.45 M 407.08 -141.45 L 409.08 -146.45" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 500.00 -125.00 L 550.00 -100.00 L 500.00 -75.00 L 450.00 -100.00 Z" style="fill:#66bb6a; stroke:none;" />
+<circle cx="480.40" cy="-108.31" r="2" fill="#c7ceea" />
+<path d="M 550.00 -100.00 L 600.00 -75.00 L 550.00 -50.00 L 500.00 -75.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 600.00 -75.00 L 650.00 -50.00 L 600.00 -25.00 L 550.00 -50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 650.00 -50.00 L 700.00 -25.00 L 650.00 0.00 L 600.00 -25.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 637.47 -17.61 L 634.47 -21.61 M 637.47 -17.61 L 639.47 -22.61" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 700.00 -25.00 L 750.00 0.00 L 700.00 25.00 L 650.00 0.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 750.00 0.00 L 800.00 25.00 L 750.00 50.00 L 700.00 25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 800.00 25.00 L 850.00 50.00 L 800.00 75.00 L 750.00 50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 850.00 50.00 L 900.00 75.00 L 850.00 100.00 L 800.00 75.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 850.00 60.00 L 880.00 75.00 L 850.00 90.00 L 820.00 75.00" style="fill:#34495e; stroke:none;" />
+<path d="M 850.00 60.00 L 880.00 75.00 L 890.00 70.00 L 860.00 55.00" style="fill:#34495e; stroke:none;" />
+<path d="M 820.00 75.00 L 850.00 90.00 L 840.00 95.00 L 810.00 80.00" style="fill:#34495e; stroke:none;" />
+<path d="M 875.00 62.50 L 825.00 87.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 860.00 55.00 L 850.00 60.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 890.00 70.00 L 880.00 75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 810.00 80.00 L 820.00 75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 840.00 95.00 L 850.00 90.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 880.00 75.00 L 850.00 90.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 850.00 60.00 L 820.00 75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 900.00 75.00 L 950.00 100.00 L 900.00 125.00 L 850.00 100.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 848.22 89.76 L 845.22 85.76 M 848.22 89.76 L 850.22 84.76" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 950.00 100.00 L 1000.00 125.00 L 950.00 150.00 L 900.00 125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 100.00 -275.00 L 150.00 -250.00 L 100.00 -225.00 L 50.00 -250.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 150.00 -250.00 L 200.00 -225.00 L 150.00 -200.00 L 100.00 -225.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<circle cx="144.30" cy="-232.68" r="2" fill="#e2f0cb" />
+<path d="M 200.00 -225.00 L 250.00 -200.00 L 200.00 -175.00 L 150.00 -200.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<circle cx="205.96" cy="-200.76" r="2" fill="#c7ceea" />
+<path d="M 250.00 -200.00 L 300.00 -175.00 L 250.00 -150.00 L 200.00 -175.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 300.00 -175.00 L 350.00 -150.00 L 300.00 -125.00 L 250.00 -150.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 300.00 -165.00 L 330.00 -150.00 L 300.00 -135.00 L 270.00 -150.00" style="fill:#34495e; stroke:none;" />
+<path d="M 300.00 -165.00 L 330.00 -150.00 L 340.00 -155.00 L 310.00 -170.00" style="fill:#34495e; stroke:none;" />
+<path d="M 270.00 -150.00 L 300.00 -135.00 L 290.00 -130.00 L 260.00 -145.00" style="fill:#34495e; stroke:none;" />
+<path d="M 325.00 -162.50 L 275.00 -137.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 310.00 -170.00 L 300.00 -165.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 340.00 -155.00 L 330.00 -150.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 260.00 -145.00 L 270.00 -150.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 290.00 -130.00 L 300.00 -135.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 330.00 -150.00 L 300.00 -135.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 300.00 -165.00 L 270.00 -150.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 350.00 -150.00 L 400.00 -125.00 L 350.00 -100.00 L 300.00 -125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 400.00 -125.00 L 450.00 -100.00 L 400.00 -75.00 L 350.00 -100.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 450.00 -100.00 L 500.00 -75.00 L 450.00 -50.00 L 400.00 -75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 500.00 -75.00 L 550.00 -50.00 L 500.00 -25.00 L 450.00 -50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 550.00 -50.00 L 600.00 -25.00 L 550.00 0.00 L 500.00 -25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 600.00 -25.00 L 650.00 0.00 L 600.00 25.00 L 550.00 0.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 650.00 0.00 L 700.00 25.00 L 650.00 50.00 L 600.00 25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 700.00 25.00 L 750.00 50.00 L 700.00 75.00 L 650.00 50.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 750.00 50.00 L 800.00 75.00 L 750.00 100.00 L 700.00 75.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 800.00 75.00 L 850.00 100.00 L 800.00 125.00 L 750.00 100.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 800.00 85.00 L 830.00 100.00 L 800.00 115.00 L 770.00 100.00" style="fill:#34495e; stroke:none;" />
+<path d="M 800.00 85.00 L 830.00 100.00 L 840.00 95.00 L 810.00 80.00" style="fill:#34495e; stroke:none;" />
+<path d="M 770.00 100.00 L 800.00 115.00 L 790.00 120.00 L 760.00 105.00" style="fill:#34495e; stroke:none;" />
+<path d="M 825.00 87.50 L 775.00 112.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 810.00 80.00 L 800.00 85.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 840.00 95.00 L 830.00 100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 760.00 105.00 L 770.00 100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 790.00 120.00 L 800.00 115.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 830.00 100.00 L 800.00 115.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 800.00 85.00 L 770.00 100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 850.00 100.00 L 900.00 125.00 L 850.00 150.00 L 800.00 125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 900.00 125.00 L 950.00 150.00 L 900.00 175.00 L 850.00 150.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 50.00 -250.00 L 100.00 -225.00 L 50.00 -200.00 L 0.00 -225.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 46.24 -233.44 L 43.24 -237.44 M 46.24 -233.44 L 48.24 -238.44" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 100.00 -225.00 L 150.00 -200.00 L 100.00 -175.00 L 50.00 -200.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 150.00 -200.00 L 200.00 -175.00 L 150.00 -150.00 L 100.00 -175.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 107.63 -192.38 L 104.63 -196.38 M 107.63 -192.38 L 109.63 -197.38" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 200.00 -175.00 L 250.00 -150.00 L 200.00 -125.00 L 150.00 -150.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 171.41 -161.42 L 168.41 -165.42 M 171.41 -161.42 L 173.41 -166.42" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 250.00 -150.00 L 300.00 -125.00 L 250.00 -100.00 L 200.00 -125.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 250.00 -140.00 L 280.00 -125.00 L 250.00 -110.00 L 220.00 -125.00" style="fill:#34495e; stroke:none;" />
+<path d="M 250.00 -140.00 L 280.00 -125.00 L 290.00 -130.00 L 260.00 -145.00" style="fill:#34495e; stroke:none;" />
+<path d="M 220.00 -125.00 L 250.00 -110.00 L 240.00 -105.00 L 210.00 -120.00" style="fill:#34495e; stroke:none;" />
+<path d="M 275.00 -137.50 L 225.00 -112.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 260.00 -145.00 L 250.00 -140.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 290.00 -130.00 L 280.00 -125.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 210.00 -120.00 L 220.00 -125.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 240.00 -105.00 L 250.00 -110.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 280.00 -125.00 L 250.00 -110.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 250.00 -140.00 L 220.00 -125.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 300.00 -125.00 L 350.00 -100.00 L 300.00 -75.00 L 250.00 -100.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 261.94 -110.47 L 258.94 -114.47 M 261.94 -110.47 L 263.94 -115.47" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 350.00 -100.00 L 400.00 -75.00 L 350.00 -50.00 L 300.00 -75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 400.00 -75.00 L 450.00 -50.00 L 400.00 -25.00 L 350.00 -50.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 349.96 -70.46 L 346.96 -74.46 M 349.96 -70.46 L 351.96 -75.46" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 450.00 -50.00 L 500.00 -25.00 L 450.00 0.00 L 400.00 -25.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 500.00 -25.00 L 550.00 0.00 L 500.00 25.00 L 450.00 0.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 550.00 0.00 L 600.00 25.00 L 550.00 50.00 L 500.00 25.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 557.43 22.04 L 554.43 18.04 M 557.43 22.04 L 559.43 17.04" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 600.00 25.00 L 650.00 50.00 L 600.00 75.00 L 550.00 50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 650.00 50.00 L 700.00 75.00 L 650.00 100.00 L 600.00 75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 700.00 75.00 L 750.00 100.00 L 700.00 125.00 L 650.00 100.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 750.00 100.00 L 800.00 125.00 L 750.00 150.00 L 700.00 125.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 750.00 110.00 L 780.00 125.00 L 750.00 140.00 L 720.00 125.00" style="fill:#34495e; stroke:none;" />
+<path d="M 750.00 110.00 L 780.00 125.00 L 790.00 120.00 L 760.00 105.00" style="fill:#34495e; stroke:none;" />
+<path d="M 720.00 125.00 L 750.00 140.00 L 740.00 145.00 L 710.00 130.00" style="fill:#34495e; stroke:none;" />
+<path d="M 775.00 112.50 L 725.00 137.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 760.00 105.00 L 750.00 110.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 790.00 120.00 L 780.00 125.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 710.00 130.00 L 720.00 125.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 740.00 145.00 L 750.00 140.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 780.00 125.00 L 750.00 140.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 750.00 110.00 L 720.00 125.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 800.00 125.00 L 850.00 150.00 L 800.00 175.00 L 750.00 150.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 850.00 150.00 L 900.00 175.00 L 850.00 200.00 L 800.00 175.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 0.00 -225.00 L 50.00 -200.00 L 0.00 -175.00 L -50.00 -200.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M -57.01 -225.98 L -60.01 -229.98 M -57.01 -225.98 L -55.01 -230.98" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 50.00 -200.00 L 100.00 -175.00 L 50.00 -150.00 L 0.00 -175.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 5.84 -185.33 L 2.84 -189.33 M 5.84 -185.33 L 7.84 -190.33" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 100.00 -175.00 L 150.00 -150.00 L 100.00 -125.00 L 50.00 -150.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 150.00 -150.00 L 200.00 -125.00 L 150.00 -100.00 L 100.00 -125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 200.00 -125.00 L 250.00 -100.00 L 200.00 -75.00 L 150.00 -100.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 200.00 -115.00 L 230.00 -100.00 L 200.00 -85.00 L 170.00 -100.00" style="fill:#34495e; stroke:none;" />
+<path d="M 200.00 -115.00 L 230.00 -100.00 L 240.00 -105.00 L 210.00 -120.00" style="fill:#34495e; stroke:none;" />
+<path d="M 170.00 -100.00 L 200.00 -85.00 L 190.00 -80.00 L 160.00 -95.00" style="fill:#34495e; stroke:none;" />
+<path d="M 225.00 -112.50 L 175.00 -87.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 210.00 -120.00 L 200.00 -115.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 240.00 -105.00 L 230.00 -100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 160.00 -95.00 L 170.00 -100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 190.00 -80.00 L 200.00 -85.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 230.00 -100.00 L 200.00 -85.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 200.00 -115.00 L 170.00 -100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 250.00 -100.00 L 300.00 -75.00 L 250.00 -50.00 L 200.00 -75.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 231.91 -70.42 L 228.91 -74.42 M 231.91 -70.42 L 233.91 -75.42" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 300.00 -75.00 L 350.00 -50.00 L 300.00 -25.00 L 250.00 -50.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 300.64 -55.58 L 297.64 -59.58 M 300.64 -55.58 L 302.64 -60.58" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 350.00 -50.00 L 400.00 -25.00 L 350.00 0.00 L 300.00 -25.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 333.01 -18.69 L 330.01 -22.69 M 333.01 -18.69 L 335.01 -23.69" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 400.00 -25.00 L 450.00 0.00 L 400.00 25.00 L 350.00 0.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 450.00 0.00 L 500.00 25.00 L 450.00 50.00 L 400.00 25.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 500.00 25.00 L 550.00 50.00 L 500.00 75.00 L 450.00 50.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 550.00 50.00 L 600.00 75.00 L 550.00 100.00 L 500.00 75.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 495.04 53.28 L 492.04 49.28 M 495.04 53.28 L 497.04 48.28" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 600.00 75.00 L 650.00 100.00 L 600.00 125.00 L 550.00 100.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 650.00 100.00 L 700.00 125.00 L 650.00 150.00 L 600.00 125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 700.00 125.00 L 750.00 150.00 L 700.00 175.00 L 650.00 150.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 700.00 135.00 L 730.00 150.00 L 700.00 165.00 L 670.00 150.00" style="fill:#34495e; stroke:none;" />
+<path d="M 700.00 135.00 L 730.00 150.00 L 740.00 145.00 L 710.00 130.00" style="fill:#34495e; stroke:none;" />
+<path d="M 670.00 150.00 L 700.00 165.00 L 690.00 170.00 L 660.00 155.00" style="fill:#34495e; stroke:none;" />
+<path d="M 725.00 137.50 L 675.00 162.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 710.00 130.00 L 700.00 135.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 740.00 145.00 L 730.00 150.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 660.00 155.00 L 670.00 150.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 690.00 170.00 L 700.00 165.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 730.00 150.00 L 700.00 165.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 700.00 135.00 L 670.00 150.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 750.00 150.00 L 800.00 175.00 L 750.00 200.00 L 700.00 175.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 800.00 175.00 L 850.00 200.00 L 800.00 225.00 L 750.00 200.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -50.00 -200.00 L 0.00 -175.00 L -50.00 -150.00 L -100.00 -175.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 0.00 -175.00 L 50.00 -150.00 L 0.00 -125.00 L -50.00 -150.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 50.00 -150.00 L 100.00 -125.00 L 50.00 -100.00 L 0.00 -125.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 2.37 -136.41 L -0.63 -140.41 M 2.37 -136.41 L 4.37 -141.41" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 100.00 -125.00 L 150.00 -100.00 L 100.00 -75.00 L 50.00 -100.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 150.00 -100.00 L 200.00 -75.00 L 150.00 -50.00 L 100.00 -75.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 150.00 -90.00 L 180.00 -75.00 L 150.00 -60.00 L 120.00 -75.00" style="fill:#34495e; stroke:none;" />
+<path d="M 150.00 -90.00 L 180.00 -75.00 L 190.00 -80.00 L 160.00 -95.00" style="fill:#34495e; stroke:none;" />
+<path d="M 120.00 -75.00 L 150.00 -60.00 L 140.00 -55.00 L 110.00 -70.00" style="fill:#34495e; stroke:none;" />
+<path d="M 175.00 -87.50 L 125.00 -62.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 160.00 -95.00 L 150.00 -90.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 190.00 -80.00 L 180.00 -75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 110.00 -70.00 L 120.00 -75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 140.00 -55.00 L 150.00 -60.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 180.00 -75.00 L 150.00 -60.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 150.00 -90.00 L 120.00 -75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 200.00 -75.00 L 250.00 -50.00 L 200.00 -25.00 L 150.00 -50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 250.00 -50.00 L 300.00 -25.00 L 250.00 0.00 L 200.00 -25.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 300.00 -25.00 L 350.00 0.00 L 300.00 25.00 L 250.00 0.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 350.00 0.00 L 400.00 25.00 L 350.00 50.00 L 300.00 25.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 310.92 -0.44 L 307.92 -4.44 M 310.92 -0.44 L 312.92 -5.44" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 400.00 25.00 L 450.00 50.00 L 400.00 75.00 L 350.00 50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 450.00 50.00 L 500.00 75.00 L 450.00 100.00 L 400.00 75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 500.00 75.00 L 550.00 100.00 L 500.00 125.00 L 450.00 100.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 550.00 100.00 L 600.00 125.00 L 550.00 150.00 L 500.00 125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 600.00 125.00 L 650.00 150.00 L 600.00 175.00 L 550.00 150.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 585.53 153.12 L 582.53 149.12 M 585.53 153.12 L 587.53 148.12" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 650.00 150.00 L 700.00 175.00 L 650.00 200.00 L 600.00 175.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 650.00 160.00 L 680.00 175.00 L 650.00 190.00 L 620.00 175.00" style="fill:#34495e; stroke:none;" />
+<path d="M 650.00 160.00 L 680.00 175.00 L 690.00 170.00 L 660.00 155.00" style="fill:#34495e; stroke:none;" />
+<path d="M 620.00 175.00 L 650.00 190.00 L 640.00 195.00 L 610.00 180.00" style="fill:#34495e; stroke:none;" />
+<path d="M 675.00 162.50 L 625.00 187.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 660.00 155.00 L 650.00 160.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 690.00 170.00 L 680.00 175.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 610.00 180.00 L 620.00 175.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 640.00 195.00 L 650.00 190.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 680.00 175.00 L 650.00 190.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 650.00 160.00 L 620.00 175.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 700.00 175.00 L 750.00 200.00 L 700.00 225.00 L 650.00 200.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 750.00 200.00 L 800.00 225.00 L 750.00 250.00 L 700.00 225.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -100.00 -175.00 L -50.00 -150.00 L -100.00 -125.00 L -150.00 -150.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -50.00 -150.00 L 0.00 -125.00 L -50.00 -100.00 L -100.00 -125.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 0.00 -125.00 L 50.00 -100.00 L 0.00 -75.00 L -50.00 -100.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 0.00 -115.00 L 30.00 -100.00 L 0.00 -85.00 L -30.00 -100.00" style="fill:#34495e; stroke:none;" />
+<path d="M -30.00 -100.00 L 0.00 -85.00 L -10.00 -80.00 L -40.00 -95.00" style="fill:#34495e; stroke:none;" />
+<path d="M 30.00 -100.00 L 0.00 -85.00 L 10.00 -80.00 L 40.00 -95.00" style="fill:#34495e; stroke:none;" />
+<path d="M -25.00 -87.50 Q 0.00 -100.00 25.00 -87.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 0.00 -115.00 L 30.00 -100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -40.00 -95.00 L -30.00 -100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -10.00 -80.00 L 0.00 -85.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 40.00 -95.00 L 30.00 -100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 10.00 -80.00 L 0.00 -85.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 0.00 -115.00 L -30.00 -100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 50.00 -100.00 L 100.00 -75.00 L 50.00 -50.00 L 0.00 -75.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 50.00 -90.00 L 80.00 -75.00 L 50.00 -60.00 L 20.00 -75.00" style="fill:#34495e; stroke:none;" />
+<path d="M 80.00 -75.00 L 50.00 -60.00 L 60.00 -55.00 L 90.00 -70.00" style="fill:#34495e; stroke:none;" />
+<path d="M 50.00 -90.00 L 20.00 -75.00 L 10.00 -80.00 L 40.00 -95.00" style="fill:#34495e; stroke:none;" />
+<path d="M 25.00 -87.50 L 75.00 -62.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 50.00 -90.00 L 80.00 -75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 20.00 -75.00 L 50.00 -60.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 90.00 -70.00 L 80.00 -75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 60.00 -55.00 L 50.00 -60.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 40.00 -95.00 L 50.00 -90.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 10.00 -80.00 L 20.00 -75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 100.00 -75.00 L 150.00 -50.00 L 100.00 -25.00 L 50.00 -50.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 100.00 -65.00 L 130.00 -50.00 L 100.00 -35.00 L 70.00 -50.00" style="fill:#34495e; stroke:none;" />
+<path d="M 100.00 -65.00 L 130.00 -50.00 L 140.00 -55.00 L 110.00 -70.00" style="fill:#34495e; stroke:none;" />
+<path d="M 130.00 -50.00 L 100.00 -35.00 L 110.00 -30.00 L 140.00 -45.00" style="fill:#34495e; stroke:none;" />
+<path d="M 100.00 -65.00 L 70.00 -50.00 L 60.00 -55.00 L 90.00 -70.00" style="fill:#34495e; stroke:none;" />
+<path d="M 125.00 -62.50 L 115.00 -57.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 125.00 -37.50 L 115.00 -42.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 75.00 -62.50 L 85.00 -57.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 110.00 -70.00 L 100.00 -65.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 140.00 -55.00 L 130.00 -50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 70.00 -50.00 L 100.00 -35.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 140.00 -45.00 L 130.00 -50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 110.00 -30.00 L 100.00 -35.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 90.00 -70.00 L 100.00 -65.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 60.00 -55.00 L 70.00 -50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 150.00 -50.00 L 200.00 -25.00 L 150.00 0.00 L 100.00 -25.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 150.00 -40.00 L 180.00 -25.00 L 150.00 -10.00 L 120.00 -25.00" style="fill:#34495e; stroke:none;" />
+<path d="M 180.00 -25.00 L 150.00 -10.00 L 160.00 -5.00 L 190.00 -20.00" style="fill:#34495e; stroke:none;" />
+<path d="M 150.00 -40.00 L 120.00 -25.00 L 110.00 -30.00 L 140.00 -45.00" style="fill:#34495e; stroke:none;" />
+<path d="M 125.00 -37.50 L 175.00 -12.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 150.00 -40.00 L 180.00 -25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 120.00 -25.00 L 150.00 -10.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 190.00 -20.00 L 180.00 -25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 160.00 -5.00 L 150.00 -10.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 140.00 -45.00 L 150.00 -40.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 110.00 -30.00 L 120.00 -25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 200.00 -25.00 L 250.00 0.00 L 200.00 25.00 L 150.00 0.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 200.00 -15.00 L 230.00 0.00 L 200.00 15.00 L 170.00 0.00" style="fill:#34495e; stroke:none;" />
+<path d="M 170.00 0.00 L 200.00 15.00 L 190.00 20.00 L 160.00 5.00" style="fill:#34495e; stroke:none;" />
+<path d="M 200.00 -15.00 L 170.00 0.00 L 160.00 -5.00 L 190.00 -20.00" style="fill:#34495e; stroke:none;" />
+<path d="M 175.00 12.50 Q 200.00 0.00 175.00 -12.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 200.00 -15.00 L 230.00 0.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 160.00 5.00 L 170.00 0.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 190.00 20.00 L 200.00 15.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 230.00 0.00 L 200.00 15.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 190.00 -20.00 L 200.00 -15.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 160.00 -5.00 L 170.00 0.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 250.00 0.00 L 300.00 25.00 L 250.00 50.00 L 200.00 25.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 269.79 18.45 L 266.79 14.45 M 269.79 18.45 L 271.79 13.45" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 300.00 25.00 L 350.00 50.00 L 300.00 75.00 L 250.00 50.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 350.00 50.00 L 400.00 75.00 L 350.00 100.00 L 300.00 75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 400.00 75.00 L 450.00 100.00 L 400.00 125.00 L 350.00 100.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 377.49 86.16 L 374.49 82.16 M 377.49 86.16 L 379.49 81.16" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 450.00 100.00 L 500.00 125.00 L 450.00 150.00 L 400.00 125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 500.00 125.00 L 550.00 150.00 L 500.00 175.00 L 450.00 150.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 460.70 139.81 L 457.70 135.81 M 460.70 139.81 L 462.70 134.81" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 550.00 150.00 L 600.00 175.00 L 550.00 200.00 L 500.00 175.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 600.00 175.00 L 650.00 200.00 L 600.00 225.00 L 550.00 200.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 600.00 185.00 L 630.00 200.00 L 600.00 215.00 L 570.00 200.00" style="fill:#34495e; stroke:none;" />
+<path d="M 600.00 185.00 L 630.00 200.00 L 640.00 195.00 L 610.00 180.00" style="fill:#34495e; stroke:none;" />
+<path d="M 570.00 200.00 L 600.00 215.00 L 590.00 220.00 L 560.00 205.00" style="fill:#34495e; stroke:none;" />
+<path d="M 625.00 187.50 L 575.00 212.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 610.00 180.00 L 600.00 185.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 640.00 195.00 L 630.00 200.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 560.00 205.00 L 570.00 200.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 590.00 220.00 L 600.00 215.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 630.00 200.00 L 600.00 215.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 600.00 185.00 L 570.00 200.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 650.00 200.00 L 700.00 225.00 L 650.00 250.00 L 600.00 225.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 700.00 225.00 L 750.00 250.00 L 700.00 275.00 L 650.00 250.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M -150.00 -150.00 L -100.00 -125.00 L -150.00 -100.00 L -200.00 -125.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M -166.45 -118.50 L -169.45 -122.50 M -166.45 -118.50 L -164.45 -123.50" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M -100.00 -125.00 L -50.00 -100.00 L -100.00 -75.00 L -150.00 -100.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -50.00 -100.00 L 0.00 -75.00 L -50.00 -50.00 L -100.00 -75.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M -50.00 -90.00 L -20.00 -75.00 L -50.00 -60.00 L -80.00 -75.00" style="fill:#34495e; stroke:none;" />
+<path d="M -50.00 -90.00 L -20.00 -75.00 L -10.00 -80.00 L -40.00 -95.00" style="fill:#34495e; stroke:none;" />
+<path d="M -80.00 -75.00 L -50.00 -60.00 L -60.00 -55.00 L -90.00 -70.00" style="fill:#34495e; stroke:none;" />
+<path d="M -25.00 -87.50 L -75.00 -62.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M -40.00 -95.00 L -50.00 -90.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -10.00 -80.00 L -20.00 -75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -90.00 -70.00 L -80.00 -75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -60.00 -55.00 L -50.00 -60.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -20.00 -75.00 L -50.00 -60.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -50.00 -90.00 L -80.00 -75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 0.00 -75.00 L 50.00 -50.00 L 0.00 -25.00 L -50.00 -50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 50.00 -50.00 L 100.00 -25.00 L 50.00 0.00 L 0.00 -25.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 25.96 -36.70 L 22.96 -40.70 M 25.96 -36.70 L 27.96 -41.70" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 100.00 -25.00 L 150.00 0.00 L 100.00 25.00 L 50.00 0.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 53.44 -20.17 L 50.44 -24.17 M 53.44 -20.17 L 55.44 -25.17" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 150.00 0.00 L 200.00 25.00 L 150.00 50.00 L 100.00 25.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 150.00 10.00 L 180.00 25.00 L 150.00 40.00 L 120.00 25.00" style="fill:#34495e; stroke:none;" />
+<path d="M 150.00 10.00 L 180.00 25.00 L 190.00 20.00 L 160.00 5.00" style="fill:#34495e; stroke:none;" />
+<path d="M 120.00 25.00 L 150.00 40.00 L 140.00 45.00 L 110.00 30.00" style="fill:#34495e; stroke:none;" />
+<path d="M 175.00 12.50 L 125.00 37.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 160.00 5.00 L 150.00 10.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 190.00 20.00 L 180.00 25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 110.00 30.00 L 120.00 25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 140.00 45.00 L 150.00 40.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 180.00 25.00 L 150.00 40.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 150.00 10.00 L 120.00 25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 200.00 25.00 L 250.00 50.00 L 200.00 75.00 L 150.00 50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 250.00 50.00 L 300.00 75.00 L 250.00 100.00 L 200.00 75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 300.00 75.00 L 350.00 100.00 L 300.00 125.00 L 250.00 100.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 350.00 100.00 L 400.00 125.00 L 350.00 150.00 L 300.00 125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 400.00 125.00 L 450.00 150.00 L 400.00 175.00 L 350.00 150.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 450.00 150.00 L 500.00 175.00 L 450.00 200.00 L 400.00 175.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 500.00 175.00 L 550.00 200.00 L 500.00 225.00 L 450.00 200.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 511.17 205.04 L 508.17 201.04 M 511.17 205.04 L 513.17 200.04" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 550.00 200.00 L 600.00 225.00 L 550.00 250.00 L 500.00 225.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 550.00 210.00 L 580.00 225.00 L 550.00 240.00 L 520.00 225.00" style="fill:#34495e; stroke:none;" />
+<path d="M 550.00 210.00 L 580.00 225.00 L 590.00 220.00 L 560.00 205.00" style="fill:#34495e; stroke:none;" />
+<path d="M 520.00 225.00 L 550.00 240.00 L 540.00 245.00 L 510.00 230.00" style="fill:#34495e; stroke:none;" />
+<path d="M 575.00 212.50 L 525.00 237.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 560.00 205.00 L 550.00 210.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 590.00 220.00 L 580.00 225.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 510.00 230.00 L 520.00 225.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 540.00 245.00 L 550.00 240.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 580.00 225.00 L 550.00 240.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 550.00 210.00 L 520.00 225.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 600.00 225.00 L 650.00 250.00 L 600.00 275.00 L 550.00 250.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 582.08 250.61 L 579.08 246.61 M 582.08 250.61 L 584.08 245.61" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 650.00 250.00 L 700.00 275.00 L 650.00 300.00 L 600.00 275.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 648.58 283.46 L 645.58 279.46 M 648.58 283.46 L 650.58 278.46" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M -200.00 -125.00 L -150.00 -100.00 L -200.00 -75.00 L -250.00 -100.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M -150.00 -100.00 L -100.00 -75.00 L -150.00 -50.00 L -200.00 -75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -100.00 -75.00 L -50.00 -50.00 L -100.00 -25.00 L -150.00 -50.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M -100.00 -65.00 L -70.00 -50.00 L -100.00 -35.00 L -130.00 -50.00" style="fill:#34495e; stroke:none;" />
+<path d="M -100.00 -65.00 L -70.00 -50.00 L -60.00 -55.00 L -90.00 -70.00" style="fill:#34495e; stroke:none;" />
+<path d="M -130.00 -50.00 L -100.00 -35.00 L -110.00 -30.00 L -140.00 -45.00" style="fill:#34495e; stroke:none;" />
+<path d="M -75.00 -62.50 L -125.00 -37.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M -90.00 -70.00 L -100.00 -65.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -60.00 -55.00 L -70.00 -50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -140.00 -45.00 L -130.00 -50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -110.00 -30.00 L -100.00 -35.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -70.00 -50.00 L -100.00 -35.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -100.00 -65.00 L -130.00 -50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -50.00 -50.00 L 0.00 -25.00 L -50.00 0.00 L -100.00 -25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 0.00 -25.00 L 50.00 0.00 L 0.00 25.00 L -50.00 0.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 50.00 0.00 L 100.00 25.00 L 50.00 50.00 L 0.00 25.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 43.53 20.33 L 40.53 16.33 M 43.53 20.33 L 45.53 15.33" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 100.00 25.00 L 150.00 50.00 L 100.00 75.00 L 50.00 50.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 100.00 35.00 L 130.00 50.00 L 100.00 65.00 L 70.00 50.00" style="fill:#34495e; stroke:none;" />
+<path d="M 100.00 35.00 L 130.00 50.00 L 140.00 45.00 L 110.00 30.00" style="fill:#34495e; stroke:none;" />
+<path d="M 70.00 50.00 L 100.00 65.00 L 90.00 70.00 L 60.00 55.00" style="fill:#34495e; stroke:none;" />
+<path d="M 130.00 50.00 L 100.00 65.00 L 110.00 70.00 L 140.00 55.00" style="fill:#34495e; stroke:none;" />
+<path d="M 125.00 37.50 L 115.00 42.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 75.00 62.50 L 85.00 57.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 125.00 62.50 L 115.00 57.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 110.00 30.00 L 100.00 35.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 140.00 45.00 L 130.00 50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 60.00 55.00 L 70.00 50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 90.00 70.00 L 100.00 65.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 140.00 55.00 L 130.00 50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 110.00 70.00 L 100.00 65.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 100.00 35.00 L 70.00 50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 150.00 50.00 L 200.00 75.00 L 150.00 100.00 L 100.00 75.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 150.00 60.00 L 180.00 75.00 L 150.00 90.00 L 120.00 75.00" style="fill:#34495e; stroke:none;" />
+<path d="M 180.00 75.00 L 150.00 90.00 L 160.00 95.00 L 190.00 80.00" style="fill:#34495e; stroke:none;" />
+<path d="M 150.00 60.00 L 120.00 75.00 L 110.00 70.00 L 140.00 55.00" style="fill:#34495e; stroke:none;" />
+<path d="M 125.00 62.50 L 175.00 87.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 150.00 60.00 L 180.00 75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 120.00 75.00 L 150.00 90.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 190.00 80.00 L 180.00 75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 160.00 95.00 L 150.00 90.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 140.00 55.00 L 150.00 60.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 110.00 70.00 L 120.00 75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 200.00 75.00 L 250.00 100.00 L 200.00 125.00 L 150.00 100.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 200.00 85.00 L 230.00 100.00 L 200.00 115.00 L 170.00 100.00" style="fill:#34495e; stroke:none;" />
+<path d="M 230.00 100.00 L 200.00 115.00 L 210.00 120.00 L 240.00 105.00" style="fill:#34495e; stroke:none;" />
+<path d="M 200.00 85.00 L 170.00 100.00 L 160.00 95.00 L 190.00 80.00" style="fill:#34495e; stroke:none;" />
+<path d="M 175.00 87.50 L 225.00 112.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 200.00 85.00 L 230.00 100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 170.00 100.00 L 200.00 115.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 240.00 105.00 L 230.00 100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 210.00 120.00 L 200.00 115.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 190.00 80.00 L 200.00 85.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 160.00 95.00 L 170.00 100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 250.00 100.00 L 300.00 125.00 L 250.00 150.00 L 200.00 125.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 250.00 110.00 L 280.00 125.00 L 250.00 140.00 L 220.00 125.00" style="fill:#34495e; stroke:none;" />
+<path d="M 280.00 125.00 L 250.00 140.00 L 260.00 145.00 L 290.00 130.00" style="fill:#34495e; stroke:none;" />
+<path d="M 250.00 110.00 L 220.00 125.00 L 210.00 120.00 L 240.00 105.00" style="fill:#34495e; stroke:none;" />
+<path d="M 225.00 112.50 L 275.00 137.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 250.00 110.00 L 280.00 125.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 220.00 125.00 L 250.00 140.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 290.00 130.00 L 280.00 125.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 260.00 145.00 L 250.00 140.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 240.00 105.00 L 250.00 110.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 210.00 120.00 L 220.00 125.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 300.00 125.00 L 350.00 150.00 L 300.00 175.00 L 250.00 150.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 300.00 135.00 L 330.00 150.00 L 300.00 165.00 L 270.00 150.00" style="fill:#34495e; stroke:none;" />
+<path d="M 330.00 150.00 L 300.00 165.00 L 310.00 170.00 L 340.00 155.00" style="fill:#34495e; stroke:none;" />
+<path d="M 300.00 135.00 L 270.00 150.00 L 260.00 145.00 L 290.00 130.00" style="fill:#34495e; stroke:none;" />
+<path d="M 275.00 137.50 L 325.00 162.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 300.00 135.00 L 330.00 150.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 270.00 150.00 L 300.00 165.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 340.00 155.00 L 330.00 150.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 310.00 170.00 L 300.00 165.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 290.00 130.00 L 300.00 135.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 260.00 145.00 L 270.00 150.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 350.00 150.00 L 400.00 175.00 L 350.00 200.00 L 300.00 175.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 350.00 160.00 L 380.00 175.00 L 350.00 190.00 L 320.00 175.00" style="fill:#34495e; stroke:none;" />
+<path d="M 380.00 175.00 L 350.00 190.00 L 360.00 195.00 L 390.00 180.00" style="fill:#34495e; stroke:none;" />
+<path d="M 350.00 160.00 L 320.00 175.00 L 310.00 170.00 L 340.00 155.00" style="fill:#34495e; stroke:none;" />
+<path d="M 325.00 162.50 L 375.00 187.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 350.00 160.00 L 380.00 175.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 320.00 175.00 L 350.00 190.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 390.00 180.00 L 380.00 175.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 360.00 195.00 L 350.00 190.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 340.00 155.00 L 350.00 160.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 310.00 170.00 L 320.00 175.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 400.00 175.00 L 450.00 200.00 L 400.00 225.00 L 350.00 200.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 400.00 185.00 L 430.00 200.00 L 400.00 215.00 L 370.00 200.00" style="fill:#34495e; stroke:none;" />
+<path d="M 430.00 200.00 L 400.00 215.00 L 410.00 220.00 L 440.00 205.00" style="fill:#34495e; stroke:none;" />
+<path d="M 400.00 185.00 L 370.00 200.00 L 360.00 195.00 L 390.00 180.00" style="fill:#34495e; stroke:none;" />
+<path d="M 375.00 187.50 L 425.00 212.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 400.00 185.00 L 430.00 200.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 370.00 200.00 L 400.00 215.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 440.00 205.00 L 430.00 200.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 410.00 220.00 L 400.00 215.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 390.00 180.00 L 400.00 185.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 360.00 195.00 L 370.00 200.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 450.00 200.00 L 500.00 225.00 L 450.00 250.00 L 400.00 225.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 450.00 210.00 L 480.00 225.00 L 450.00 240.00 L 420.00 225.00" style="fill:#34495e; stroke:none;" />
+<path d="M 480.00 225.00 L 450.00 240.00 L 460.00 245.00 L 490.00 230.00" style="fill:#34495e; stroke:none;" />
+<path d="M 450.00 210.00 L 420.00 225.00 L 410.00 220.00 L 440.00 205.00" style="fill:#34495e; stroke:none;" />
+<path d="M 425.00 212.50 L 475.00 237.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 450.00 210.00 L 480.00 225.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 420.00 225.00 L 450.00 240.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 490.00 230.00 L 480.00 225.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 460.00 245.00 L 450.00 240.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 440.00 205.00 L 450.00 210.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 410.00 220.00 L 420.00 225.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 500.00 225.00 L 550.00 250.00 L 500.00 275.00 L 450.00 250.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 500.00 235.00 L 530.00 250.00 L 500.00 265.00 L 470.00 250.00" style="fill:#34495e; stroke:none;" />
+<path d="M 500.00 235.00 L 530.00 250.00 L 540.00 245.00 L 510.00 230.00" style="fill:#34495e; stroke:none;" />
+<path d="M 500.00 235.00 L 470.00 250.00 L 460.00 245.00 L 490.00 230.00" style="fill:#34495e; stroke:none;" />
+<path d="M 525.00 237.50 Q 500.00 250.00 475.00 237.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 510.00 230.00 L 500.00 235.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 540.00 245.00 L 530.00 250.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 470.00 250.00 L 500.00 265.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 530.00 250.00 L 500.00 265.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 490.00 230.00 L 500.00 235.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 460.00 245.00 L 470.00 250.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 550.00 250.00 L 600.00 275.00 L 550.00 300.00 L 500.00 275.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 529.49 255.29 L 526.49 251.29 M 529.49 255.29 L 531.49 250.29" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 600.00 275.00 L 650.00 300.00 L 600.00 325.00 L 550.00 300.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -250.00 -100.00 L -200.00 -75.00 L -250.00 -50.00 L -300.00 -75.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M -243.14 -70.15 L -246.14 -74.15 M -243.14 -70.15 L -241.14 -75.15" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M -200.00 -75.00 L -150.00 -50.00 L -200.00 -25.00 L -250.00 -50.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M -150.00 -50.00 L -100.00 -25.00 L -150.00 0.00 L -200.00 -25.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M -150.00 -40.00 L -120.00 -25.00 L -150.00 -10.00 L -180.00 -25.00" style="fill:#34495e; stroke:none;" />
+<path d="M -150.00 -40.00 L -120.00 -25.00 L -110.00 -30.00 L -140.00 -45.00" style="fill:#34495e; stroke:none;" />
+<path d="M -180.00 -25.00 L -150.00 -10.00 L -160.00 -5.00 L -190.00 -20.00" style="fill:#34495e; stroke:none;" />
+<path d="M -125.00 -37.50 L -175.00 -12.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M -140.00 -45.00 L -150.00 -40.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -110.00 -30.00 L -120.00 -25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -190.00 -20.00 L -180.00 -25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -160.00 -5.00 L -150.00 -10.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -120.00 -25.00 L -150.00 -10.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -150.00 -40.00 L -180.00 -25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -100.00 -25.00 L -50.00 0.00 L -100.00 25.00 L -150.00 0.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -50.00 0.00 L 0.00 25.00 L -50.00 50.00 L -100.00 25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 0.00 25.00 L 50.00 50.00 L 0.00 75.00 L -50.00 50.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M -50.94 29.16 L -53.94 25.16 M -50.94 29.16 L -48.94 24.16" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 50.00 50.00 L 100.00 75.00 L 50.00 100.00 L 0.00 75.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 50.00 60.00 L 80.00 75.00 L 50.00 90.00 L 20.00 75.00" style="fill:#34495e; stroke:none;" />
+<path d="M 50.00 60.00 L 80.00 75.00 L 90.00 70.00 L 60.00 55.00" style="fill:#34495e; stroke:none;" />
+<path d="M 20.00 75.00 L 50.00 90.00 L 40.00 95.00 L 10.00 80.00" style="fill:#34495e; stroke:none;" />
+<path d="M 75.00 62.50 L 25.00 87.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 60.00 55.00 L 50.00 60.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 90.00 70.00 L 80.00 75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 10.00 80.00 L 20.00 75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 40.00 95.00 L 50.00 90.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 80.00 75.00 L 50.00 90.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 50.00 60.00 L 20.00 75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 100.00 75.00 L 150.00 100.00 L 100.00 125.00 L 50.00 100.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 150.00 100.00 L 200.00 125.00 L 150.00 150.00 L 100.00 125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 200.00 125.00 L 250.00 150.00 L 200.00 175.00 L 150.00 150.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 146.02 131.54 L 143.02 127.54 M 146.02 131.54 L 148.02 126.54" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 250.00 150.00 L 300.00 175.00 L 250.00 200.00 L 200.00 175.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 213.99 161.04 L 210.99 157.04 M 213.99 161.04 L 215.99 156.04" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 300.00 175.00 L 350.00 200.00 L 300.00 225.00 L 250.00 200.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 350.00 200.00 L 400.00 225.00 L 350.00 250.00 L 300.00 225.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 400.00 225.00 L 450.00 250.00 L 400.00 275.00 L 350.00 250.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 450.00 250.00 L 500.00 275.00 L 450.00 300.00 L 400.00 275.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 500.00 275.00 L 550.00 300.00 L 500.00 325.00 L 450.00 300.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 550.00 300.00 L 600.00 325.00 L 550.00 350.00 L 500.00 325.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M -300.00 -75.00 L -250.00 -50.00 L -300.00 -25.00 L -350.00 -50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -250.00 -50.00 L -200.00 -25.00 L -250.00 0.00 L -300.00 -25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -200.00 -25.00 L -150.00 0.00 L -200.00 25.00 L -250.00 0.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M -200.00 -15.00 L -170.00 0.00 L -200.00 15.00 L -230.00 0.00" style="fill:#34495e; stroke:none;" />
+<path d="M -200.00 -15.00 L -170.00 0.00 L -160.00 -5.00 L -190.00 -20.00" style="fill:#34495e; stroke:none;" />
+<path d="M -170.00 0.00 L -200.00 15.00 L -190.00 20.00 L -160.00 5.00" style="fill:#34495e; stroke:none;" />
+<path d="M -175.00 -12.50 Q -200.00 0.00 -175.00 12.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M -190.00 -20.00 L -200.00 -15.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -160.00 -5.00 L -170.00 0.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -230.00 0.00 L -200.00 15.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -160.00 5.00 L -170.00 0.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -190.00 20.00 L -200.00 15.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -200.00 -15.00 L -230.00 0.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -150.00 0.00 L -100.00 25.00 L -150.00 50.00 L -200.00 25.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M -150.00 10.00 L -120.00 25.00 L -150.00 40.00 L -180.00 25.00" style="fill:#34495e; stroke:none;" />
+<path d="M -120.00 25.00 L -150.00 40.00 L -140.00 45.00 L -110.00 30.00" style="fill:#34495e; stroke:none;" />
+<path d="M -150.00 10.00 L -180.00 25.00 L -190.00 20.00 L -160.00 5.00" style="fill:#34495e; stroke:none;" />
+<path d="M -175.00 12.50 L -125.00 37.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M -150.00 10.00 L -120.00 25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -180.00 25.00 L -150.00 40.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -110.00 30.00 L -120.00 25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -140.00 45.00 L -150.00 40.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -160.00 5.00 L -150.00 10.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -190.00 20.00 L -180.00 25.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -100.00 25.00 L -50.00 50.00 L -100.00 75.00 L -150.00 50.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M -100.00 35.00 L -70.00 50.00 L -100.00 65.00 L -130.00 50.00" style="fill:#34495e; stroke:none;" />
+<path d="M -70.00 50.00 L -100.00 65.00 L -90.00 70.00 L -60.00 55.00" style="fill:#34495e; stroke:none;" />
+<path d="M -100.00 35.00 L -130.00 50.00 L -140.00 45.00 L -110.00 30.00" style="fill:#34495e; stroke:none;" />
+<path d="M -125.00 37.50 L -75.00 62.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M -100.00 35.00 L -70.00 50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -130.00 50.00 L -100.00 65.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -60.00 55.00 L -70.00 50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -90.00 70.00 L -100.00 65.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -110.00 30.00 L -100.00 35.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -140.00 45.00 L -130.00 50.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -50.00 50.00 L 0.00 75.00 L -50.00 100.00 L -100.00 75.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M -50.00 60.00 L -20.00 75.00 L -50.00 90.00 L -80.00 75.00" style="fill:#34495e; stroke:none;" />
+<path d="M -20.00 75.00 L -50.00 90.00 L -40.00 95.00 L -10.00 80.00" style="fill:#34495e; stroke:none;" />
+<path d="M -50.00 60.00 L -80.00 75.00 L -90.00 70.00 L -60.00 55.00" style="fill:#34495e; stroke:none;" />
+<path d="M -75.00 62.50 L -25.00 87.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M -50.00 60.00 L -20.00 75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -80.00 75.00 L -50.00 90.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -10.00 80.00 L -20.00 75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -40.00 95.00 L -50.00 90.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -60.00 55.00 L -50.00 60.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -90.00 70.00 L -80.00 75.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 0.00 75.00 L 50.00 100.00 L 0.00 125.00 L -50.00 100.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 0.00 85.00 L 30.00 100.00 L 0.00 115.00 L -30.00 100.00" style="fill:#34495e; stroke:none;" />
+<path d="M 0.00 85.00 L 30.00 100.00 L 40.00 95.00 L 10.00 80.00" style="fill:#34495e; stroke:none;" />
+<path d="M 0.00 85.00 L -30.00 100.00 L -40.00 95.00 L -10.00 80.00" style="fill:#34495e; stroke:none;" />
+<path d="M 25.00 87.50 Q 0.00 100.00 -25.00 87.50" style="fill:none; stroke:#ecf0f1; stroke-width:2; stroke-dasharray:8,8;" />
+<path d="M 10.00 80.00 L 0.00 85.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 40.00 95.00 L 30.00 100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -30.00 100.00 L 0.00 115.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 30.00 100.00 L 0.00 115.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -10.00 80.00 L 0.00 85.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M -40.00 95.00 L -30.00 100.00" style="fill:none; stroke:#ffffff; stroke-width:3; opacity:0.8;" />
+<path d="M 50.00 100.00 L 100.00 125.00 L 50.00 150.00 L 0.00 125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 100.00 125.00 L 150.00 150.00 L 100.00 175.00 L 50.00 150.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 91.12 153.24 L 88.12 149.24 M 91.12 153.24 L 93.12 148.24" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 150.00 150.00 L 200.00 175.00 L 150.00 200.00 L 100.00 175.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 200.00 175.00 L 250.00 200.00 L 200.00 225.00 L 150.00 200.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 250.00 200.00 L 300.00 225.00 L 250.00 250.00 L 200.00 225.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 300.00 225.00 L 350.00 250.00 L 300.00 275.00 L 250.00 250.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 350.00 250.00 L 400.00 275.00 L 350.00 300.00 L 300.00 275.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 400.00 275.00 L 450.00 300.00 L 400.00 325.00 L 350.00 300.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 450.00 300.00 L 500.00 325.00 L 450.00 350.00 L 400.00 325.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 405.70 303.71 L 402.70 299.71 M 405.70 303.71 L 407.70 298.71" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 500.00 325.00 L 550.00 350.00 L 500.00 375.00 L 450.00 350.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 442.98 336.10 L 439.98 332.10 M 442.98 336.10 L 444.98 331.10" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M -350.00 -50.00 L -300.00 -25.00 L -350.00 0.00 L -400.00 -25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -300.00 -25.00 L -250.00 0.00 L -300.00 25.00 L -350.00 0.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M -250.00 0.00 L -200.00 25.00 L -250.00 50.00 L -300.00 25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -200.00 25.00 L -150.00 50.00 L -200.00 75.00 L -250.00 50.00 Z" style="fill:#66bb6a; stroke:none;" />
+<circle cx="-180.47" cy="47.19" r="2" fill="#b5ead7" />
+<path d="M -150.00 50.00 L -100.00 75.00 L -150.00 100.00 L -200.00 75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -100.00 75.00 L -50.00 100.00 L -100.00 125.00 L -150.00 100.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -50.00 100.00 L 0.00 125.00 L -50.00 150.00 L -100.00 125.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 0.00 125.00 L 50.00 150.00 L 0.00 175.00 L -50.00 150.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M -51.32 127.54 L -54.32 123.54 M -51.32 127.54 L -49.32 122.54" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 50.00 150.00 L 100.00 175.00 L 50.00 200.00 L 0.00 175.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 100.00 175.00 L 150.00 200.00 L 100.00 225.00 L 50.00 200.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<path d="M 77.46 179.41 L 74.46 175.41 M 77.46 179.41 L 79.46 174.41" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 150.00 200.00 L 200.00 225.00 L 150.00 250.00 L 100.00 225.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 200.00 225.00 L 250.00 250.00 L 200.00 275.00 L 150.00 250.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 250.00 250.00 L 300.00 275.00 L 250.00 300.00 L 200.00 275.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 221.02 250.39 L 218.02 246.39 M 221.02 250.39 L 223.02 245.39" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 300.00 275.00 L 350.00 300.00 L 300.00 325.00 L 250.00 300.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 350.00 300.00 L 400.00 325.00 L 350.00 350.00 L 300.00 325.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 400.00 325.00 L 450.00 350.00 L 400.00 375.00 L 350.00 350.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 404.42 357.09 L 401.42 353.09 M 404.42 357.09 L 406.42 352.09" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 450.00 350.00 L 500.00 375.00 L 450.00 400.00 L 400.00 375.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M -400.00 -25.00 L -350.00 0.00 L -400.00 25.00 L -450.00 0.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -350.00 0.00 L -300.00 25.00 L -350.00 50.00 L -400.00 25.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -300.00 25.00 L -250.00 50.00 L -300.00 75.00 L -350.00 50.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -250.00 50.00 L -200.00 75.00 L -250.00 100.00 L -300.00 75.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -200.00 75.00 L -150.00 100.00 L -200.00 125.00 L -250.00 100.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -150.00 100.00 L -100.00 125.00 L -150.00 150.00 L -200.00 125.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M -189.67 107.18 L -192.67 103.18 M -189.67 107.18 L -187.67 102.18" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M -100.00 125.00 L -50.00 150.00 L -100.00 175.00 L -150.00 150.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M -50.00 150.00 L 0.00 175.00 L -50.00 200.00 L -100.00 175.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 0.00 175.00 L 50.00 200.00 L 0.00 225.00 L -50.00 200.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 50.00 200.00 L 100.00 225.00 L 50.00 250.00 L 0.00 225.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 100.00 225.00 L 150.00 250.00 L 100.00 275.00 L 50.00 250.00 Z" style="fill:#a5d6a7; stroke:none;" />
+<circle cx="82.12" cy="254.25" r="2" fill="#e2f0cb" />
+<path d="M 150.00 250.00 L 200.00 275.00 L 150.00 300.00 L 100.00 275.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 200.00 275.00 L 250.00 300.00 L 200.00 325.00 L 150.00 300.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 250.00 300.00 L 300.00 325.00 L 250.00 350.00 L 200.00 325.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 300.00 325.00 L 350.00 350.00 L 300.00 375.00 L 250.00 350.00 Z" style="fill:#81c784; stroke:none;" />
+<path d="M 350.00 350.00 L 400.00 375.00 L 350.00 400.00 L 300.00 375.00 Z" style="fill:#66bb6a; stroke:none;" />
+<path d="M 323.49 355.90 L 320.49 351.90 M 323.49 355.90 L 325.49 350.90" style="fill:none; stroke:#76c47c; stroke-width:1.5;" />
+<path d="M 400.00 375.00 L 450.00 400.00 L 400.00 425.00 L 350.00 400.00 Z" style="fill:#66bb6a; stroke:none;" />
+<ellipse cx="0.00" cy="0.00" rx="24" ry="14.4" fill="rgba(0,0,0,0.15)" />
+<path d="M -2.00 17.00 L 34.00 -1.00 L 34.00 -61.00 L -2.00 -43.00 Z" style="fill:#e0dad1; stroke:none;" />
+<path d="M -2.00 17.00 L 34.00 -1.00 L 34.00 -61.00 L -2.00 -43.00 Z" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1.5;" />
+<path d="M 34.00 -1.00 L 32.00 -2.00 L 32.00 -62.00 L 34.00 -61.00" style="fill:#f3f1ed; stroke:none;" />
+<path d="M -2.00 13.00 L 34.00 -5.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 34.00 -5.00 L 34.00 -13.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 22.00 1.00 L 22.00 -7.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 10.00 7.00 L 10.00 -1.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -2.00 5.00 L 34.00 -13.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 27.00 -9.50 L 27.00 -17.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 19.00 -5.50 L 19.00 -13.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 11.00 -1.50 L 11.00 -9.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 3.00 2.50 L 3.00 -5.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -2.00 -3.00 L 34.00 -21.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 32.00 -20.00 L 32.00 -28.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 20.00 -14.00 L 20.00 -22.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 8.00 -8.00 L 8.00 -16.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -2.00 -11.00 L 34.00 -29.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 29.00 -26.50 L 29.00 -34.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 21.00 -22.50 L 21.00 -30.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 13.00 -18.50 L 13.00 -26.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 5.00 -14.50 L 5.00 -22.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -2.00 -19.00 L 34.00 -37.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 30.00 -35.00 L 30.00 -43.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 18.00 -29.00 L 18.00 -37.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 6.00 -23.00 L 6.00 -31.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -2.00 -27.00 L 34.00 -45.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 31.00 -43.50 L 31.00 -51.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 23.00 -39.50 L 23.00 -47.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 15.00 -35.50 L 15.00 -43.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 7.00 -31.50 L 7.00 -39.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -1.00 -27.50 L -1.00 -35.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -2.00 -35.00 L 34.00 -53.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 28.00 -50.00 L 28.00 -58.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 16.00 -44.00 L 16.00 -52.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 4.00 -38.00 L 4.00 -46.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 11.20 -15.40 L 21.20 -20.40 L 21.20 -32.40 L 11.20 -27.40 Z" style="fill:#b2bec3; stroke:none;" />
+<path d="M 12.40 -16.80 L 20.40 -20.80 L 20.40 -30.80 L 12.40 -26.80 Z" style="fill:#81ecec; stroke:none;" />
+<path d="M 9.20 -27.40 L 12.00 -28.80 L 17.00 -22.30 L 14.20 -20.90" style="fill:#e17055; stroke:none;" />
+<path d="M 12.00 -28.80 L 14.80 -30.20 L 19.80 -23.70 L 17.00 -22.30" style="fill:#dfe6e9; stroke:none;" />
+<path d="M 14.80 -30.20 L 17.60 -31.60 L 22.60 -25.10 L 19.80 -23.70" style="fill:#e17055; stroke:none;" />
+<path d="M 17.60 -31.60 L 20.40 -33.00 L 25.40 -26.50 L 22.60 -25.10" style="fill:#dfe6e9; stroke:none;" />
+<path d="M 20.40 -33.00 L 23.20 -34.40 L 28.20 -27.90 L 25.40 -26.50" style="fill:#e17055; stroke:none;" />
+<path d="M 9.20 -27.40 L 14.20 -20.90 L 9.20 -23.40" style="fill:#d63031; stroke:none;" />
+<path d="M 23.20 -34.40 L 28.20 -27.90 L 23.20 -30.40" style="fill:#d63031; stroke:none;" />
+<path d="M -34.00 1.00 L -2.00 17.00 L -2.00 -43.00 L -34.00 -59.00 Z" style="fill:#fdfbf7; stroke:none;" />
+<path d="M -34.00 1.00 L -2.00 17.00 L -2.00 -43.00 L -34.00 -59.00 Z" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -34.00 -3.00 L -2.00 13.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -34.00 -3.00 L -34.00 -11.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -22.00 3.00 L -22.00 -5.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -10.00 9.00 L -10.00 1.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -34.00 -11.00 L -2.00 5.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -27.00 -7.50 L -27.00 -15.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -19.00 -3.50 L -19.00 -11.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -11.00 0.50 L -11.00 -7.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -3.00 4.50 L -3.00 -3.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -34.00 -19.00 L -2.00 -3.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -32.00 -18.00 L -32.00 -26.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -20.00 -12.00 L -20.00 -20.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -8.00 -6.00 L -8.00 -14.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -34.00 -27.00 L -2.00 -11.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -29.00 -24.50 L -29.00 -32.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -21.00 -20.50 L -21.00 -28.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -13.00 -16.50 L -13.00 -24.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -5.00 -12.50 L -5.00 -20.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -34.00 -35.00 L -2.00 -19.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -30.00 -33.00 L -30.00 -41.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -18.00 -27.00 L -18.00 -35.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -6.00 -21.00 L -6.00 -29.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -34.00 -43.00 L -2.00 -27.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -31.00 -41.50 L -31.00 -49.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -23.00 -37.50 L -23.00 -45.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -15.00 -33.50 L -15.00 -41.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -7.00 -29.50 L -7.00 -37.50" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -34.00 -51.00 L -2.00 -35.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -28.00 -48.00 L -28.00 -56.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -16.00 -42.00 L -16.00 -50.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -4.00 -36.00 L -4.00 -44.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -34.00 1.00 L -32.00 0.00 L -32.00 -60.00 L -34.00 -59.00" style="fill:#f8f6f2; stroke:none;" />
+<path d="M -2.00 17.00 L 34.00 -1.00 L 34.00 -5.00 L -2.00 13.00" style="fill:#636e72; stroke:none;" />
+<path d="M -34.00 1.00 L -2.00 17.00 L -2.00 13.00 L -34.00 -3.00" style="fill:#636e72; stroke:none;" />
+<path d="M -26.00 5.50 L -11.00 13.00 L -11.00 -10.50 L -26.00 -18.00" style="fill:#dfe6e9; stroke:none;" />
+<path d="M -26.00 5.50 L -11.00 13.00 L -11.00 -10.50 L -26.00 -18.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M -24.50 6.25 L -12.50 12.25 L -12.50 -9.75 L -24.50 -15.75" style="fill:#5d4037; stroke:none;" />
+<path d="M -22.75 4.13 L -20.25 5.38 L -20.25 -1.63 L -22.75 -2.88" style="fill:rgba(0,0,0,0.3); stroke:none;" />
+<path d="M -16.75 7.13 L -14.25 8.38 L -14.25 1.38 L -16.75 0.13" style="fill:rgba(0,0,0,0.3); stroke:none;" />
+<path d="M -22.75 -4.88 L -20.25 -3.63 L -20.25 -10.63 L -22.75 -11.88" style="fill:rgba(0,0,0,0.3); stroke:none;" />
+<path d="M -16.75 -1.88 L -14.25 -0.63 L -14.25 -7.63 L -16.75 -8.88" style="fill:rgba(0,0,0,0.3); stroke:none;" />
+<circle cx="-14.50" cy="0.25" r="1.5" fill="#ffb142" />
+<path d="M -23.20 -37.90 L -13.20 -32.90 L -13.20 -42.90 L -23.20 -47.90" style="fill:#dfe6e9; stroke:none;" />
+<path d="M -22.30 -38.35 L -14.30 -34.35 L -14.30 -42.35 L -22.30 -46.35" style="fill:#74b9ff; stroke:none;" />
+<path d="M -34.00 -59.00 L -2.00 -43.00 L -18.00 -81.00 Z" style="fill:#fdfbf7; stroke:none;" />
+<path d="M -34.00 -59.00 L -2.00 -43.00 L -18.00 -81.00 Z" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<circle cx="-18.50" cy="-62.75" r="4" fill="#55efc4" />
+<path d="M -22.00 -79.00 L 22.00 -101.00 Q 32.00 -76.00 42.00 -61.00 L -2.00 -39.00 Q -12.00 -54.00 -22.00 -79.00 Z" style="fill:#480ee8; stroke:none;" />
+<path d="M -22.00 -79.00 L 22.00 -101.00 Q 32.00 -76.00 42.00 -61.00 L -2.00 -39.00 Q -12.00 -54.00 -22.00 -79.00 Z" style="fill:none; stroke:#2a00ca; stroke-width:1;" />
+<path d="M 22.00 -101.00 L -22.00 -79.00 M 22.00 -101.00 L 23.90 -96.37 M 13.20 -96.60 L 15.10 -91.97 M 4.40 -92.20 L 6.30 -87.57 M -4.40 -87.80 L -2.50 -83.17 M -13.20 -83.40 L -11.30 -78.77 M 24.50 -94.91 L -19.50 -72.91 M 20.10 -92.71 L 22.08 -88.12 M 11.30 -88.31 L 13.28 -83.72 M 2.50 -83.91 L 4.48 -79.32 M -6.30 -79.51 L -4.32 -74.92 M -15.10 -75.11 L -13.12 -70.52 M 27.00 -89.13 L -17.00 -67.13 M 27.00 -89.13 L 29.08 -84.58 M 18.20 -84.72 L 20.28 -80.18 M 9.40 -80.33 L 11.48 -75.78 M 0.60 -75.92 L 2.68 -71.38 M -8.20 -71.53 L -6.12 -66.98 M 29.50 -83.66 L -14.50 -61.66 M 25.10 -81.46 L 27.28 -76.96 M 16.30 -77.06 L 18.48 -72.56 M 7.50 -72.66 L 9.68 -68.16 M -1.30 -68.26 L 0.88 -63.76 M -10.10 -63.86 L -7.92 -59.36 M 32.00 -78.50 L -12.00 -56.50 M 32.00 -78.50 L 34.29 -74.06 M 23.20 -74.10 L 25.49 -69.66 M 14.40 -69.70 L 16.69 -65.26 M 5.60 -65.30 L 7.89 -60.86 M -3.20 -60.90 L -0.91 -56.46 M 34.50 -73.66 L -9.50 -51.66 M 30.10 -71.46 L 32.52 -67.08 M 21.30 -67.06 L 23.72 -62.68 M 12.50 -62.66 L 14.92 -58.28 M 3.70 -58.26 L 6.12 -53.88 M -5.10 -53.86 L -2.68 -49.48 M 37.00 -69.13 L -7.00 -47.13 M 37.00 -69.13 L 39.55 -64.82 M 28.20 -64.72 L 30.75 -60.42 M 19.40 -60.33 L 21.95 -56.02 M 10.60 -55.92 L 13.15 -51.62 M 1.80 -51.52 L 4.35 -47.22 M 39.50 -64.91 L -4.50 -42.91 M 35.10 -62.71 L 37.80 -58.49 M 26.30 -58.31 L 29.00 -54.09 M 17.50 -53.91 L 20.20 -49.69 M 8.70 -49.51 L 11.40 -45.29 M -0.10 -45.11 L 2.60 -40.89" style="fill:none; stroke:#3900d9; stroke-width:1;" />
+<path d="M -2.00 -39.00 L 42.00 -61.00 L 42.00 -58.00 L -2.00 -36.00 Z" style="fill:#3400d4; stroke:none;" />
+<path d="M -42.00 -59.00 Q -32.00 -64.00 -22.00 -79.00 Q -12.00 -54.00 -2.00 -39.00 L -2.00 -35.00 Q -12.00 -50.00 -22.00 -75.00 Q -32.00 -60.00 -42.00 -55.00 L -42.00 -59.00 Z" style="fill:#3e04de; stroke:none;" />
+<path d="M -42.00 -59.00 Q -32.00 -64.00 -22.00 -79.00 Q -12.00 -54.00 -2.00 -39.00 L -2.00 -35.00 Q -12.00 -50.00 -22.00 -75.00 Q -32.00 -60.00 -42.00 -55.00 L -42.00 -59.00 Z" style="fill:none; stroke:#2a00ca; stroke-width:1;" />
+<path d="M 14.00 -87.00 L 22.00 -91.00 L 22.00 -69.00 L 14.00 -65.00" style="fill:#6e2c00; stroke:none;" />
+<path d="M 14.00 -87.00 L 22.00 -91.00 L 22.00 -69.00 L 14.00 -65.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 6.00 -91.00 L 14.00 -87.00 L 14.00 -65.00 L 6.00 -81.00 Z" style="fill:#a04000; stroke:none;" />
+<path d="M 6.00 -91.00 L 14.00 -87.00 L 14.00 -65.00 L 6.00 -81.00 Z" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 6.00 -87.00 L 14.00 -83.00" style="fill:none; stroke:rgba(255,255,255,0.3); stroke-width:1;" />
+<path d="M 14.00 -83.00 L 22.00 -87.00" style="fill:none; stroke:rgba(255,255,255,0.3); stroke-width:1;" />
+<path d="M 6.00 -83.00 L 14.00 -79.00" style="fill:none; stroke:rgba(255,255,255,0.3); stroke-width:1;" />
+<path d="M 14.00 -79.00 L 22.00 -83.00" style="fill:none; stroke:rgba(255,255,255,0.3); stroke-width:1;" />
+<path d="M 7.33 -78.33 L 14.00 -75.00" style="fill:none; stroke:rgba(255,255,255,0.3); stroke-width:1;" />
+<path d="M 14.00 -75.00 L 22.00 -79.00" style="fill:none; stroke:rgba(255,255,255,0.3); stroke-width:1;" />
+<path d="M 10.00 -73.00 L 14.00 -71.00" style="fill:none; stroke:rgba(255,255,255,0.3); stroke-width:1;" />
+<path d="M 14.00 -71.00 L 22.00 -75.00" style="fill:none; stroke:rgba(255,255,255,0.3); stroke-width:1;" />
+<path d="M 12.67 -67.67 L 14.00 -67.00" style="fill:none; stroke:rgba(255,255,255,0.3); stroke-width:1;" />
+<path d="M 14.00 -67.00 L 22.00 -71.00" style="fill:none; stroke:rgba(255,255,255,0.3); stroke-width:1;" />
+<path d="M 3.00 -91.00 L 14.00 -85.50 L 14.00 -87.50 L 3.00 -93.00" style="fill:#aa4a0a; stroke:none;" />
+<path d="M 3.00 -91.00 L 14.00 -85.50 L 14.00 -87.50 L 3.00 -93.00" style="fill:none; stroke:rgba(255,255,255,0.3); stroke-width:1;" />
+<path d="M 14.00 -85.50 L 25.00 -91.00 L 25.00 -93.00 L 14.00 -87.50" style="fill:#78360a; stroke:none;" />
+<path d="M 14.00 -85.50 L 25.00 -91.00 L 25.00 -93.00 L 14.00 -87.50" style="fill:none; stroke:rgba(255,255,255,0.3); stroke-width:1;" />
+<path d="M 3.00 -93.00 L 14.00 -87.50 L 25.00 -93.00 L 14.00 -98.50 Z" style="fill:#d35400; stroke:none;" />
+<ellipse cx="14.00" cy="-93.00" rx="3" ry="1.5" fill="#e67e22" />
+<ellipse cx="14.00" cy="-93.00" rx="1.5" ry="0.7" fill="#d35400" />
+<ellipse cx="300.00" cy="0.00" rx="24" ry="14.4" fill="rgba(0,0,0,0.15)" />
+<path d="M 298.00 17.00 L 334.00 -1.00 L 334.00 -36.00 L 298.00 -18.00 Z" style="fill:#e0dad1; stroke:none;" />
+<path d="M 298.00 17.00 L 334.00 -1.00 L 334.00 -36.00 L 298.00 -18.00 Z" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 334.00 -1.00 L 332.00 -2.00 L 332.00 -37.00 L 334.00 -36.00" style="fill:#f3f1ed; stroke:none;" />
+<path d="M 334.00 -5.00 L 334.00 -36.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 326.00 -1.00 L 326.00 -32.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 318.00 3.00 L 318.00 -28.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 310.00 7.00 L 310.00 -24.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 302.00 11.00 L 302.00 -20.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 309.70 0.35 L 322.70 -6.15 L 322.70 -23.15 L 309.70 -16.65 Z" style="fill:#dfe6e9; stroke:none;" />
+<path d="M 311.70 -1.65 L 321.70 -6.65 L 321.70 -20.65 L 311.70 -15.65 Z" style="fill:#74b9ff; stroke:none;" />
+<path d="M 316.20 -3.80 L 317.40 -4.40 L 317.40 -18.40 L 316.20 -17.80 Z" style="fill:#dfe6e9; stroke:none;" />
+<path d="M 311.80 -8.00 L 321.80 -13.00 L 321.80 -14.20 L 311.80 -9.20 Z" style="fill:#dfe6e9; stroke:none;" />
+<path d="M 309.70 1.85 L 324.70 -5.65 L 324.70 -7.65 L 309.70 -0.15 Z" style="fill:#b2bec3; stroke:none;" />
+<path d="M 266.00 1.00 L 298.00 17.00 L 298.00 -18.00 L 266.00 -34.00 Z" style="fill:#fdfbf7; stroke:none;" />
+<path d="M 266.00 1.00 L 298.00 17.00 L 298.00 -18.00 L 266.00 -34.00 Z" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 266.00 -3.00 L 266.00 -34.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 274.00 1.00 L 274.00 -30.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 282.00 5.00 L 282.00 -26.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 290.00 9.00 L 290.00 -22.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 298.00 13.00 L 298.00 -18.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 266.00 1.00 L 268.00 0.00 L 268.00 -35.00 L 266.00 -34.00" style="fill:#f8f6f2; stroke:none;" />
+<path d="M 298.00 17.00 L 334.00 -1.00 L 334.00 -5.00 L 298.00 13.00" style="fill:#636e72; stroke:none;" />
+<path d="M 266.00 1.00 L 298.00 17.00 L 298.00 13.00 L 266.00 -3.00" style="fill:#636e72; stroke:none;" />
+<path d="M 274.00 5.50 L 289.00 13.00 L 289.00 -10.50 L 274.00 -18.00" style="fill:#dfe6e9; stroke:none;" />
+<path d="M 274.00 5.50 L 289.00 13.00 L 289.00 -10.50 L 274.00 -18.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 275.50 6.25 L 287.50 12.25 L 287.50 -9.75 L 275.50 -15.75" style="fill:#5d4037; stroke:none;" />
+<path d="M 277.25 4.13 L 279.75 5.38 L 279.75 -1.63 L 277.25 -2.88" style="fill:rgba(0,0,0,0.3); stroke:none;" />
+<path d="M 283.25 7.13 L 285.75 8.38 L 285.75 1.38 L 283.25 0.13" style="fill:rgba(0,0,0,0.3); stroke:none;" />
+<path d="M 277.25 -4.88 L 279.75 -3.63 L 279.75 -10.63 L 277.25 -11.88" style="fill:rgba(0,0,0,0.3); stroke:none;" />
+<path d="M 283.25 -1.88 L 285.75 -0.63 L 285.75 -7.63 L 283.25 -8.88" style="fill:rgba(0,0,0,0.3); stroke:none;" />
+<circle cx="285.50" cy="0.25" r="1.5" fill="#ffb142" />
+<path d="M 266.00 -34.00 L 298.00 -18.00 L 282.00 -56.00 Z" style="fill:#fdfbf7; stroke:none;" />
+<path d="M 266.00 -34.00 L 298.00 -18.00 L 282.00 -56.00 Z" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<circle cx="281.50" cy="-37.75" r="4" fill="#55efc4" />
+<path d="M 278.00 -54.00 L 322.00 -76.00 Q 332.00 -51.00 342.00 -36.00 L 298.00 -14.00 Q 288.00 -29.00 278.00 -54.00 Z" style="fill:#74ac8c; stroke:none;" />
+<path d="M 278.00 -54.00 L 322.00 -76.00 Q 332.00 -51.00 342.00 -36.00 L 298.00 -14.00 Q 288.00 -29.00 278.00 -54.00 Z" style="fill:none; stroke:#568e6e; stroke-width:1;" />
+<path d="M 322.00 -76.00 Q 318.33 -68.17 314.67 -72.33 M 314.67 -72.33 Q 311.00 -64.50 307.33 -68.67 M 307.33 -68.67 Q 303.67 -60.83 300.00 -65.00 M 300.00 -65.00 Q 296.33 -57.17 292.67 -61.33 M 292.67 -61.33 Q 289.00 -53.50 285.33 -57.67 M 285.33 -57.67 Q 281.67 -49.83 278.00 -54.00 M 320.83 -68.07 Q 317.17 -60.24 313.50 -64.41 M 313.50 -64.41 Q 309.83 -56.57 306.17 -60.74 M 306.17 -60.74 Q 302.50 -52.91 298.83 -57.07 M 298.83 -57.07 Q 295.17 -49.24 291.50 -53.41 M 291.50 -53.41 Q 287.83 -45.57 284.17 -49.74 M 284.17 -49.74 Q 282.33 -42.82 280.50 -47.91 M 327.00 -64.13 Q 323.33 -56.29 319.67 -60.46 M 319.67 -60.46 Q 316.00 -52.63 312.33 -56.79 M 312.33 -56.79 Q 308.67 -48.96 305.00 -53.13 M 305.00 -53.13 Q 301.33 -45.29 297.67 -49.46 M 297.67 -49.46 Q 294.00 -41.63 290.33 -45.79 M 290.33 -45.79 Q 286.67 -37.96 283.00 -42.13 M 325.83 -56.82 Q 322.17 -48.99 318.50 -53.16 M 318.50 -53.16 Q 314.83 -45.32 311.17 -49.49 M 311.17 -49.49 Q 307.50 -41.66 303.83 -45.82 M 303.83 -45.82 Q 300.17 -37.99 296.50 -42.16 M 296.50 -42.16 Q 292.83 -34.32 289.17 -38.49 M 289.17 -38.49 Q 287.33 -31.57 285.50 -36.66 M 332.00 -53.50 Q 328.33 -45.67 324.67 -49.83 M 324.67 -49.83 Q 321.00 -42.00 317.33 -46.17 M 317.33 -46.17 Q 313.67 -38.33 310.00 -42.50 M 310.00 -42.50 Q 306.33 -34.67 302.67 -38.83 M 302.67 -38.83 Q 299.00 -31.00 295.33 -35.17 M 295.33 -35.17 Q 291.67 -27.33 288.00 -31.50 M 330.83 -46.82 Q 327.17 -38.99 323.50 -43.16 M 323.50 -43.16 Q 319.83 -35.32 316.17 -39.49 M 316.17 -39.49 Q 312.50 -31.66 308.83 -35.82 M 308.83 -35.82 Q 305.17 -27.99 301.50 -32.16 M 301.50 -32.16 Q 297.83 -24.32 294.17 -28.49 M 294.17 -28.49 Q 292.33 -21.57 290.50 -26.66 M 337.00 -44.13 Q 333.33 -36.29 329.67 -40.46 M 329.67 -40.46 Q 326.00 -32.63 322.33 -36.79 M 322.33 -36.79 Q 318.67 -28.96 315.00 -33.13 M 315.00 -33.13 Q 311.33 -25.29 307.67 -29.46 M 307.67 -29.46 Q 304.00 -21.63 300.33 -25.79 M 300.33 -25.79 Q 296.67 -17.96 293.00 -22.13 M 335.83 -38.07 Q 332.17 -30.24 328.50 -34.41 M 328.50 -34.41 Q 324.83 -26.57 321.17 -30.74 M 321.17 -30.74 Q 317.50 -22.91 313.83 -27.07 M 313.83 -27.07 Q 310.17 -19.24 306.50 -23.41 M 306.50 -23.41 Q 302.83 -15.57 299.17 -19.74 M 299.17 -19.74 Q 297.33 -12.82 295.50 -17.91" style="fill:none; stroke:#659d7d; stroke-width:1;" />
+<path d="M 298.00 -14.00 L 342.00 -36.00 L 342.00 -33.00 L 298.00 -11.00 Z" style="fill:#609878; stroke:none;" />
+<path d="M 258.00 -34.00 Q 268.00 -39.00 278.00 -54.00 Q 288.00 -29.00 298.00 -14.00 L 298.00 -10.00 Q 288.00 -25.00 278.00 -50.00 Q 268.00 -35.00 258.00 -30.00 L 258.00 -34.00 Z" style="fill:#6aa282; stroke:none;" />
+<path d="M 258.00 -34.00 Q 268.00 -39.00 278.00 -54.00 Q 288.00 -29.00 298.00 -14.00 L 298.00 -10.00 Q 288.00 -25.00 278.00 -50.00 Q 268.00 -35.00 258.00 -30.00 L 258.00 -34.00 Z" style="fill:none; stroke:#568e6e; stroke-width:1;" />
+<g class="tree-anim" style="transform-box: fill-box; transform-origin: bottom center;">
+<ellipse cx="400.00" cy="50.00" rx="25.830802918678636" ry="14.0895288647338" fill="rgba(0, 0, 0, 0.15)" />
+<path d="M 390.96 52.00 L 409.04 52.00 L 407.64 -0.84 L 393.55 -0.84" style="fill:#795548; stroke:none;" />
+<path d="M 400.00 52.00 L 409.04 52.00 L 407.64 -0.84 L 400.59 -0.84" style="fill:#4E342E; stroke:none;" />
+<circle cx="379.66" cy="-2.84" r="25.830802918678636" fill="#2E7D32" />
+<circle cx="384.83" cy="2.33" r="25.830802918678636" fill="rgba(0,0,0,0.06)" />
+<circle cx="426.42" cy="0.69" r="28.1790577294676" fill="#2E7D32" />
+<circle cx="432.05" cy="6.32" r="28.1790577294676" fill="rgba(0,0,0,0.06)" />
+<circle cx="402.79" cy="3.03" r="30.52731254025657" fill="#2E7D32" />
+<circle cx="408.90" cy="9.14" r="30.52731254025657" fill="rgba(0,0,0,0.06)" />
+<circle cx="386.93" cy="-26.32" r="28.1790577294676" fill="#4CAF50" />
+<circle cx="392.56" cy="-20.68" r="28.1790577294676" fill="rgba(0,0,0,0.06)" />
+<circle cx="421.80" cy="-20.45" r="25.830802918678636" fill="#4CAF50" />
+<circle cx="426.97" cy="-15.28" r="25.830802918678636" fill="rgba(0,0,0,0.06)" />
+<circle cx="404.05" cy="-18.10" r="32.87556735104554" fill="#4CAF50" />
+<circle cx="410.63" cy="-11.52" r="32.87556735104554" fill="rgba(0,0,0,0.06)" />
+<circle cx="396.33" cy="-46.28" r="23.48254810788967" fill="#81C784" />
+<circle cx="401.03" cy="-41.58" r="23.48254810788967" fill="rgba(0,0,0,0.06)" />
+<circle cx="417.19" cy="-41.58" r="21.1342932971007" fill="#81C784" />
+<circle cx="421.41" cy="-37.36" r="21.1342932971007" fill="rgba(0,0,0,0.06)" />
+<circle cx="406.14" cy="-53.32" r="28.1790577294676" fill="#81C784" />
+<circle cx="411.78" cy="-47.69" r="28.1790577294676" fill="rgba(0,0,0,0.06)" />
+<ellipse cx="397.69" cy="-64.59" rx="11.271623091787042" ry="7.0447644323669" fill="rgba(255,255,255,0.15)" />
+</g>
+<ellipse cx="500.00" cy="100.00" rx="24" ry="14.4" fill="rgba(0,0,0,0.15)" />
+<path d="M 498.00 117.00 L 534.00 99.00 L 534.00 64.00 L 498.00 82.00 Z" style="fill:#e0dad1; stroke:none;" />
+<path d="M 498.00 117.00 L 534.00 99.00 L 534.00 64.00 L 498.00 82.00 Z" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 534.00 99.00 L 532.00 98.00 L 532.00 63.00 L 534.00 64.00" style="fill:#f3f1ed; stroke:none;" />
+<path d="M 534.00 95.00 L 534.00 64.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 526.00 99.00 L 526.00 68.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 518.00 103.00 L 518.00 72.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 510.00 107.00 L 510.00 76.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 502.00 111.00 L 502.00 80.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 509.20 99.10 L 523.20 92.10 L 523.20 78.10 L 509.20 85.10 Z" style="fill:#636e72; stroke:none;" />
+<path d="M 510.70 97.85 L 522.70 91.85 L 522.70 79.85 L 510.70 85.85 Z" style="fill:#81ecec; stroke:none;" />
+<path d="M 516.80 82.90 L 510.80 91.90 L 516.80 94.90 L 522.80 85.90 L 516.80 82.90" style="fill:none; stroke:rgba(0,0,0,0.2); stroke-width:1;" />
+<path d="M 512.20 104.60 L 528.20 96.60 L 528.20 91.60 L 512.20 99.60 Z" style="fill:#8d6e63; stroke:none;" />
+<path d="M 508.20 97.60 L 512.20 99.60 L 528.20 91.60 L 524.20 89.60" style="fill:#3e2723; stroke:none;" />
+<circle cx="522.20" cy="90.60" r="3" fill="#2ecc71" />
+<circle cx="522.20" cy="89.60" r="1.5" fill="#e74c3c" />
+<circle cx="518.20" cy="92.60" r="3" fill="#2ecc71" />
+<circle cx="514.20" cy="94.60" r="3" fill="#2ecc71" />
+<circle cx="514.20" cy="93.60" r="1.5" fill="#e74c3c" />
+<path d="M 466.00 101.00 L 498.00 117.00 L 498.00 82.00 L 466.00 66.00 Z" style="fill:#fdfbf7; stroke:none;" />
+<path d="M 466.00 101.00 L 498.00 117.00 L 498.00 82.00 L 466.00 66.00 Z" style="fill:none; stroke:rgba(0,0,0,0.2); stroke-width:1;" />
+<path d="M 466.00 97.00 L 466.00 66.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 474.00 101.00 L 474.00 70.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 482.00 105.00 L 482.00 74.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 490.00 109.00 L 490.00 78.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 498.00 113.00 L 498.00 82.00" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 466.00 101.00 L 468.00 100.00 L 468.00 65.00 L 466.00 66.00" style="fill:#f8f6f2; stroke:none;" />
+<path d="M 498.00 117.00 L 534.00 99.00 L 534.00 95.00 L 498.00 113.00" style="fill:#636e72; stroke:none;" />
+<path d="M 466.00 101.00 L 498.00 117.00 L 498.00 113.00 L 466.00 97.00" style="fill:#636e72; stroke:none;" />
+<path d="M 474.50 105.75 L 488.50 112.75 L 488.50 89.75 L 474.50 82.75" style="fill:#b2bec3; stroke:none;" />
+<path d="M 474.50 105.75 L 488.50 112.75 L 488.50 89.75 L 474.50 82.75" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 472.70 104.85 L 484.30 110.65 L 484.30 88.65 L 472.70 82.85" style="fill:#ecf0f1; stroke:none;" />
+<path d="M 472.70 104.85 L 484.30 110.65 L 484.30 88.65 L 472.70 82.85" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 478.70 107.85 L 490.30 113.65 L 490.30 91.65 L 478.70 85.85" style="fill:#ecf0f1; stroke:none;" />
+<path d="M 478.70 107.85 L 490.30 113.65 L 490.30 91.65 L 478.70 85.85" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 481.40 109.30 L 481.40 87.30" style="fill:none; stroke:#b2bec3; stroke-width:1;" />
+<path d="M 476.00 87.50 L 478.00 88.50 L 478.00 84.50 L 476.00 83.50" style="fill:#81ecec; stroke:none;" />
+<path d="M 479.00 89.00 L 481.00 90.00 L 481.00 86.00 L 479.00 85.00" style="fill:#81ecec; stroke:none;" />
+<path d="M 476.00 92.50 L 478.00 93.50 L 478.00 89.50 L 476.00 88.50" style="fill:#81ecec; stroke:none;" />
+<path d="M 479.00 94.00 L 481.00 95.00 L 481.00 91.00 L 479.00 90.00" style="fill:#81ecec; stroke:none;" />
+<path d="M 476.00 97.50 L 478.00 98.50 L 478.00 94.50 L 476.00 93.50" style="fill:#81ecec; stroke:none;" />
+<path d="M 479.00 99.00 L 481.00 100.00 L 481.00 96.00 L 479.00 95.00" style="fill:#81ecec; stroke:none;" />
+<path d="M 482.00 90.50 L 484.00 91.50 L 484.00 87.50 L 482.00 86.50" style="fill:#81ecec; stroke:none;" />
+<path d="M 485.00 92.00 L 487.00 93.00 L 487.00 89.00 L 485.00 88.00" style="fill:#81ecec; stroke:none;" />
+<path d="M 482.00 95.50 L 484.00 96.50 L 484.00 92.50 L 482.00 91.50" style="fill:#81ecec; stroke:none;" />
+<path d="M 485.00 97.00 L 487.00 98.00 L 487.00 94.00 L 485.00 93.00" style="fill:#81ecec; stroke:none;" />
+<path d="M 482.00 100.50 L 484.00 101.50 L 484.00 97.50 L 482.00 96.50" style="fill:#81ecec; stroke:none;" />
+<path d="M 485.00 102.00 L 487.00 103.00 L 487.00 99.00 L 485.00 98.00" style="fill:#81ecec; stroke:none;" />
+<circle cx="480.20" cy="99.90" r="1" fill="#2d3436" />
+<circle cx="482.20" cy="100.90" r="1" fill="#2d3436" />
+<path d="M 466.00 66.00 L 498.00 82.00 L 482.00 44.00 Z" style="fill:#fdfbf7; stroke:none;" />
+<path d="M 466.00 66.00 L 498.00 82.00 L 482.00 44.00 Z" style="fill:none; stroke:#b2bec3; stroke-width:1;" />
+<circle cx="481.50" cy="62.25" r="4" fill="#55efc4" />
+<path d="M 478.00 46.00 L 522.00 24.00 Q 532.00 49.00 542.00 64.00 L 498.00 86.00 Q 488.00 71.00 478.00 46.00 Z" style="fill:#83ebce; stroke:none;" />
+<path d="M 478.00 46.00 L 522.00 24.00 Q 532.00 49.00 542.00 64.00 L 498.00 86.00 Q 488.00 71.00 478.00 46.00 Z" style="fill:none; stroke:#65cdb0; stroke-width:1;" />
+<path d="M 522.00 24.00 L 478.00 46.00 M 522.00 24.00 L 523.90 28.63 M 513.20 28.40 L 515.10 33.03 M 504.40 32.80 L 506.30 37.43 M 495.60 37.20 L 497.50 41.83 M 486.80 41.60 L 488.70 46.23 M 524.50 30.09 L 480.50 52.09 M 520.10 32.29 L 522.08 36.88 M 511.30 36.69 L 513.28 41.28 M 502.50 41.09 L 504.48 45.68 M 493.70 45.49 L 495.68 50.08 M 484.90 49.89 L 486.88 54.48 M 527.00 35.88 L 483.00 57.88 M 527.00 35.88 L 529.08 40.42 M 518.20 40.27 L 520.28 44.82 M 509.40 44.67 L 511.48 49.22 M 500.60 49.08 L 502.68 53.62 M 491.80 53.48 L 493.88 58.02 M 529.50 41.34 L 485.50 63.34 M 525.10 43.54 L 527.28 48.04 M 516.30 47.94 L 518.48 52.44 M 507.50 52.34 L 509.68 56.84 M 498.70 56.74 L 500.88 61.24 M 489.90 61.14 L 492.08 65.64 M 532.00 46.50 L 488.00 68.50 M 532.00 46.50 L 534.29 50.94 M 523.20 50.90 L 525.49 55.34 M 514.40 55.30 L 516.69 59.74 M 505.60 59.70 L 507.89 64.14 M 496.80 64.10 L 499.09 68.54 M 534.50 51.34 L 490.50 73.34 M 530.10 53.54 L 532.52 57.92 M 521.30 57.94 L 523.72 62.32 M 512.50 62.34 L 514.92 66.72 M 503.70 66.74 L 506.12 71.12 M 494.90 71.14 L 497.32 75.52 M 537.00 55.88 L 493.00 77.88 M 537.00 55.88 L 539.55 60.18 M 528.20 60.27 L 530.75 64.58 M 519.40 64.67 L 521.95 68.98 M 510.60 69.08 L 513.15 73.38 M 501.80 73.47 L 504.35 77.78 M 539.50 60.09 L 495.50 82.09 M 535.10 62.29 L 537.80 66.51 M 526.30 66.69 L 529.00 70.91 M 517.50 71.09 L 520.20 75.31 M 508.70 75.49 L 511.40 79.71 M 499.90 79.89 L 502.60 84.11" style="fill:none; stroke:#74dcbf; stroke-width:1;" />
+<path d="M 498.00 86.00 L 542.00 64.00 L 542.00 67.00 L 498.00 89.00 Z" style="fill:#6fd7ba; stroke:none;" />
+<path d="M 458.00 66.00 Q 468.00 61.00 478.00 46.00 Q 488.00 71.00 498.00 86.00 L 498.00 90.00 Q 488.00 75.00 478.00 50.00 Q 468.00 65.00 458.00 70.00 L 458.00 66.00 Z" style="fill:#79e1c4; stroke:none;" />
+<path d="M 458.00 66.00 Q 468.00 61.00 478.00 46.00 Q 488.00 71.00 498.00 86.00 L 498.00 90.00 Q 488.00 75.00 478.00 50.00 Q 468.00 65.00 458.00 70.00 L 458.00 66.00 Z" style="fill:none; stroke:#65cdb0; stroke-width:1;" />
+<path d="M 514.00 54.00 L 526.00 48.00 L 526.00 64.00 L 514.00 70.00" style="fill:#7f8c8d; stroke:none;" />
+<path d="M 514.00 54.00 L 526.00 48.00 L 526.00 64.00 L 514.00 70.00" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 502.00 48.00 L 514.00 54.00 L 514.00 70.00 L 502.00 46.00 Z" style="fill:#95a5a6; stroke:none;" />
+<path d="M 502.00 48.00 L 514.00 54.00 L 514.00 70.00 L 502.00 46.00 Z" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 502.00 48.00 L 514.00 54.00 L 526.00 48.00 L 514.00 42.00 Z" style="fill:#bdc3c7; stroke:none;" />
+<path d="M 510.00 48.00 L 514.00 46.00 L 514.00 38.00 L 510.00 40.00" style="fill:#e67e22; stroke:none;" />
+<ellipse cx="512.00" cy="39.00" rx="3" ry="1.5" fill="#d35400" />
+<ellipse cx="512.00" cy="39.00" rx="1.5" ry="0.8" fill="#2d3436" />
+<path d="M 514.00 50.00 L 518.00 48.00 L 518.00 40.00 L 514.00 42.00" style="fill:#e67e22; stroke:none;" />
+<ellipse cx="516.00" cy="41.00" rx="3" ry="1.5" fill="#d35400" />
+<ellipse cx="516.00" cy="41.00" rx="1.5" ry="0.8" fill="#2d3436" />
+<ellipse cx="600.00" cy="150.00" rx="24" ry="14.4" fill="rgba(0,0,0,0.15)" />
+<path d="M 597.59 166.77 L 633.58 148.76 L 634.22 113.51 L 598.21 131.51 Z" style="fill:#7f8c8d; stroke:none;" />
+<path d="M 597.59 166.77 L 633.58 148.76 L 634.22 113.51 L 598.21 131.51 Z" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 597.59 166.77 L 633.58 148.76 L 634.22 113.51 L 598.21 131.51 Z" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 597.59 166.77 L 633.58 148.76 L 634.22 113.51 L 598.21 131.51 Z" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 633.58 148.76 L 632.24 147.88 L 631.57 113.44 L 634.22 113.51" style="fill:#8b9b9c; stroke:none;" />
+<path d="M 597.78 162.51 L 633.80 144.51" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 597.78 162.51 L 633.80 144.51" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 597.78 162.51 L 633.80 144.51" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 630.04 147.02 L 629.50 142.63" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 630.04 147.02 L 629.50 142.63" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 630.04 147.02 L 629.50 142.63" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 621.71 151.15 L 621.65 147.46" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 621.71 151.15 L 621.65 147.46" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 621.71 151.15 L 621.65 147.46" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 613.52 154.70 L 613.95 150.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 613.52 154.70 L 613.95 150.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 613.52 154.70 L 613.95 150.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 605.55 159.42 L 606.28 155.48" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 605.55 159.42 L 606.28 155.48" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 605.55 159.42 L 606.28 155.48" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 598.48 158.60 L 634.48 140.60" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 598.48 158.60 L 634.48 140.60" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 598.48 158.60 L 634.48 140.60" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 634.48 140.60 L 634.04 136.98" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 634.48 140.60 L 634.04 136.98" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 634.48 140.60 L 634.04 136.98" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 626.45 145.27 L 625.72 140.85" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 626.45 145.27 L 625.72 140.85" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 626.45 145.27 L 625.72 140.85" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 618.21 148.89 L 617.52 145.30" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 618.21 148.89 L 617.52 145.30" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 618.21 148.89 L 617.52 145.30" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 609.88 152.94 L 609.54 148.58" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 609.88 152.94 L 609.54 148.58" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 609.88 152.94 L 609.54 148.58" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 601.60 157.23 L 601.77 153.49" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 601.60 157.23 L 601.77 153.49" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 601.60 157.23 L 601.77 153.49" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 598.06 154.97 L 634.04 136.98" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 598.06 154.97 L 634.04 136.98" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 598.06 154.97 L 634.04 136.98" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 630.13 138.50 L 630.46 134.73" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 630.13 138.50 L 630.46 134.73" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 630.13 138.50 L 630.46 134.73" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 622.41 143.44 L 622.22 139.11" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 622.41 143.44 L 622.22 139.11" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 622.41 143.44 L 622.22 139.11" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 614.50 146.66 L 613.89 143.06" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 614.50 146.66 L 613.89 143.06" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 614.50 146.66 L 613.89 143.06" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 606.36 151.20 L 605.60 146.78" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 606.36 151.20 L 605.60 146.78" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 606.36 151.20 L 605.60 146.78" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 597.50 151.36 L 633.50 133.37" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 597.50 151.36 L 633.50 133.37" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 597.50 151.36 L 633.50 133.37" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 633.50 133.37 L 634.12 129.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 633.50 133.37 L 634.12 129.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 633.50 133.37 L 634.12 129.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 625.64 136.54 L 626.40 132.55" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 625.64 136.54 L 626.40 132.55" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 625.64 136.54 L 626.40 132.55" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 617.94 141.50 L 618.50 137.34" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 617.94 141.50 L 618.50 137.34" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 617.94 141.50 L 618.50 137.34" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 610.27 144.52 L 610.37 140.80" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 610.27 144.52 L 610.37 140.80" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 610.27 144.52 L 610.37 140.80" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 602.48 149.40 L 602.07 145.04" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 602.48 149.40 L 602.07 145.04" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 602.48 149.40 L 602.07 145.04" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 598.10 147.50 L 634.12 129.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 598.10 147.50 L 634.12 129.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 598.10 147.50 L 634.12 129.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 629.72 131.14 L 629.63 127.46" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 629.72 131.14 L 629.63 127.46" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 629.72 131.14 L 629.63 127.46" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 621.52 134.70 L 621.93 130.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 621.52 134.70 L 621.93 130.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 621.52 134.70 L 621.93 130.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 613.54 139.42 L 614.26 135.48" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 613.54 139.42 L 614.26 135.48" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 613.54 139.42 L 614.26 135.48" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 605.77 142.51 L 606.47 138.59" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 605.77 142.51 L 606.47 138.59" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 605.77 142.51 L 606.47 138.59" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 598.47 143.28 L 634.46 125.28" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 598.47 143.28 L 634.46 125.28" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 598.47 143.28 L 634.46 125.28" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 634.46 125.28 L 633.73 120.86" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 634.46 125.28 L 633.73 120.86" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 634.46 125.28 L 633.73 120.86" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 626.23 128.88 L 625.52 125.29" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 626.23 128.88 L 625.52 125.29" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 626.23 128.88 L 625.52 125.29" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 617.89 132.95 L 617.53 128.59" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 617.89 132.95 L 617.53 128.59" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 617.89 132.95 L 617.53 128.59" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 609.61 137.22 L 609.76 133.48" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 609.61 137.22 L 609.76 133.48" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 609.61 137.22 L 609.76 133.48" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 601.50 140.64 L 602.09 136.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 601.50 140.64 L 602.09 136.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 601.50 140.64 L 602.09 136.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 597.75 138.87 L 633.73 120.86" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 597.75 138.87 L 633.73 120.86" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 597.75 138.87 L 633.73 120.86" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 630.40 123.45 L 630.24 119.12" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 630.40 123.45 L 630.24 119.12" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 630.40 123.45 L 630.24 119.12" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 622.50 126.65 L 621.90 123.05" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 622.50 126.65 L 621.90 123.05" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 622.50 126.65 L 621.90 123.05" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 614.38 131.21 L 613.61 126.79" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 614.38 131.21 L 613.61 126.79" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 614.38 131.21 L 613.61 126.79" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 606.08 134.96 L 605.50 131.35" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 606.08 134.96 L 605.50 131.35" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 606.08 134.96 L 605.50 131.35" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 597.62 134.55 L 633.63 116.54" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 597.62 134.55 L 633.63 116.54" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 597.62 134.55 L 633.63 116.54" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 633.63 116.54 L 634.39 114.55" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 633.63 116.54 L 634.39 114.55" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 633.63 116.54 L 634.39 114.55" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 625.93 121.50 L 626.50 119.35" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 625.93 121.50 L 626.50 119.35" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 625.93 121.50 L 626.50 119.35" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 618.26 124.52 L 618.38 122.79" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 618.26 124.52 L 618.38 122.79" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 618.26 124.52 L 618.38 122.79" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 610.47 129.41 L 610.09 127.04" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 610.47 129.41 L 610.09 127.04" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 610.47 129.41 L 610.09 127.04" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 602.47 132.71 L 601.75 131.13" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 602.47 132.71 L 601.75 131.13" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 602.47 132.71 L 601.75 131.13" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 611.69 148.41 L 621.50 142.94 L 621.58 129.31 L 611.70 133.75 Z" style="fill:#1e1e1e; stroke:none;" />
+<path d="M 622.68 138.47 L 609.51 142.56 L 610.59 138.64 L 624.34 135.96" style="fill:#5d4037; stroke:none;" />
+<circle cx="621.51" cy="139.35" r="0.5" fill="#95a5a6" />
+<circle cx="611.40" cy="141.42" r="0.5" fill="#95a5a6" />
+<path d="M 624.35 138.88 L 610.32 147.99 L 609.26 145.31 L 623.53 135.74" style="fill:#5d4037; stroke:none;" />
+<circle cx="622.12" cy="139.93" r="0.5" fill="#95a5a6" />
+<circle cx="610.97" cy="146.52" r="0.5" fill="#95a5a6" />
+<path d="M 623.08 134.25 L 610.01 140.05 L 609.82 137.67 L 624.23 131.17" style="fill:#5d4037; stroke:none;" />
+<circle cx="622.57" cy="134.67" r="0.5" fill="#95a5a6" />
+<circle cx="610.65" cy="139.25" r="0.5" fill="#95a5a6" />
+<path d="M 565.63 150.54 L 597.59 166.77 L 598.21 131.51 L 566.49 115.68 Z" style="fill:#95a5a6; stroke:none;" />
+<path d="M 565.63 150.54 L 597.59 166.77 L 598.21 131.51 L 566.49 115.68 Z" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.63 150.54 L 597.59 166.77 L 598.21 131.51 L 566.49 115.68 Z" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.63 150.54 L 597.59 166.77 L 598.21 131.51 L 566.49 115.68 Z" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.39 146.55 L 597.78 162.51" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.39 146.55 L 597.78 162.51" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.39 146.55 L 597.78 162.51" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 569.67 149.18 L 569.69 145.47" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 569.67 149.18 L 569.69 145.47" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 569.67 149.18 L 569.69 145.47" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 577.81 152.90 L 577.57 148.56" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 577.81 152.90 L 577.57 148.56" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 577.81 152.90 L 577.57 148.56" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 585.97 157.01 L 585.51 153.39" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 585.97 157.01 L 585.51 153.39" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 585.97 157.01 L 585.51 153.39" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 594.14 161.07 L 593.50 156.67" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 594.14 161.07 L 593.50 156.67" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 594.14 161.07 L 593.50 156.67" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.25 142.87 L 598.48 158.60" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.25 142.87 L 598.48 158.60" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.25 142.87 L 598.48 158.60" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.25 142.87 L 565.53 139.29" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.25 142.87 L 565.53 139.29" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.25 142.87 L 565.53 139.29" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 574.38 147.21 L 573.61 142.79" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 574.38 147.21 L 573.61 142.79" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 574.38 147.21 L 573.61 142.79" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 582.46 150.72 L 581.74 147.14" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 582.46 150.72 L 581.74 147.14" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 582.46 150.72 L 581.74 147.14" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 590.50 155.34 L 589.89 150.95" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 590.50 155.34 L 589.89 150.95" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 590.50 155.34 L 589.89 150.95" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.53 139.29 L 598.06 154.97" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.53 139.29 L 598.06 154.97" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.53 139.29 L 598.06 154.97" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 570.43 141.43 L 570.17 137.09" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 570.43 141.43 L 570.17 137.09" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 570.43 141.43 L 570.17 137.09" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 578.33 144.53 L 578.32 140.83" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 578.33 144.53 L 578.32 140.83" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 578.33 144.53 L 578.32 140.83" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 586.19 149.49 L 586.43 145.25" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 586.19 149.49 L 586.43 145.25" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 586.19 149.49 L 586.43 145.25" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 594.02 152.50 L 594.49 148.69" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 594.02 152.50 L 594.49 148.69" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 594.02 152.50 L 594.49 148.69" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.91 135.50 L 597.50 151.36" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.91 135.50 L 597.50 151.36" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.91 135.50 L 597.50 151.36" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.91 135.50 L 566.50 131.36" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.91 135.50 L 566.50 131.36" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.91 135.50 L 566.50 131.36" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 573.75 138.52 L 574.47 134.59" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 573.75 138.52 L 574.47 134.59" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 573.75 138.52 L 574.47 134.59" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 581.62 143.45 L 582.38 139.45" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 581.62 143.45 L 582.38 139.45" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 581.62 143.45 L 582.38 139.45" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 589.53 146.59 L 590.26 142.52" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 589.53 146.59 L 590.26 142.52" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 589.53 146.59 L 590.26 142.52" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.50 131.36 L 598.10 147.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.50 131.36 L 598.10 147.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.50 131.36 L 598.10 147.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 569.51 132.68 L 569.99 128.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 569.51 132.68 L 569.99 128.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 569.51 132.68 L 569.99 128.50" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 577.57 137.25 L 577.82 133.49" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 577.57 137.25 L 577.82 133.49" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 577.57 137.25 L 577.82 133.49" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 585.67 140.83 L 585.68 136.53" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 585.67 140.83 L 585.68 136.53" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 585.67 140.83 L 585.68 136.53" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 593.82 145.09 L 593.57 141.43" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 593.82 145.09 L 593.57 141.43" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 593.82 145.09 L 593.57 141.43" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.93 126.96 L 598.47 143.28" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.93 126.96 L 598.47 143.28" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.93 126.96 L 598.47 143.28" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.93 126.96 L 565.52 122.60" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.93 126.96 L 565.52 122.60" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.93 126.96 L 565.52 122.60" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 574.10 130.95 L 573.50 127.35" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 574.10 130.95 L 573.50 127.35" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 574.10 130.95 L 573.50 127.35" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 582.25 135.13 L 581.53 130.72" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 582.25 135.13 L 581.53 130.72" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 582.25 135.13 L 581.53 130.72" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 590.38 138.79 L 589.62 135.21" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 590.38 138.79 L 589.62 135.21" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 590.38 138.79 L 589.62 135.21" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.52 122.60 L 597.75 138.87" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.52 122.60 L 597.75 138.87" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 565.52 122.60 L 597.75 138.87" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 570.50 124.67 L 569.85 121.07" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 570.50 124.67 L 569.85 121.07" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 570.50 124.67 L 569.85 121.07" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 578.49 129.39 L 578.02 125.01" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 578.49 129.39 L 578.02 125.01" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 578.49 129.39 L 578.02 125.01" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 586.43 132.57 L 586.18 128.91" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 586.43 132.57 L 586.18 128.91" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 586.43 132.57 L 586.18 128.91" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 594.32 137.47 L 594.33 133.17" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 594.32 137.47 L 594.33 133.17" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 594.32 137.47 L 594.33 133.17" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.23 118.51 L 597.62 134.55" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.23 118.51 L 597.62 134.55" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.23 118.51 L 597.62 134.55" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.23 118.51 L 566.40 116.77" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.23 118.51 L 566.40 116.77" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 566.23 118.51 L 566.40 116.77" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 574.07 123.50 L 574.48 121.30" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 574.07 123.50 L 574.48 121.30" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 574.07 123.50 L 574.48 121.30" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 581.90 126.50 L 582.50 124.64" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 581.90 126.50 L 582.50 124.64" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 581.90 126.50 L 582.50 124.64" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 589.74 131.48 L 590.47 129.41" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 589.74 131.48 L 590.47 129.41" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 589.74 131.48 L 590.47 129.41" style="fill:none; stroke:rgba(0,0,0,0.15); stroke-width:1;" />
+<path d="M 616.41 147.77 L 629.81 149.33 L 642.70 151.94 L 655.71 153.38 L 668.70 153.71 L 679.96 155.30" style="fill:none; stroke:rgba(0,0,0,0.4); stroke-width:1;" />
+<path d="M 616.41 147.77 L 629.81 149.33 L 642.70 151.94 L 655.71 153.38 L 668.70 153.71 L 679.96 155.30" style="fill:none; stroke:rgba(0,0,0,0.4); stroke-width:1;" />
+<path d="M 616.41 147.77 L 629.81 149.33 L 642.70 151.94 L 655.71 153.38 L 668.70 153.71 L 679.96 155.30" style="fill:none; stroke:rgba(0,0,0,0.4); stroke-width:1;" />
+<path d="M 582.05 134.02 L 581.76 138.13 L 581.83 143.56 L 581.23 148.27 L 582.59 154.13 L 584.01 160.89" style="fill:none; stroke:rgba(0,0,0,0.4); stroke-width:1;" />
+<path d="M 582.05 134.02 L 581.76 138.13 L 581.83 143.56 L 581.23 148.27 L 582.59 154.13 L 584.01 160.89" style="fill:none; stroke:rgba(0,0,0,0.4); stroke-width:1;" />
+<path d="M 582.05 134.02 L 581.76 138.13 L 581.83 143.56 L 581.23 148.27 L 582.59 154.13 L 584.01 160.89" style="fill:none; stroke:rgba(0,0,0,0.4); stroke-width:1;" />
+<path d="M 565.63 150.54 L 568.26 149.52 L 567.99 115.01 L 566.49 115.68" style="fill:#90a0a1; stroke:none;" />
+<path d="M 597.59 166.77 L 633.58 148.76 L 633.80 144.51 L 597.78 162.51" style="fill:#636e72; stroke:none;" />
+<path d="M 565.63 150.54 L 597.59 166.77 L 597.78 162.51 L 566.39 146.55" style="fill:#636e72; stroke:none;" />
+<path d="M 575.48 156.75 L 587.76 162.12 L 587.29 139.76 L 575.46 134.27" style="fill:#000; stroke:none;" />
+<path d="M 572.01 153.36 L 588.26 144.23" style="fill:none; stroke:#5d4037; stroke-width:3;" />
+<path d="M 572.01 153.36 L 588.26 144.23" style="fill:none; stroke:#5d4037; stroke-width:3;" />
+<path d="M 572.01 153.36 L 588.26 144.23" style="fill:none; stroke:#5d4037; stroke-width:3;" />
+<path d="M 572.58 136.25 L 588.05 161.49" style="fill:none; stroke:#5d4037; stroke-width:3;" />
+<path d="M 572.58 136.25 L 588.05 161.49" style="fill:none; stroke:#5d4037; stroke-width:3;" />
+<path d="M 572.58 136.25 L 588.05 161.49" style="fill:none; stroke:#5d4037; stroke-width:3;" />
+<path d="M 572.78 144.60 L 588.98 152.45" style="fill:none; stroke:#5d4037; stroke-width:3;" />
+<path d="M 572.78 144.60 L 588.98 152.45" style="fill:none; stroke:#5d4037; stroke-width:3;" />
+<path d="M 572.78 144.60 L 588.98 152.45" style="fill:none; stroke:#5d4037; stroke-width:3;" />
+<path d="M 566.49 115.68 L 598.21 131.51 L 581.53 103.72 Z" style="fill:#95a5a6; stroke:none;" />
+<path d="M 566.49 115.68 L 598.21 131.51 L 581.53 103.72 Z" style="fill:none; stroke:#5d4037; stroke-width:3;" />
+<path d="M 566.49 115.68 L 598.21 131.51 L 581.53 103.72 Z" style="fill:none; stroke:#5d4037; stroke-width:3;" />
+<path d="M 566.49 115.68 L 598.21 131.51 L 581.53 103.72 Z" style="fill:none; stroke:#5d4037; stroke-width:3;" />
+<circle cx="581.94" cy="117.71" r="4" fill="#2d3436" />
+<path d="M 578.50 106.36 L 622.39 83.55 Q 632.18 104.02 641.97 114.50 L 598.28 135.52 Q 588.39 125.94 578.50 106.36 Z" style="fill:#3f4854; stroke:none;" />
+<path d="M 578.50 106.36 L 622.39 83.55 Q 632.18 104.02 641.97 114.50 L 598.28 135.52 Q 588.39 125.94 578.50 106.36 Z" style="fill:none; stroke:#212a36; stroke-width:1;" />
+<path d="M 578.50 106.36 L 622.39 83.55 Q 632.18 104.02 641.97 114.50 L 598.28 135.52 Q 588.39 125.94 578.50 106.36 Z" style="fill:none; stroke:#212a36; stroke-width:1;" />
+<path d="M 578.50 106.36 L 622.39 83.55 Q 632.18 104.02 641.97 114.50 L 598.28 135.52 Q 588.39 125.94 578.50 106.36 Z" style="fill:none; stroke:#212a36; stroke-width:1;" />
+<path d="M 622.39 83.55 Q 632.18 104.02 641.97 114.50 M 616.12 86.81 Q 625.93 107.16 635.73 117.50 M 609.85 90.07 Q 619.67 110.29 629.49 120.51 M 603.58 93.32 Q 613.42 113.42 623.25 123.51 M 597.31 96.58 Q 607.16 116.55 617.01 126.51 M 591.04 99.84 Q 600.90 119.68 610.77 129.52 M 584.77 103.10 Q 594.65 122.81 604.52 132.52 M 578.50 106.36 Q 588.39 125.94 598.28 135.52" style="fill:none; stroke:#303945; stroke-width:1;" />
+<path d="M 622.39 83.55 Q 632.18 104.02 641.97 114.50 M 616.12 86.81 Q 625.93 107.16 635.73 117.50 M 609.85 90.07 Q 619.67 110.29 629.49 120.51 M 603.58 93.32 Q 613.42 113.42 623.25 123.51 M 597.31 96.58 Q 607.16 116.55 617.01 126.51 M 591.04 99.84 Q 600.90 119.68 610.77 129.52 M 584.77 103.10 Q 594.65 122.81 604.52 132.52 M 578.50 106.36 Q 588.39 125.94 598.28 135.52" style="fill:none; stroke:#303945; stroke-width:1;" />
+<path d="M 622.39 83.55 Q 632.18 104.02 641.97 114.50 M 616.12 86.81 Q 625.93 107.16 635.73 117.50 M 609.85 90.07 Q 619.67 110.29 629.49 120.51 M 603.58 93.32 Q 613.42 113.42 623.25 123.51 M 597.31 96.58 Q 607.16 116.55 617.01 126.51 M 591.04 99.84 Q 600.90 119.68 610.77 129.52 M 584.77 103.10 Q 594.65 122.81 604.52 132.52 M 578.50 106.36 Q 588.39 125.94 598.28 135.52" style="fill:none; stroke:#303945; stroke-width:1;" />
+<path d="M 615.50 99.39 L 619.50 96.39 L 623.50 101.39 L 619.50 103.39" style="fill:#2d3436; stroke:none;" />
+<path d="M 615.05 108.10 L 619.05 105.10 L 623.05 110.10 L 619.05 112.10" style="fill:#2d3436; stroke:none;" />
+<path d="M 614.60 115.94 L 618.60 112.94 L 622.60 117.94 L 618.60 119.94" style="fill:#2d3436; stroke:none;" />
+<path d="M 598.28 135.52 L 641.97 114.50 L 641.97 117.50 L 598.28 138.52 Z" style="fill:#2b3440; stroke:none;" />
+<path d="M 558.38 116.21 Q 568.44 116.28 578.50 106.36 Q 588.39 125.94 598.28 135.52 L 598.28 139.52 Q 588.39 129.94 578.50 110.36 Q 568.44 120.28 558.38 120.21 L 558.38 116.21 Z" style="fill:#353e4a; stroke:none;" />
+<path d="M 558.38 116.21 Q 568.44 116.28 578.50 106.36 Q 588.39 125.94 598.28 135.52 L 598.28 139.52 Q 588.39 129.94 578.50 110.36 Q 568.44 120.28 558.38 120.21 L 558.38 116.21 Z" style="fill:none; stroke:#212a36; stroke-width:1;" />
+<path d="M 558.38 116.21 Q 568.44 116.28 578.50 106.36 Q 588.39 125.94 598.28 135.52 L 598.28 139.52 Q 588.39 129.94 578.50 110.36 Q 568.44 120.28 558.38 120.21 L 558.38 116.21 Z" style="fill:none; stroke:#212a36; stroke-width:1;" />
+<path d="M 558.38 116.21 Q 568.44 116.28 578.50 106.36 Q 588.39 125.94 598.28 135.52 L 598.28 139.52 Q 588.39 129.94 578.50 110.36 Q 568.44 120.28 558.38 120.21 L 558.38 116.21 Z" style="fill:none; stroke:#212a36; stroke-width:1;" />
+<path d="M 615.50 104.15 L 623.40 100.95 L 623.40 115.12 L 615.12 118.84" style="fill:#556068; stroke:none;" />
+<path d="M 615.50 104.15 L 623.40 100.95 L 623.40 115.12 L 615.12 118.84" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 615.50 104.15 L 623.40 100.95 L 623.40 115.12 L 615.12 118.84" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 615.50 104.15 L 623.40 100.95 L 623.40 115.12 L 615.12 118.84" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 607.47 100.78 L 615.50 104.15 L 615.12 118.84 L 606.51 105.78 Z" style="fill:#7f8c8d; stroke:none;" />
+<path d="M 607.47 100.78 L 615.50 104.15 L 615.12 118.84 L 606.51 105.78 Z" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 607.47 100.78 L 615.50 104.15 L 615.12 118.84 L 606.51 105.78 Z" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 607.47 100.78 L 615.50 104.15 L 615.12 118.84 L 606.51 105.78 Z" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 603.51 100.81 L 614.95 106.03 L 614.59 104.23 L 603.60 98.95" style="fill:#899697; stroke:none;" />
+<path d="M 603.51 100.81 L 614.95 106.03 L 614.59 104.23 L 603.60 98.95" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 603.51 100.81 L 614.95 106.03 L 614.59 104.23 L 603.60 98.95" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 603.51 100.81 L 614.95 106.03 L 614.59 104.23 L 603.60 98.95" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 614.95 106.03 L 625.50 100.16 L 625.66 98.04 L 614.59 104.23" style="fill:#5f6a72; stroke:none;" />
+<path d="M 614.95 106.03 L 625.50 100.16 L 625.66 98.04 L 614.59 104.23" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 614.95 106.03 L 625.50 100.16 L 625.66 98.04 L 614.59 104.23" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 614.95 106.03 L 625.50 100.16 L 625.66 98.04 L 614.59 104.23" style="fill:none; stroke:rgba(0,0,0,0.1); stroke-width:1;" />
+<path d="M 603.60 98.95 L 614.59 104.23 L 625.66 98.04 L 615.23 92.51 Z" style="fill:#95a5a6; stroke:none;" />
+<path d="M 610.72 98.98 L 615.34 100.68 L 614.84 98.08 L 611.24 95.52" style="fill:#e17055; stroke:none;" />
+<path d="M 615.34 100.68 L 618.56 98.07 L 618.99 96.50 L 614.84 98.08" style="fill:#d26146; stroke:none;" />
+<path d="M 611.24 95.52 L 614.84 98.08 L 618.99 96.50 L 614.92 94.04" style="fill:#2d3436; stroke:none;" />
+<path d="M 611.24 95.52 L 614.84 98.08 L 618.99 96.50 L 614.92 94.04 Z" style="fill:none; stroke:#f58469; stroke-width:1;" />
+<path d="M 611.24 95.52 L 614.84 98.08 L 618.99 96.50 L 614.92 94.04 Z" style="fill:none; stroke:#f58469; stroke-width:1;" />
+<path d="M 611.24 95.52 L 614.84 98.08 L 618.99 96.50 L 614.92 94.04 Z" style="fill:none; stroke:#f58469; stroke-width:1;" />
+<path d="M 615.59 157.77 L 614.16 155.31 L 614.17 152.95 L 617.33 151.97 L 619.11 148.07 L 619.36 143.11 L 616.47 139.93 L 614.84 137.99 L 614.40 135.50 L 615.98 134.05 L 619.24 130.88 L 620.07 126.35 L 617.21 124.43 L 615.39 122.24 L 613.68 119.75 L 615.62 117.26" style="fill:none; stroke:#4b6140; stroke-width:2;" />
+<path d="M 615.59 157.77 L 614.16 155.31 L 614.17 152.95 L 617.33 151.97 L 619.11 148.07 L 619.36 143.11 L 616.47 139.93 L 614.84 137.99 L 614.40 135.50 L 615.98 134.05 L 619.24 130.88 L 620.07 126.35 L 617.21 124.43 L 615.39 122.24 L 613.68 119.75 L 615.62 117.26" style="fill:none; stroke:#4b6140; stroke-width:2;" />
+<path d="M 615.59 157.77 L 614.16 155.31 L 614.17 152.95 L 617.33 151.97 L 619.11 148.07 L 619.36 143.11 L 616.47 139.93 L 614.84 137.99 L 614.40 135.50 L 615.98 134.05 L 619.24 130.88 L 620.07 126.35 L 617.21 124.43 L 615.39 122.24 L 613.68 119.75 L 615.62 117.26" style="fill:none; stroke:#4b6140; stroke-width:2;" />
+<circle cx="615.79" cy="139.01" r="4" fill="#5d7052" />
+<path d="M 565.63 150.54 L 563.68 149.77 L 564.11 148.32 L 567.52 144.73 L 569.27 141.95 L 569.58 138.10 L 567.28 133.96 L 564.72 131.77 L 563.73 130.79 L 566.24 128.59 L 569.56 124.04 L 569.17 120.90 L 567.15 116.27 L 564.48 115.53 L 563.50 114.20 L 565.85 112.27 L 568.94 109.58 L 569.96 106.10 L 568.91 102.53 L 566.05 98.46" style="fill:none; stroke:#4b6140; stroke-width:2;" />
+<path d="M 565.63 150.54 L 563.68 149.77 L 564.11 148.32 L 567.52 144.73 L 569.27 141.95 L 569.58 138.10 L 567.28 133.96 L 564.72 131.77 L 563.73 130.79 L 566.24 128.59 L 569.56 124.04 L 569.17 120.90 L 567.15 116.27 L 564.48 115.53 L 563.50 114.20 L 565.85 112.27 L 568.94 109.58 L 569.96 106.10 L 568.91 102.53 L 566.05 98.46" style="fill:none; stroke:#4b6140; stroke-width:2;" />
+<path d="M 565.63 150.54 L 563.68 149.77 L 564.11 148.32 L 567.52 144.73 L 569.27 141.95 L 569.58 138.10 L 567.28 133.96 L 564.72 131.77 L 563.73 130.79 L 566.24 128.59 L 569.56 124.04 L 569.17 120.90 L 567.15 116.27 L 564.48 115.53 L 563.50 114.20 L 565.85 112.27 L 568.94 109.58 L 569.96 106.10 L 568.91 102.53 L 566.05 98.46" style="fill:none; stroke:#4b6140; stroke-width:2;" />
+<circle cx="566.02" cy="134.00" r="6" fill="#5d7052" />
+<path d="M 581.50 158.64 L 579.95 156.90 L 580.75 155.65 L 583.33 153.32 L 585.88 148.57 L 585.26 146.11 L 583.06 142.46 L 579.95 140.27 L 579.78 137.89 L 582.73 136.35 L 585.49 131.94" style="fill:none; stroke:#4b6140; stroke-width:2;" />
+<path d="M 581.50 158.64 L 579.95 156.90 L 580.75 155.65 L 583.33 153.32 L 585.88 148.57 L 585.26 146.11 L 583.06 142.46 L 579.95 140.27 L 579.78 137.89 L 582.73 136.35 L 585.49 131.94" style="fill:none; stroke:#4b6140; stroke-width:2;" />
+<path d="M 581.50 158.64 L 579.95 156.90 L 580.75 155.65 L 583.33 153.32 L 585.88 148.57 L 585.26 146.11 L 583.06 142.46 L 579.95 140.27 L 579.78 137.89 L 582.73 136.35 L 585.49 131.94" style="fill:none; stroke:#4b6140; stroke-width:2;" />
+<circle cx="581.90" cy="141.00" r="6" fill="#5d7052" />
+<path d="M 633.58 148.76 L 631.50 148.75 L 633.09 147.97 L 635.75 145.64 L 637.19 140.56 L 636.81 137.96 L 635.28 134.76 L 632.01 132.00 L 631.80 129.62 L 634.05 128.33 L 636.82 123.89 L 637.24 119.84 L 636.13 115.80" style="fill:none; stroke:#4b6140; stroke-width:2;" />
+<path d="M 633.58 148.76 L 631.50 148.75 L 633.09 147.97 L 635.75 145.64 L 637.19 140.56 L 636.81 137.96 L 635.28 134.76 L 632.01 132.00 L 631.80 129.62 L 634.05 128.33 L 636.82 123.89 L 637.24 119.84 L 636.13 115.80" style="fill:none; stroke:#4b6140; stroke-width:2;" />
+<path d="M 633.58 148.76 L 631.50 148.75 L 633.09 147.97 L 635.75 145.64 L 637.19 140.56 L 636.81 137.96 L 635.28 134.76 L 632.01 132.00 L 631.80 129.62 L 634.05 128.33 L 636.82 123.89 L 637.24 119.84 L 636.13 115.80" style="fill:none; stroke:#4b6140; stroke-width:2;" />
+<circle cx="633.80" cy="130.01" r="2" fill="#5d7052" />
+<circle cx="605.95" cy="145.75" r="2.3000000000000003" fill="#3d3d3d" />
+<circle cx="582.88" cy="155.02" r="3.85" fill="#5d4037" />
+<circle cx="596.06" cy="147.05" r="3.4000000000000004" fill="#3d3d3d" />
+<circle cx="573.60" cy="155.66" r="2.95" fill="#5d4037" />
+<circle cx="587.35" cy="148.09" r="2.5" fill="#3d3d3d" />
+<g class="cloud-base c-fast" filter="url(#cloudBlur)">
+<ellipse cx="544.00" cy="-301.19" rx="72" ry="36" fill="#ffffff" />
+<circle cx="534.98" cy="-310.97" r="24.422813290859544" fill="#ffffff" />
+<circle cx="508.45" cy="-321.60" r="37.07396377688117" fill="#ffffff" />
+<circle cx="512.89" cy="-310.22" r="47.330306884893375" fill="#ffffff" />
+<circle cx="575.01" cy="-308.01" r="34.674937473911534" fill="#ffffff" />
+<circle cx="503.81" cy="-305.50" r="33.77719311314378" fill="#ffffff" />
+<circle cx="533.88" cy="-315.32" r="47.87638649592531" fill="#ffffff" />
+<circle cx="549.86" cy="-308.02" r="28.918333197250007" fill="#ffffff" />
+<ellipse cx="127.96" cy="-307.07" rx="72" ry="36" fill="#ffffff" />
+<circle cx="160.17" cy="-325.98" r="37.32473495831538" fill="#ffffff" />
+<circle cx="114.33" cy="-309.89" r="32.55109943607274" fill="#ffffff" />
+<circle cx="174.02" cy="-317.36" r="44.59836587874825" fill="#ffffff" />
+<circle cx="166.73" cy="-313.44" r="39.94342215444524" fill="#ffffff" />
+<circle cx="81.63" cy="-321.10" r="28.475541848712776" fill="#ffffff" />
+<circle cx="152.30" cy="-320.16" r="27.883622980521526" fill="#ffffff" />
+<circle cx="80.65" cy="-309.24" r="33.17561111766938" fill="#ffffff" />
+<ellipse cx="-205.40" cy="-177.30" rx="72" ry="36" fill="#ffffff" />
+<circle cx="-191.03" cy="-192.52" r="26.35579458056367" fill="#ffffff" />
+<circle cx="-204.89" cy="-198.61" r="40.28653103399462" fill="#ffffff" />
+<circle cx="-235.13" cy="-200.86" r="37.4497940026631" fill="#ffffff" />
+<circle cx="-233.47" cy="-196.51" r="27.05609650988593" fill="#ffffff" />
+<circle cx="-205.48" cy="-183.70" r="29.613822329507194" fill="#ffffff" />
+<circle cx="-228.47" cy="-192.33" r="34.373632765449045" fill="#ffffff" />
+<circle cx="-218.46" cy="-182.66" r="38.58178711477859" fill="#ffffff" />
+<circle cx="-181.57" cy="-187.49" r="33.422920081119024" fill="#ffffff" />
+<ellipse cx="642.93" cy="-228.36" rx="72" ry="36" fill="#ffffff" />
+<circle cx="605.18" cy="-245.24" r="34.332376225549794" fill="#ffffff" />
+<circle cx="601.82" cy="-244.13" r="44.74500159349119" fill="#ffffff" />
+<circle cx="621.01" cy="-229.72" r="47.00759197881586" fill="#ffffff" />
+<circle cx="633.70" cy="-246.60" r="40.5609109408798" fill="#ffffff" />
+<circle cx="625.45" cy="-239.46" r="31.60548745689632" fill="#ffffff" />
+<circle cx="659.89" cy="-246.74" r="26.61262479125123" fill="#ffffff" />
+<circle cx="632.81" cy="-240.59" r="41.415760889430814" fill="#ffffff" />
+</g>
+<g class="cloud-base c-slow" filter="url(#cloudBlur)" opacity="0.7">
+<ellipse cx="862.89" cy="-175.14" rx="48" ry="24" fill="#ffffff" />
+<circle cx="874.79" cy="-185.21" r="24.539753867759114" fill="#ffffff" />
+<circle cx="843.12" cy="-185.64" r="18.889921716276476" fill="#ffffff" />
+<circle cx="864.92" cy="-178.83" r="28.196295844260774" fill="#ffffff" />
+<circle cx="868.89" cy="-185.27" r="27.497641548466945" fill="#ffffff" />
+<circle cx="891.49" cy="-177.43" r="28.654226089861876" fill="#ffffff" />
+<circle cx="891.93" cy="-178.13" r="26.155072257645216" fill="#ffffff" />
+<circle cx="858.27" cy="-175.77" r="16.312091086422864" fill="#ffffff" />
+<circle cx="866.81" cy="-178.14" r="31.70628687072771" fill="#ffffff" />
+<ellipse cx="233.45" cy="-249.26" rx="48" ry="24" fill="#ffffff" />
+<circle cx="235.58" cy="-249.38" r="30.254185814550443" fill="#ffffff" />
+<circle cx="209.79" cy="-262.87" r="25.329129354485662" fill="#ffffff" />
+<circle cx="251.43" cy="-262.21" r="20.748624301472862" fill="#ffffff" />
+<circle cx="221.27" cy="-251.66" r="19.785064059035662" fill="#ffffff" />
+<circle cx="233.68" cy="-262.30" r="20.701799187954744" fill="#ffffff" />
+<circle cx="264.26" cy="-264.91" r="26.698231381034432" fill="#ffffff" />
+<ellipse cx="308.57" cy="-129.61" rx="48" ry="24" fill="#ffffff" />
+<circle cx="325.17" cy="-138.91" r="25.32777259054086" fill="#ffffff" />
+<circle cx="336.70" cy="-140.54" r="17.21136035606876" fill="#ffffff" />
+<circle cx="282.94" cy="-131.36" r="23.02279005209526" fill="#ffffff" />
+<circle cx="283.93" cy="-144.50" r="19.078987583365436" fill="#ffffff" />
+<circle cx="293.00" cy="-134.47" r="27.89551983634217" fill="#ffffff" />
+<circle cx="302.51" cy="-137.41" r="29.234684401751373" fill="#ffffff" />
+<circle cx="325.05" cy="-141.81" r="27.512903729286506" fill="#ffffff" />
+<ellipse cx="1026.58" cy="-414.83" rx="48" ry="24" fill="#ffffff" />
+<circle cx="1001.78" cy="-417.58" r="23.07201717953004" fill="#ffffff" />
+<circle cx="1004.26" cy="-417.97" r="29.99016991850384" fill="#ffffff" />
+<circle cx="1054.81" cy="-423.46" r="25.66414856627714" fill="#ffffff" />
+<circle cx="1029.77" cy="-429.27" r="22.608568176235053" fill="#ffffff" />
+<circle cx="1039.00" cy="-419.58" r="29.730066046448897" fill="#ffffff" />
+<circle cx="1020.38" cy="-418.99" r="25.916885888531112" fill="#ffffff" />
+<circle cx="1046.14" cy="-420.51" r="25.5288542759855" fill="#ffffff" />
+<ellipse cx="-169.50" cy="-368.07" rx="48" ry="24" fill="#ffffff" />
+<circle cx="-181.84" cy="-381.00" r="31.41217524692147" fill="#ffffff" />
+<circle cx="-161.60" cy="-375.48" r="16.57018875976451" fill="#ffffff" />
+<circle cx="-151.43" cy="-369.48" r="17.630434477578785" fill="#ffffff" />
+<circle cx="-196.87" cy="-375.62" r="30.26799286802234" fill="#ffffff" />
+<circle cx="-168.18" cy="-380.16" r="30.546332027564656" fill="#ffffff" />
+<ellipse cx="1022.18" cy="-430.93" rx="48" ry="24" fill="#ffffff" />
+<circle cx="1010.46" cy="-436.49" r="24.02906124659541" fill="#ffffff" />
+<circle cx="1044.75" cy="-440.09" r="26.324146405570698" fill="#ffffff" />
+<circle cx="1011.78" cy="-435.74" r="28.394150042713296" fill="#ffffff" />
+<circle cx="1047.34" cy="-438.41" r="27.067504627703045" fill="#ffffff" />
+<circle cx="1023.78" cy="-433.71" r="22.613583059585384" fill="#ffffff" />
+<circle cx="1010.55" cy="-438.06" r="28.695846734024027" fill="#ffffff" />
+</g>
+    <rect x="-800" y="-950" width="2400" height="1800" fill="url(#vignette)" pointer-events="none" />
+    
+    <!-- Aesthetic Outline Frame -->
+    <rect x="-211.62162162162156" y="-256.2162162162162" width="823.2432432432431" height="412.4324324324324" fill="none" stroke="#ffffff" stroke-width="8" opacity="0.6" />
+    
+</svg>

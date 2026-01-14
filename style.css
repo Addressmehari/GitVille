@@ -1,24 +1,208 @@
 :root {
-    --bg-color: #42ae47;
-    /* Rich Grass Green */
-    /* Bright Grass Green */
-    /* Soft light blue-grey */
+  --bg-color: #81c784;
+  --text-primary: #1f2937;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --accent: #2563eb;
 }
 
 body,
 html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: var(--bg-color);
-    touch-action: none;
-    /* Prevent browser handling of touch gestures */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-color);
+  font-family: "Outfit", sans-serif;
+  color: var(--text-primary);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  cursor: grab;
+}
+
+canvas:active {
+  cursor: grabbing;
+}
+
+/* UI Layer */
+#ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none; /* Let clicks pass through to canvas */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+header {
+  pointer-events: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.1);
+}
+
+.badge {
+  background: #fbbf24;
+  color: #78350f;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  transform: rotate(-5deg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  margin: 0;
+  color: #f0fdf4;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 1.1rem;
+}
+
+.controls-hint {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  padding: 1rem;
+  border-radius: 12px;
+  align-self: flex-start; /* Left align */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.hint-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Clean HUD */
+.hud-header {
+    pointer-events: none;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+#city-title {
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.5px;
+    opacity: 0.9;
+}
+
+.hud-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    pointer-events: none;
+}
+
+.hud-footer a {
+    pointer-events: auto;
+    text-decoration: none;
+}
+
+#city-badge {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Loading Screen */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #81c784;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease-out;
+}
+
+#loading-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader-content {
+  text-align: center;
+  color: white;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile Tweaks */
+@media (max-width: 600px) {
+  #ui-layer {
+    padding: 1rem;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  .controls-hint {
+    display: none; /* Hide hints on mobile to save space, or simplify */
+  }
 }

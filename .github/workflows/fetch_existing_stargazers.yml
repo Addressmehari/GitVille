@@ -1,22 +1,22 @@
-name: Fetch All Stargazers and Rebuild City
+name: Daily City Update
 
 on:
   workflow_dispatch:
     inputs:
       limit:
-        description: 'Maximum number of stargazers to fetch'
+        description: "Maximum number of users to fetch"
         required: true
-        default: '2000'
+        default: "5000"
   schedule:
-    - cron: '0 0 * * 0' # Run weekly at midnight on Sunday to ensure sync
+    - cron: "0 0 * * *" # Run daily at midnight
 
 permissions:
   contents: write
 
 jobs:
-  rebuild-city:
+  update-city:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -24,9 +24,9 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: "3.x"
 
-      - name: Fetch Stargazers and Generate City
+      - name: Sync City Status (Followers/Stargazers)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -35,10 +35,10 @@ jobs:
           if [ -z "$LIMIT" ]; then
             LIMIT="5000"
           fi
-          
+
           echo "Target Repo: ${{ github.repository }}"
           echo "Fetch Limit: $LIMIT"
-          
+
           # Run the script with the repository name and limit
           # The script reads GITHUB_TOKEN from environment automatically
           python fetch_stargazers.py "${{ github.repository }}" "$LIMIT"
@@ -47,14 +47,14 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           # Add the generated files
-          git add stargazers_houses.json roads.json
-          
+          git add stargazers_houses.json roads.json city_snapshot.svg
+
           # Commit only if there are changes
           if git diff --staged --quiet; then
-            echo "No changes to the city layout."
+            echo "No changes to the city status."
           else
-            git commit -m "Rebuild city layout with latest stargazers (Limit: ${{ inputs.limit || '5000' }})"
+            git commit -m "Daily city update: Sync followers/stargazers status"
             git push
           fi

@@ -16,6 +16,7 @@
 ---
 
 ## 📖 Table of Contents
+
 - [✨ Features](#-features)
 - [📸 Gallery](#-gallery)
 - [How It Works](#-how-it-works)
@@ -55,45 +56,51 @@
 
 ## 🔍 How It Works
 
-GitVille bridges the gap between GitHub data and visual art. Here is the flow of data:
+GitVille supports two modes:
+
+1. **Repository Mode**: Builds a city of **Stargazers** (if the target is a regular repo).
+2. **Profile Mode**: Builds a city of **Followers** (if the target is a user profile repo, e.g., `username/username`).
+
+### 🏙️ City Rules
+
+The city is alive and reacts to user actions:
+
+| Action                 | Result                                                                          |
+| :--------------------- | :------------------------------------------------------------------------------ |
+| **Follow / Star**      | A new house is built for you immediately.                                       |
+| **Unfollow / Unstar**  | Your house becomes **Abandoned** (dark, broken windows).                        |
+| **Re-Follow**          | Your house is restored! (Status resets).                                        |
+| **Sentinel (10 Days)** | If you stay for **10 days**, your house gets a **Terrace** (2nd Floor Upgrade). |
+
+### ⚙️ Data Flow
 
 ```
-⭐ GitHub API
+⭐ GitHub API (Followers/Stars)
      |
      v
-🐍 fetch_stargazers.py
+🐍 fetch_stargazers.py (Daily Sync)
      |
      v
-📁 Data Files
- ├── houses.json
- ├── roads.json
+📁 stargazers_houses.json (State Database)
      |
      v
-🌍 world.py
-     |
-     v
-🌐 Frontend App
-     |
-     v
-🎨 Canvas (City Render)
+🌍 Frontend (Render)
 ```
 
-1.  **Data Fetching**: The `fetch_stargazers.py` script pulls the latest stargazers.
-2.  **Layout Generation**: It calculates grid positions, organizing houses into a city layout with roads.
-3.  **State Management**: `world.py` manages environmental state (weather, time of day).
-4.  **Rendering**: The browser loads the JSON data and `script.js` renders the isometric world.
+1.  **Daily Sync**: The `daily_city_update` workflow runs every night at 12 AM.
+2.  **State Tracking**: It compares the live list with the city records to detect unfollowers or upgrades.
+3.  **Rendering**: The browser loads the data and renders the isometric world.
 
 ---
-
 
 ---
 
 ## 🎮 Controls
 
-| Action | Mouse | Touch |
-| :--- | :--- | :--- |
-| **Pan** | Click & Drag | Swipe |
-| **Zoom** | Scroll Wheel | Pinch |
+| Action       | Mouse               | Touch        |
+| :----------- | :------------------ | :----------- |
+| **Pan**      | Click & Drag        | Swipe        |
+| **Zoom**     | Scroll Wheel        | Pinch        |
 | **Interact** | Left Click on House | Tap on House |
 
 ---
@@ -130,8 +137,6 @@ This repository includes GitHub Actions to keep the city alive:
 - **Day/Night Cycle**: Synchronizes the visual theme with scheduled times.
 
 ---
-
-
 
 <p align="center">
   Made with ❤️ for the Open Source Community

@@ -1,0 +1,34 @@
+[
+    {
+        "x": 0,
+        "y": 0,
+        "color": "#5c22fc",
+        "roofStyle": 1,
+        "doorStyle": 0,
+        "windowStyle": 2,
+        "chimneyStyle": 2,
+        "wallStyle": 3,
+        "username": "Addressmehari",
+        "facing": "down",
+        "has_terrace": true,
+        "abandoned": false,
+        "joined_at": "2026-01-14T08:18:13.596262",
+        "last_seen": "2026-01-15T01:39:47.579086"
+    },
+    {
+        "x": 3.0,
+        "y": -3.0,
+        "color": "#6e911c",
+        "roofStyle": 2,
+        "doorStyle": 2,
+        "windowStyle": 1,
+        "chimneyStyle": 1,
+        "wallStyle": 1,
+        "username": "hp-echo",
+        "facing": "left",
+        "has_terrace": false,
+        "abandoned": false,
+        "joined_at": "2026-01-14T08:18:13.596262",
+        "last_seen": "2026-01-15T01:39:47.579086"
+    }
+]

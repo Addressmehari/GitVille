@@ -73,49 +73,61 @@ let npcManager; // NPC Manager
 async function init() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-
     setupInputListeners();
 
-    // Load data
-    // Load data
-    try {
-        console.log("Fetching data...");
-        const [housesRes, worldRes, roadsRes] = await Promise.all([
-            fetch('./stargazers_houses.json?t=' + Date.now()),
-            fetch('./world.json?t=' + Date.now()),
-            fetch('./roads.json?t=' + Date.now()).catch(e => null) // Fallback for roads
-        ]);
+    // Check for URL Param
+    const urlParams = new URLSearchParams(window.location.search);
+    const dynamicUser = urlParams.get('u') || urlParams.get('username');
 
-        if (!housesRes.ok) throw new Error(`Houses fetch failed: ${housesRes.status}`);
-        if (!worldRes.ok) throw new Error(`World fetch failed: ${worldRes.status}`);
-
-        houses = await housesRes.json();
-        console.log("Loaded houses:", houses.length);
-
-        worldConfig = await worldRes.json();
-
-        if (roadsRes && roadsRes.ok) {
-            try {
-                const roadData = await roadsRes.json();
-                if (Array.isArray(roadData)) {
-                    roadData.forEach(r => roads.add(`${r.x},${r.y}`));
-                }
-            } catch (e) { console.log("No roads found or invalid JSON"); }
+    if (dynamicUser) {
+        // --- DYNAMIC MODE ---
+        console.log(`Dynamic Mode: Building city for ${dynamicUser}...`);
+        try {
+            const data = await fetchDynamicData(dynamicUser);
+            houses = data.houses;
+            roads = data.roads;
+            worldConfig = { weather: "none", timeOfDay: "day" };
+            console.log("Generated Dynamic City:", houses.length, "houses for", dynamicUser);
+        } catch (e) {
+            console.error(e);
+            showErrorDialog(e.message); 
+            houses = [{ x: 0, y: 0, color: "#ff6b6b", hoverAnim: 0, username: "Error" }];
         }
+    } else {
+        // --- STATIC MODE ---
+        try {
+            console.log("Fetching static data...");
+            const [housesRes, worldRes, roadsRes] = await Promise.all([
+                fetch('../data/stargazers_houses.json?t=' + Date.now()),
+                fetch('../data/world.json?t=' + Date.now()),
+                fetch('../data/roads.json?t=' + Date.now()).catch(e => null)
+            ]);
 
-        // Initialize animation state
-        houses.forEach(h => h.hoverAnim = 0);
-    } catch (e) {
-        console.error("Failed to load data detailed:", e);
-        // Fallback for visual debugging
-        houses = [{ x: 0, y: 0, color: "#ff6b6b", hoverAnim: 0, username: "Error" }];
-        alert("Failed to load data. Check console (F12) for details.\n" + e.message);
+            if (!housesRes.ok) throw new Error(`Houses fetch failed: ${housesRes.status}`);
+            if (!worldRes.ok) throw new Error(`World fetch failed: ${worldRes.status}`);
+
+            houses = await housesRes.json();
+            worldConfig = await worldRes.json();
+
+            if (roadsRes && roadsRes.ok) {
+                try {
+                    const roadData = await roadsRes.json();
+                    if (Array.isArray(roadData)) {
+                        roadData.forEach(r => roads.add(`${r.x},${r.y}`));
+                    }
+                } catch (e) { console.log("No roads found or invalid JSON"); }
+            }
+            houses.forEach(h => h.hoverAnim = 0);
+        } catch (e) {
+            console.error("Failed to load data detailed:", e);
+            houses = [{ x: 0, y: 0, color: "#ff6b6b", hoverAnim: 0, username: "Error" }];
+            alert("Failed to load data.\n" + e.message);
+        }
     }
 
-    // Customize UI for Owner
+    // UI Updates
     if (houses.length > 0) {
         let owner = houses[0].username;
-        // Basic sanitization
         owner = owner.replace(/[^a-zA-Z0-9_-]/g, ''); 
         
         const titleEl = document.getElementById('city-title');
@@ -123,29 +135,291 @@ async function init() {
         
         const badgeEl = document.getElementById('city-badge');
         if (badgeEl) {
-            // Create a pseudo-hex ID from the name for "tech" feel
+            // Pseudo-hex ID
             let hash = 0;
-            for (let i = 0; i < owner.length; i++) {
-                hash = owner.charCodeAt(i) + ((hash << 5) - hash);
-            }
+            for (let i = 0; i < owner.length; i++) hash = owner.charCodeAt(i) + ((hash << 5) - hash);
             const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
             const hexId = "00000".substring(0, 6 - c.length) + c;
             
-            badgeEl.innerText = `gitville:SECTOR-${hexId}`;
+            if (!dynamicUser) {
+                badgeEl.innerText = `gitville:SECTOR-${hexId}`; 
+            } else {
+                badgeEl.parentElement.href = `https://github.com/${owner}`;
+            }
         }
     }
 
-    // Init Clouds
     cloudSystem = new CloudSystem();
-    // Init NPCs
     npcManager = new NPCManager(15);
     
-    // Hide Loading Screen
     const loader = document.getElementById('loading-screen');
     if (loader) loader.classList.add('hidden');
 
     requestAnimationFrame(render);
 }
+
+// --- Dynamic Generation Utils ---
+
+async function fetchDynamicData(input) {
+    let mode = 'user';
+    let owner = input;
+    let repo = '';
+
+    // Check if input is "owner/repo"
+    if (input.includes('/')) {
+        const splitIdx = input.indexOf('/');
+        owner = input.substring(0, splitIdx);
+        repo = input.substring(splitIdx + 1);
+        mode = 'repo';
+    }
+
+    // 1. Fetch Owner/Repo Info
+    let infoUrl = `https://api.github.com/users/${owner}`;
+    if (mode === 'repo') {
+        infoUrl = `https://api.github.com/repos/${owner}/${repo}`;
+    }
+
+    const infoRes = await fetch(infoUrl);
+    if (infoRes.status === 403) {
+        throw new Error("⚠️ Rate Limit Exceeded!\n\nGitHub allows 60 requests/hour for anonymous visitors.\nPlease wait a while or try a different network.");
+    }
+    if (infoRes.status === 404) {
+        throw new Error(`❌ Not Found\n\nCould not find ${mode === 'repo' ? 'Repository' : 'User'}: "${input}"`);
+    }
+    if (!infoRes.ok) throw new Error("GitHub API Error: " + infoRes.status);
+    const infoData = await infoRes.json();
+
+    // 2. Fetch People (Followers or Stargazers) - Just one page of 50
+    // But use the TOTAL count to generate "Ghost Citizens"
+    let totalCount = 0;
+    if (mode === 'repo') {
+        totalCount = infoData.stargazers_count;
+    } else {
+        totalCount = infoData.followers;
+    }
+
+    // Cap the visual city size to avoid browser crash
+    const MAX_VISUAL_HOUSES = 750;
+    const realFetchCount = 50;
+    
+    // Update Badge with Real Count
+    const badgeEl = document.getElementById('city-badge');
+    if (badgeEl) {
+        const label = mode === 'repo' ? 'STARGAZERS' : 'FOLLOWERS';
+        // Format number (e.g. 15.4k)
+        const formatCount = (n) => {
+            if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+            if (n >= 1000) return (n/1000).toFixed(1) + 'k';
+            return n;
+        };
+        badgeEl.innerText = `gitville:${formatCount(totalCount)} ${label}`; 
+    }
+    
+    // Fetch just 50 real people
+    const type = mode === 'repo' ? 'stargazers' : 'followers';
+    let fetchUrlBase = `https://api.github.com/users/${owner}/${type}`;
+    if (mode === 'repo') {
+        fetchUrlBase = `https://api.github.com/repos/${owner}/${repo}/${type}`;
+    }
+
+    const peopleRes = await fetch(`${fetchUrlBase}?per_page=${realFetchCount}&page=1`);
+    let people = [];
+    if (peopleRes.ok) {
+        people = await peopleRes.json();
+    } // If fail, just use ghosts
+
+    // 3. Construct House List
+    let rawHouses = [];
+    
+    // Center House (Owner or Repo Owner)
+    const centerUser = mode === 'repo' ? infoData.owner.login : infoData.login;
+    
+    rawHouses.push({
+        username: centerUser,
+        joined_at: new Date().toISOString()
+    });
+    
+    // Add Real People
+    people.forEach(p => {
+        const login = p.login || p.user?.login; 
+        if (login) {
+             rawHouses.push({
+                username: login,
+                joined_at: new Date().toISOString() 
+            });
+        }
+    });
+    
+    // Add Ghost Citizens to fill the count
+    // We already have rawHouses.length (approx 51). 
+    // We want to reach Math.min(totalCount, MAX_VISUAL_HOUSES).
+    
+    const targetTotal = Math.min(totalCount, MAX_VISUAL_HOUSES);
+    const neededGhosts = targetTotal - rawHouses.length;
+    
+    if (neededGhosts > 0) {
+        console.log(`Generating ${neededGhosts} ghost citizens to match population of ${totalCount}...`);
+        for(let i=0; i<neededGhosts; i++) {
+            // Generate a deterministic fake name based on index and owner
+            // This ensures they stay consistent for the same repo (mostly)
+            const ghostName = `Citizen-${i}-${centerUser.substring(0,3)}`;
+            rawHouses.push({
+                username: ghostName,
+                isGhost: true, // Flag for simpler rendering if needed
+                joined_at: new Date().toISOString()
+            });
+        }
+    }
+
+    return generateCityLayout(rawHouses, centerUser);
+}
+
+
+
+function generateCityLayout(users, ownerName) {
+    const HOUSE_GAP = 2;
+    const STREET_GAP = 2;
+    const MAIN_AVENUE_WIDTH = 6;
+    const CLUSTER_ROWS = 4;
+    const CLUSTER_COLS = 4;
+    const HOUSES_PER_BLOCK = CLUSTER_ROWS * CLUSTER_COLS;
+    
+    const BLOCK_WIDTH = (CLUSTER_COLS - 1) * HOUSE_GAP;
+    const BLOCK_HEIGHT = (CLUSTER_ROWS - 1) * HOUSE_GAP;
+    const BLOCK_STRIDE_X = BLOCK_WIDTH + STREET_GAP;
+    const BLOCK_STRIDE_Y = BLOCK_HEIGHT + STREET_GAP;
+
+    const limit = users.length;
+    const slots = [];
+    const facings = [];
+    
+    slots.push({x: 0, y: 0});
+    facings.push("down");
+    
+    if (limit > 1) {
+        const total_blocks = Math.ceil(limit / HOUSES_PER_BLOCK);
+        const quadrants = [{x:1, y:-1}, {x:-1, y:-1}, {x:-1, y:1}, {x:1, y:1}];
+        let abstract_blocks = [];
+        let layer = 0;
+        while (abstract_blocks.length * 4 < total_blocks + 4) {
+            for (let x = 0; x <= layer; x++) {
+                let y = layer - x;
+                abstract_blocks.push({x, y});
+            }
+            layer++;
+        }
+        
+        let houses_placed = 1;
+        for (let b of abstract_blocks) {
+            for (let q = 0; q < 4; q++) {
+                if (houses_placed >= limit) break;
+                const qx = quadrants[q].x;
+                const qy = quadrants[q].y;
+                const base_x = (MAIN_AVENUE_WIDTH / 2) * qx;
+                const base_y = (MAIN_AVENUE_WIDTH / 2) * qy;
+                const block_start_x = base_x + (b.x * BLOCK_STRIDE_X * qx);
+                const block_start_y = base_y + (b.y * BLOCK_STRIDE_Y * qy);
+                
+                for (let i = 0; i < HOUSES_PER_BLOCK; i++) {
+                    if (houses_placed >= limit) break;
+                    const ix = i % CLUSTER_COLS;
+                    const iy = Math.floor(i / CLUSTER_COLS);
+                    const hx = block_start_x + (ix * HOUSE_GAP * qx);
+                    const hy = block_start_y + (iy * HOUSE_GAP * qy);
+                    slots.push({x: hx, y: hy});
+                    if (hx > 0) facings.push("left");
+                    else facings.push("right");
+                    houses_placed++;
+                }
+            }
+        }
+    }
+    
+    let finalHouses = [];
+    let roadsSet = new Set();
+    
+    // Core Ring
+    for(let i = -2; i <= 2; i++) {
+        roadsSet.add(`${i},-2`); roadsSet.add(`${i},2`);
+        roadsSet.add(`-2,${i}`); roadsSet.add(`2,${i}`);
+    }
+    
+    const get_r_coord = (idx) => (idx === 0) ? 0 : 2 + idx * 8;
+    slots.forEach(s => {
+        const bx = Math.floor((Math.abs(s.x) - (MAIN_AVENUE_WIDTH/2)) / BLOCK_STRIDE_X);
+        const by = Math.floor((Math.abs(s.y) - (MAIN_AVENUE_WIDTH/2)) / BLOCK_STRIDE_Y);
+        if (bx >= 0 && by >= 0) {
+             const qx = Math.sign(s.x) || 1;
+             const qy = Math.sign(s.y) || 1;
+             const rx_in = get_r_coord(bx) * qx;
+             const rx_out = get_r_coord(bx+1) * qx;
+             const ry_in = get_r_coord(by) * qy;
+             const ry_out = get_r_coord(by+1) * qy;
+             const sx = Math.min(rx_in, rx_out), ex = Math.max(rx_in, rx_out);
+             const sy = Math.min(ry_in, ry_out), ey = Math.max(ry_in, ry_out);
+             for(let xx=Math.ceil(sx); xx<=Math.floor(ex); xx++) {
+                 roadsSet.add(`${xx},${Math.floor(ry_in)}`);
+                 roadsSet.add(`${xx},${Math.floor(ry_out)}`);
+             }
+             for(let yy=Math.ceil(sy); yy<=Math.floor(ey); yy++) {
+                 roadsSet.add(`${Math.floor(rx_in)},${yy}`);
+                 roadsSet.add(`${Math.floor(rx_out)},${yy}`);
+             }
+        }
+    });
+
+    for(let i=-2; i<=2; i++) {
+        roadsSet.delete(`0,${i}`);
+        roadsSet.delete(`${i},0`);
+    }
+    for(let i=-2; i<=2; i++) {
+        roadsSet.add(`${i},-2`); roadsSet.add(`${i},2`);
+        roadsSet.add(`-2,${i}`); roadsSet.add(`2,${i}`);
+    }
+
+    users.forEach((u, i) => {
+        if (i >= slots.length) return;
+        const attrs = stringToPseudoRandom(u.username);
+        finalHouses.push({
+            x: slots[i].x,
+            y: slots[i].y,
+            color: stringToColor(u.username),
+            roofStyle: attrs[0],
+            doorStyle: attrs[1],
+            windowStyle: attrs[2],
+            chimneyStyle: attrs[3],
+            wallStyle: attrs[4],
+            username: u.username,
+            facing: facings[i],
+            has_terrace: false, 
+            abandoned: false,
+            joined_at: u.joined_at,
+            last_seen: new Date().toISOString(),
+            hoverAnim: 0
+        });
+    });
+    
+    return { houses: finalHouses, roads: roadsSet };
+}
+
+function stringToColor(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
+    return '#' + "00000".substring(0, 6 - c.length) + c;
+}
+
+function stringToPseudoRandom(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) hash = ((hash << 5) - hash) + str.charCodeAt(i);
+    const nums = [];
+    for(let i=0; i<5; i++) nums.push(Math.abs((hash >> i) % 4));
+    return nums;
+}
+
+
+
+
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -438,6 +712,93 @@ function spawnSmoke(x, y) {
         radius: 2 + Math.random() * 2
     });
 }
+
+// --- UI Helpers ---
+
+function showErrorDialog(message) {
+    // 1. Check if dialog already exists
+    let dialog = document.getElementById('error-dialog');
+    if (!dialog) {
+        // Create it
+        dialog = document.createElement('div');
+        dialog.id = 'error-dialog';
+        dialog.style.cssText = `
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        `;
+        
+        const content = document.createElement('div');
+        content.style.cssText = `
+            background: #1a1f2e;
+            border: 1px solid #ff4757;
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.4);
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 400px;
+            text-align: center;
+            color: white;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        `;
+        
+        // Add Header
+        const header = document.createElement('h2');
+        header.innerText = "System Alert";
+        header.style.cssText = "margin-top:0; color: #ff6b81; font-size: 1.5rem;";
+        
+        // Add Body (pre-wrap for newlines)
+        const body = document.createElement('p');
+        body.id = 'error-msg-body';
+        body.style.cssText = "white-space: pre-wrap; margin: 1.5rem 0; line-height: 1.5; color: #ced6e0;";
+        
+        // Add Button
+        const btn = document.createElement('button');
+        btn.innerText = "Acknowledge";
+        btn.onclick = () => { dialog.style.display = 'none'; };
+        btn.style.cssText = `
+            background: #ff4757;
+            border: none;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s;
+        `;
+        btn.onmouseover = () => btn.style.transform = "scale(1.05)";
+        btn.onmouseout = () => btn.style.transform = "scale(1)";
+        
+        // Assemble
+        content.appendChild(header);
+        content.appendChild(body);
+        content.appendChild(btn);
+        dialog.appendChild(content);
+        
+        // Add PopIn Animation Keyframes
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            @keyframes popIn {
+                from { opacity: 0; transform: scale(0.8); }
+                to { opacity: 1; transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+        document.body.appendChild(dialog);
+    }
+    
+    // 2. Set Message and Show
+    const bodyEl = document.getElementById('error-msg-body');
+    if (bodyEl) bodyEl.innerText = message;
+    
+    dialog.style.display = 'flex';
+}
+
 
 // --- Weather Components ---
 let rainDrops = [];

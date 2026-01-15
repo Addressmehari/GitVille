@@ -311,7 +311,7 @@ def sync_houses(live_users, contributors, owner_name):
     Syncs the live list of users with the existing JSON database.
     Handles: New users, Abandoned users, Returning users, Terrace Upgrades.
     """
-    filename = "stargazers_houses.json"
+    filename = "data/stargazers_houses.json"
     existing_houses = []
     
     if os.path.exists(filename):
@@ -522,11 +522,11 @@ def main():
     if live_users is not None:
         houses, roads = sync_houses(live_users, contributors, owner)
         
-        with open("stargazers_houses.json", "w") as f:
+        with open("data/stargazers_houses.json", "w") as f:
             json.dump(houses, f, indent=4)
             
         road_data = [{"x": int(r[0]), "y": int(r[1])} for r in roads]
-        with open("roads.json", "w") as f:
+        with open("data/roads.json", "w") as f:
             json.dump(road_data, f, indent=4)
             
         print(f"Updated city with {len(houses)} entities.")
@@ -535,7 +535,7 @@ def main():
         import subprocess
         try:
             print("Generating SVG snapshot using script.js logic...")
-            subprocess.run(["node", "generate_svg.js"], check=True)
+            subprocess.run(["node", "scripts/generate_svg.js"], check=True)
         except Exception as e:
             print(f"Failed to generate SVG: {e}")
     else:

@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const vm = require('vm');
 
 // 1. Mock Browser Environment
@@ -178,8 +179,10 @@ const document = {
 };
 
 // 3. Load Scripts
-let scriptContent = fs.readFileSync('script.js', 'utf8');
-const treeContent = fs.readFileSync('tree.js', 'utf8');
+const scriptPath = path.join(__dirname, '../web/script.js');
+const treePath = path.join(__dirname, '../web/tree.js');
+let scriptContent = fs.readFileSync(scriptPath, 'utf8');
+const treeContent = fs.readFileSync(treePath, 'utf8');
 
 // Modify script.js to allow data injection and prevent auto-init
 // 1. Remove local declarations using Regex to handle potential whitespace
@@ -223,15 +226,18 @@ try {
 function generate() {
     console.log("Generating SVG...");
     
-    if (!fs.existsSync('stargazers_houses.json')) {
+    const housesPath = path.join(__dirname, '../data/stargazers_houses.json');
+    
+    if (!fs.existsSync(housesPath)) {
         console.log("No data file found.");
         return;
     }
 
-    const housesData = JSON.parse(fs.readFileSync('stargazers_houses.json', 'utf8'));
+    const housesData = JSON.parse(fs.readFileSync(housesPath, 'utf8'));
     let roadsData = [];
-    if (fs.existsSync('roads.json')) {
-        roadsData = JSON.parse(fs.readFileSync('roads.json', 'utf8'));
+    const roadsPath = path.join(__dirname, '../data/roads.json');
+    if (fs.existsSync(roadsPath)) {
+        roadsData = JSON.parse(fs.readFileSync(roadsPath, 'utf8'));
     }
 
     // 4. Generate SVG Content
@@ -655,7 +661,8 @@ function generate() {
 
     svgOut += "\n</svg>";
     
-    fs.writeFileSync('city_snapshot.svg', svgOut);
+    const outputPath = path.join(__dirname, '../output/city_snapshot.svg');
+    fs.writeFileSync(outputPath, svgOut);
     console.log("Success: city_snapshot.svg generated.");
 }
 

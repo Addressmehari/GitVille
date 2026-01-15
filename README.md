@@ -44,12 +44,12 @@
 ## 📸 Gallery
 
 <p align="center">
-  <img src="images/1.jpeg" width="45%" />
-  <img src="images/2.jpeg" width="45%" />
-  <img src="images/3.jpeg" width="45%" />
-  <img src="images/4.jpeg" width="45%" />
-  <img src="images/5.png" width="45%" />
-  <img src="images/6.png" width="45%" />
+  <img src="web/images/1.jpeg" width="45%" />
+  <img src="web/images/2.jpeg" width="45%" />
+  <img src="web/images/3.jpeg" width="45%" />
+  <img src="web/images/4.jpeg" width="45%" />
+  <img src="web/images/5.png" width="45%" />
+  <img src="web/images/6.png" width="45%" />
 </p>
 
 ---
@@ -78,10 +78,10 @@ The city is alive and reacts to user actions:
 ⭐ GitHub API (Followers/Stars)
      |
      v
-🐍 fetch_stargazers.py (Daily Sync)
+🐍 scripts/fetch_stargazers.py (Daily Sync)
      |
      v
-📁 stargazers_houses.json (State Database)
+📁 data/stargazers_houses.json (State Database)
      |
      v
 🌍 Frontend (Render)
@@ -116,10 +116,10 @@ Use `world.py` to toggle environmental effects:
 
 ```bash
 # Randomize Weather (Rain/Clear)
-python world.py weather
+python scripts/world.py weather
 
 # Toggle Day/Night
-python world.py daynightcycle
+python scripts/world.py daynightcycle
 ```
 
 The frontend will automatically reflect these changes on the next reload (or if configured to poll).

@@ -189,19 +189,6 @@ async function fetchDynamicData(input) {
     if (!infoRes.ok) throw new Error("GitHub API Error: " + infoRes.status);
     const infoData = await infoRes.json();
 
-    // UPDATE METADATA FOR LINK PREVIEWS (Client-side attempt)
-    // Note: Scrapers like Discord/Twitter won't execute JS, so this only works for 
-    // browser history or clients that support dynamic rendering. 
-    // For true social cards, you need Server Side Rendering (SSR).
-    // However, this updates the tab icon/title nicely.
-    document.title = `${mode === 'repo' ? infoData.full_name : infoData.login} | GitVille`;
-    
-    // Try to update OG tags dynamically (best effort)
-    const ogImage = document.querySelector('meta[property="og:image"]');
-    if (ogImage && infoData.owner?.avatar_url || infoData.avatar_url) {
-        ogImage.content = mode === 'repo' ? infoData.owner.avatar_url : infoData.avatar_url;
-    }
-
     // 2. Fetch People (Followers or Stargazers) - Just one page of 50
     // But use the TOTAL count to generate "Ghost Citizens"
     let totalCount = 0;

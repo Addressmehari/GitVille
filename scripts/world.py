@@ -4,13 +4,13 @@ import random
 import os
 
 def load_world():
-    if not os.path.exists('world.json'):
+    if not os.path.exists('data/world.json'):
         return {"weather": "none", "timeOfDay": "day"}
-    with open('world.json', 'r') as f:
+    with open('data/world.json', 'r') as f:
         return json.load(f)
 
 def save_world(data):
-    with open('world.json', 'w') as f:
+    with open('data/world.json', 'w') as f:
         json.dump(data, f, indent=4)
 
 def update_weather():

@@ -81,9 +81,9 @@ async function init() {
     try {
         console.log("Fetching data...");
         const [housesRes, worldRes, roadsRes] = await Promise.all([
-            fetch('./stargazers_houses.json?t=' + Date.now()),
-            fetch('./world.json?t=' + Date.now()),
-            fetch('./roads.json?t=' + Date.now()).catch(e => null) // Fallback for roads
+            fetch('../data/stargazers_houses.json?t=' + Date.now()),
+            fetch('../data/world.json?t=' + Date.now()),
+            fetch('../data/roads.json?t=' + Date.now()).catch(e => null) // Fallback for roads
         ]);
 
         if (!housesRes.ok) throw new Error(`Houses fetch failed: ${housesRes.status}`);

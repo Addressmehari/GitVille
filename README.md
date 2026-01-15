@@ -1,143 +1,131 @@
-# 🏘️ GitVille - GitHub Stargazer City
+# 🏘️ GitVille - The GitHub City Generator
 
-[![GitVille](https://placehold.co/1200x400/f59e0b/1f2937?text=Star+the+Repo+%E2%86%92+Get+a+House)](https://addressmehari.github.io/GitVille/)
+[![GitVille Dynamic City](https://placehold.co/1200x400/2563eb/ffffff?text=GitVille:+Turn+GitHub+Profiles+into+Living+Cities)](https://addressmehari.github.io/GitVille/web/?u=addressmehari/GitVille)
 
-> **⭐️ Star this repository to get your own house in the city!**
+> **🚀 NEW: Dynamic Mode is Live!**
 >
-> GitVille is a creative visualization of this repo's stargazers. Every star automatically builds a unique house in an infinite, interactive isometric world.
+> You can now instantly generate a city for **ANY** GitHub user or repository just by changing the URL.
 >
-> **[👉 Visit the Live City](https://addressmehari.github.io/GitVille/)**
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Faddressmehari.github.io%2FGitVille%2F&label=Live%20Demo&up_message=online&style=flat-square)](https://addressmehari.github.io/GitVille/)
+> **[👉 Try it: Visualize potential AI overlord @torvalds](https://addressmehari.github.io/GitVille/web/?u=torvalds)**
+> **[👉 Try it: See the massive city of @facebook/react](https://addressmehari.github.io/GitVille/web/?u=facebook/react)**
 
 ---
 
-## 📖 Table of Contents
+## 🌟 What is GitVille?
 
-- [✨ Features](#-features)
-- [📸 Gallery](#-gallery)
-- [How It Works](#-how-it-works)
-- [🚀 Quick Start](#-quick-start)
-- [🎮 Controls](#-controls)
-- [⚙️ Configuration](#-configuration)
-- [🤖 Automations](#--automations)
+GitVille is a procedural generation engine that turns GitHub data into an interactive, isometric city.
+Every **Follower** or **Stargazer** becomes a unique house, creating a living visualization of a community.
+
+Originally designed to visualize just *this* repo's stargazers, it has evolved into a universal **"City Explorer"** for the entire GitHub ecosystem.
 
 ---
 
 ## ✨ Features
 
-- **Isometric Rendering**: A custom-built 2:1 isometric engine using HTML5 Canvas.
-- **Dynamic World**: The city grows as the repository gets more stars.
-- **Living Environment**:
-  - 🌤️ **Day/Night Cycles**: Automatic transitions affecting lighting and shadows.
-  - 🌧️ **Weather System**: Particle-based rain and environmental effects.
-  - 💨 **Procedural Vegetation**: Grass, flowers, and trees that sway in the wind.
-  - ☁️ **Cloud System**: Moving clouds casting shadows on the ground.
-  - 🚶 **NPCs**: Tiny inhabitants wandering the streets.
-- **Interactive**: Zoom, pan, and inspect houses.
+- **∞ Universal Compatibility**: Works with any public GitHub User or Repository.
+- **⚡️ Client-Side Generation**: No backend required. Your browser fetches data directly from GitHub.
+- **🏙️ Massive Scale**: Intelligently renders cities up to **1,000 houses** with zero lag using a creative "Ghost Citizen" system for huge communities.
+- **🎨 Live Aesthetics**:
+  - **Dynamic Weather**: Rain, wind, and cloud systems.
+  - **Day/Night Cycle**: Real-time atmospheric lighting.
+  - **Organic Zoning**: Algorithmically places houses and trees for a natural look.
+- **🔍 Details**: Inspect any house to see the user's name and join date.
+
+---
+
+## 🚀 How to Use
+
+### 1. The "Magic Link" Method
+
+You don't need to install anything. Just add `?u=` to the URL:
+
+**For Users:**
+
+`https://addressmehari.github.io/GitVille/web/?u={USERNAME}`
+
+> Example: `.../web/?u=shadcn`
+
+**For Repositories:**
+
+`https://addressmehari.github.io/GitVille/web/?u={OWNER}/{REPO}`
+
+> Example: `.../web/?u=torvalds/linux`
+
+### 2. Run It Locally
+
+Want to hack on the engine?
+
+```bash
+# Clone the repo
+git clone https://github.com/addressmehari/GitVille.git
+cd GitVille
+
+# Start a local server (Python 3)
+python -m http.server 8000
+
+# Open in browser
+# http://localhost:8000/web/?u=your_username
+```
+
+---
+
+## 🛠️ Technical Details
+
+The core of GitVille is a lightweight, dependency-free JavaScript engine located in `web/script.js`.
+
+### 🏗️ City Generation Algorithm
+
+1. **Data Fetching**:
+   - Fetches the target profile/repo info from GitHub API.
+   - Pulls a sample of real followers/stargazers.
+   - If the community is huge (e.g., 50k stars), it procedurally generates "Ghost Citizens" to fill the city without hitting API rate limits.
+
+2. **Zoning**:
+   - Uses a diamond-expansion algorithm to create city blocks.
+   - Allocates slots for houses and generates a connected road network.
+   - Injects trees into empty slots (20% probability) for organic distribution.
+
+3. **Rendering**:
+   - Custom HTML5 Canvas isometric renderer.
+   - Handles z-sorting (depth) to ensure correct occlusion of buildings.
+
+### ⚠️ API Limits
+
+GitHub allows **60 requests/hour** for anonymous IP addresses.
+
+- If you click too fast, you might see a **Red Alert** dialog.
+- This is a GitHub limitation, not a bug. Just wait a few minutes or authenticate (if running locally).
+
+---
+
+## 📂 Project Structure
+
+```text
+GitVille/
+├── data/               # Static JSON data (for the default view)
+├── scripts/            # Python helpers & SVG generators
+├── web/                # The Frontend Application
+│   ├── images/         # Asset textures
+│   ├── script.js       # Main Game Engine & Logic
+│   ├── style.css       # UI Styling
+│   └── index.html      # Entry Point
+└── output/             # Generated artifacts (e.g. SVGs)
+```
 
 ---
 
 ## 📸 Gallery
 
-<p align="center">
-  <img src="web/images/1.jpeg" width="45%" />
-  <img src="web/images/2.jpeg" width="45%" />
-  <img src="web/images/3.jpeg" width="45%" />
-  <img src="web/images/4.jpeg" width="45%" />
-  <img src="web/images/5.png" width="45%" />
-  <img src="web/images/6.png" width="45%" />
-</p>
+|      **Day Mode**      |      **Terrace Mode**      |
+| :--------------------: | :----------------------: |
+| ![Day](web/images/1.jpeg) | ![Terrace](web/images/2.jpeg) |
+
+|   **Roads**    |    **Massive Scale**     |
+| :--------------------: | :----------------------: |
+| ![Roads](web/images/3.jpeg) | ![Scale](web/images/4.jpeg) |
 
 ---
 
-## 🔍 How It Works
+Made with ❤️ for the Open Source Community
 
-GitVille supports two modes:
-
-1. **Repository Mode**: Builds a city of **Stargazers** (if the target is a regular repo).
-2. **Profile Mode**: Builds a city of **Followers** (if the target is a user profile repo, e.g., `username/username`).
-
-### 🏙️ City Rules
-
-The city is alive and reacts to user actions:
-
-| Action                 | Result                                                                          |
-| :--------------------- | :------------------------------------------------------------------------------ |
-| **Follow / Star**      | A new house is built for you immediately.                                       |
-| **Unfollow / Unstar**  | Your house becomes **Abandoned** (dark, broken windows).                        |
-| **Re-Follow**          | Your house is restored! (Status resets).                                        |
-| **Sentinel (10 Days)** | If you stay for **10 days**, your house gets a **Terrace** (2nd Floor Upgrade). |
-
-### ⚙️ Data Flow
-
-```
-⭐ GitHub API (Followers/Stars)
-     |
-     v
-🐍 scripts/fetch_stargazers.py (Daily Sync)
-     |
-     v
-📁 data/stargazers_houses.json (State Database)
-     |
-     v
-🌍 Frontend (Render)
-```
-
-1.  **Daily Sync**: The `daily_city_update` workflow runs every night at 12 AM.
-2.  **State Tracking**: It compares the live list with the city records to detect unfollowers or upgrades.
-3.  **Rendering**: The browser loads the data and renders the isometric world.
-
----
-
----
-
-## 🎮 Controls
-
-| Action       | Mouse               | Touch        |
-| :----------- | :------------------ | :----------- |
-| **Pan**      | Click & Drag        | Swipe        |
-| **Zoom**     | Scroll Wheel        | Pinch        |
-| **Interact** | Left Click on House | Tap on House |
-
----
-
-## ⚙️ Configuration
-
-You can manually tweak the world state by editing `world.json` or using the helper script.
-
-<details>
-<summary><strong>🌍 World State Commands</strong></summary>
-
-Use `world.py` to toggle environmental effects:
-
-```bash
-# Randomize Weather (Rain/Clear)
-python scripts/world.py weather
-
-# Toggle Day/Night
-python scripts/world.py daynightcycle
-```
-
-The frontend will automatically reflect these changes on the next reload (or if configured to poll).
-
-</details>
-
----
-
-## 🤖 Automations
-
-This repository includes GitHub Actions to keep the city alive:
-
-- **Update Stargazers**: Runs regularly to fetch new stars and expand the city.
-- **Weather Cycle**: Changes the weather periodically to keep the view dynamic.
-- **Day/Night Cycle**: Synchronizes the visual theme with scheduled times.
-
----
-
-<p align="center">
-  Made with ❤️ for the Open Source Community
-</p>
+MIT License • Created by [Addressmehari](https://github.com/addressmehari)

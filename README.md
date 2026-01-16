@@ -1,13 +1,15 @@
 # 🏘️ GitVille - The GitHub City Generator
 
-[![GitVille Dynamic City](https://placehold.co/1200x400/2563eb/ffffff?text=GitVille:+Turn+GitHub+Profiles+into+Living+Cities)](https://addressmehari.github.io/GitVille/web/?u=addressmehari/GitVille)
+<div align="center">
+  <img src="output/city_snapshot.svg" width="100%" alt="GitVille Header" />
+</div>
 
-> **🚀 NEW: Dynamic Mode is Live!**
->
-> You can now instantly generate a city for **ANY** GitHub user or repository just by changing the URL.
->
-> **[👉 Try it: Visualize potential AI overlord @torvalds](https://addressmehari.github.io/GitVille/web/?u=torvalds)**
-> **[👉 Try it: See the massive city of @facebook/react](https://addressmehari.github.io/GitVille/web/?u=facebook/react)**
+<div align="center">
+  <h3>
+    <a href="https://addressmehari.github.io/GitVille/web/create-own">✨ Create Your Own City ✨</a>
+  </h3>
+  <p>Turn any GitHub Profile or Repository into a living, breathing isometric metropolis.</p>
+</div>
 
 ---
 
@@ -18,6 +20,28 @@ Every **Follower** or **Stargazer** becomes a unique house, creating a living vi
 
 Originally designed to visualize just *this* repo's stargazers, it has evolved into a universal **"City Explorer"** for the entire GitHub ecosystem.
 
+**Commercial Friendly**: Built with MIT-only libraries and vanilla JS. Suitable for embedding in portfolios, presentations, or SaaS dashboards.
+
+---
+
+## 🚀 Two Ways to Explore
+
+### 1. The "Create Mode" (Recommended)
+
+We built a dedicated tool to generate, preview, and download city snapshots instantly.
+
+**[👉 Click Here to Open the Creator Tool](https://addressmehari.github.io/GitVille/web/create-own)**
+
+- Enter **Any Username** (e.g., `torvalds`)
+- Enter **Any Repository** (e.g., `facebook/react`)
+- Download premium **SVG Cards** for your README or social media.
+
+### 2. The "Explorer Mode"
+
+View the city in its full interactive glory—with weather, day/night cycles, and walking citizens.
+
+`https://addressmehari.github.io/GitVille/web/?u={USERNAME_OR_REPO}`
+
 ---
 
 ## ✨ Features
@@ -25,47 +49,12 @@ Originally designed to visualize just *this* repo's stargazers, it has evolved i
 - **∞ Universal Compatibility**: Works with any public GitHub User or Repository.
 - **⚡️ Client-Side Generation**: No backend required. Your browser fetches data directly from GitHub.
 - **🏙️ Massive Scale**: Intelligently renders cities up to **1,000 houses** with zero lag using a creative "Ghost Citizen" system for huge communities.
+- **📸 Premium Snapshots**: Generate high-fidelity SVG cards with shadows, gradients, and animations directly in the browser.
 - **🎨 Live Aesthetics**:
   - **Dynamic Weather**: Rain, wind, and cloud systems.
   - **Day/Night Cycle**: Real-time atmospheric lighting.
   - **Organic Zoning**: Algorithmically places houses and trees for a natural look.
 - **🔍 Details**: Inspect any house to see the user's name and join date.
-
----
-
-## 🚀 How to Use
-
-### 1. The "Magic Link" Method
-
-You don't need to install anything. Just add `?u=` to the URL:
-
-**For Users:**
-
-`https://addressmehari.github.io/GitVille/web/?u={USERNAME}`
-
-> Example: `.../web/?u=shadcn`
-
-**For Repositories:**
-
-`https://addressmehari.github.io/GitVille/web/?u={OWNER}/{REPO}`
-
-> Example: `.../web/?u=torvalds/linux`
-
-### 2. Run It Locally
-
-Want to hack on the engine?
-
-```bash
-# Clone the repo
-git clone https://github.com/addressmehari/GitVille.git
-cd GitVille
-
-# Start a local server (Python 3)
-python -m http.server 8000
-
-# Open in browser
-# http://localhost:8000/web/?u=your_username
-```
 
 ---
 
@@ -106,6 +95,7 @@ GitVille/
 ├── scripts/            # Python helpers & SVG generators
 ├── web/                # The Frontend Application
 │   ├── images/         # Asset textures
+│   ├── create-own/     # The "Card Creator" Tool
 │   ├── script.js       # Main Game Engine & Logic
 │   ├── style.css       # UI Styling
 │   └── index.html      # Entry Point
@@ -116,16 +106,16 @@ GitVille/
 
 ## 📸 Gallery
 
-|      **Day Mode**      |      **Terrace Mode**      |
-| :--------------------: | :----------------------: |
-| ![Day](web/images/1.jpeg) | ![Terrace](web/images/2.jpeg) |
-
-|   **Roads**    |    **Massive Scale**     |
-| :--------------------: | :----------------------: |
-| ![Roads](web/images/3.jpeg) | ![Scale](web/images/4.jpeg) |
+<div align="center">
+  <img src="web/images/1.jpeg" width="45%" alt="Day Mode" />
+  <img src="web/images/2.jpeg" width="45%" alt="Terrace Mode" />
+  <br/>
+  <img src="web/images/3.jpeg" width="45%" alt="Roads" />
+  <img src="web/images/4.jpeg" width="45%" alt="Scale" />
+</div>
 
 ---
 
 Made with ❤️ for the Open Source Community
 
-MIT License • Created by [Addressmehari](https://github.com/addressmehari)
+**MIT License** • Created by [Addressmehari](https://github.com/addressmehari)

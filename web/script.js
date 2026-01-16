@@ -3,8 +3,29 @@
  * Pure HTML5 Canvas + Vanilla JS
  */
 
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d', { alpha: false }); // Optimize for no transparency on bg
+let canvas = document.getElementById('gameCanvas');
+// Allow headless mode
+let ctx = canvas ? canvas.getContext('2d') : null;
+
+// Context Setter for external tools (SVG Generator)
+window.setGlobalCtx = function(newCtx) {
+    ctx = newCtx;
+};
+
+// Only init if canvas exists
+if (canvas) {
+    // Canvas setup
+    ctx.lineJoin = 'round'; // Smooth edges
+    // Optimize for no transparency on bg
+    // Safer check
+    if (ctx && ctx.canvas && typeof ctx.canvas.getContextAttributes === 'function' && ctx.canvas.getContextAttributes().alpha === false) {
+        // If alpha is already false, no need to set it again.
+        // This check is mostly for clarity, as we set it in getContext above.
+    } else {
+        // If for some reason alpha was true, we'd need to re-create context or handle it.
+        // For now, assume the initial getContext call is sufficient.
+    }
+}
 
 // --- Configuration ---
 const TILE_SIZE = 64; // Base size of a tile side in pixels (before isometric projection)
@@ -213,6 +234,14 @@ async function fetchDynamicData(input) {
             return n;
         };
         badgeEl.innerText = `gitville:${formatCount(totalCount)} ${label}`; 
+
+        // Tier Styling
+        badgeEl.classList.remove('gold-tier', 'elite-tier');
+        if (totalCount > 10000) {
+            badgeEl.classList.add('elite-tier');
+        } else if (totalCount > 750) {
+            badgeEl.classList.add('gold-tier');
+        }
     }
     
     // Fetch just 50 real people
@@ -3170,4 +3199,6 @@ function adjustColor(color, amount) {
 }
 
 // Start
-init();
+if (typeof canvas !== 'undefined' && canvas) {
+    init();
+}

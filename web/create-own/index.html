@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitVille | Create Yours</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="premium-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <main class="container">
+        <header class="fade-in-up">
+            <h1 class="glow-text">GitVille <span class="gold-badge">+</span></h1>
+            <p class="subtitle">Digital Metropolis.</p>
+        </header>
+
+        <section class="input-section fade-in-up delay-1">
+            <!-- Mode Switcher -->
+            <div class="mode-switcher">
+                <button class="mode-btn active" data-mode="user">Profile</button>
+                <button class="mode-btn" data-mode="repo">Repository</button>
+            </div>
+
+            <div class="input-wrapper" id="userInputGroup">
+                <input type="text" id="usernameInput" placeholder="Enter GitHub Username" autocomplete="off">
+                <div class="input-border"></div>
+            </div>
+
+            <div class="input-wrapper hidden" id="repoInputGroup">
+                <input type="text" id="repoInput" placeholder="owner/repository or link" autocomplete="off">
+                <div class="input-border"></div>
+            </div>
+
+            <button id="generateBtn" class="premium-btn">
+                <span class="btn-text">Build City</span>
+                <div class="btn-shine"></div>
+            </button>
+            <p id="errorMsg" class="error-msg hidden"></p>
+        </section>
+
+        <section id="resultSection" class="result-section hidden fade-in-up">
+            <div class="loader hidden" id="loader">
+                <div class="spinner-ring"></div>
+                <p>Architecting Reality...</p>
+            </div>
+
+            <div id="successContent" class="hidden">
+                <div class="preview-card">
+                    <div class="city-stats">
+                        <span id="statPopulation">POP: 0</span>
+                        <span id="statTier">TIER: IRON</span>
+                    </div>
+                </div>
+                
+                <div class="action-grid">
+                    <div class="link-group">
+                        <a id="visitLink" href="#" target="_blank" class="action-btn secondary">
+                            <span>🌐 Visit City</span>
+                        </a>
+                        <button id="copyBtn" class="action-btn icon-btn" title="Copy Link">
+                            <span>📋</span>
+                        </button>
+                    </div>
+                    <button id="downloadBtn" class="action-btn primary">
+                        <span>⬇️ Download Snapshot</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Load Engine Scripts (Headless Mode) -->
+    <script src="../tree.js"></script>
+    <script src="../script.js"></script>
+    <script src="svg-gen.js"></script>
+    <script src="logic.js"></script>
+</body>
+</html>

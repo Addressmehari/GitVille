@@ -57,6 +57,7 @@ let lastMouseX = 0;
 let lastMouseY = 0;
 let currentMouseX = 0;
 let currentMouseY = 0;
+let targetHouse = null;
 
 // Touch state for pinch zoom
 let initialPinchDistance = null;
@@ -74,6 +75,7 @@ async function init() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     setupInputListeners();
+    setupSearch(); // Initialize City Directory
 
     // Check for URL Param
     const urlParams = new URLSearchParams(window.location.search);
@@ -653,6 +655,11 @@ function render() {
     // 4. Render Houses (Calculate hover first)
     updateHoverState();
     renderHouses();
+
+    // 4a. Render Beacon (Target Highlight)
+    if (targetHouse) {
+        drawBeacon(targetHouse);
+    }
 
     // 4b. Render NPCs (Ideally integrated with houses for depth, but overlaid for now)
     if (npcManager) {
@@ -3170,4 +3177,181 @@ function adjustColor(color, amount) {
 }
 
 // Start
+// --- City Directory & Search Feature ---
+
+function setupSearch() {
+    const input = document.getElementById('search-input');
+    const results = document.getElementById('search-results');
+    
+    if (!input || !results) return;
+
+    input.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        if (query.length < 1) {
+            results.classList.add('hidden');
+            return;
+        }
+
+        // Filter Houses
+        // Prioritize: Starts with > Contains
+        const matches = houses.filter(h => h.username && h.username.toLowerCase().includes(query));
+        
+        matches.sort((a, b) => {
+            const aName = a.username.toLowerCase();
+            const bName = b.username.toLowerCase();
+            const aStart = aName.startsWith(query);
+            const bStart = bName.startsWith(query);
+            if (aStart && !bStart) return -1;
+            if (!aStart && bStart) return 1;
+            return 0;
+        });
+
+        const limit = 20;
+        const display = matches.slice(0, limit);
+
+        if (display.length > 0) {
+            results.innerHTML = '';
+            results.classList.remove('hidden');
+            
+            display.forEach(h => {
+                const el = document.createElement('div');
+                el.className = 'result-item';
+                
+                // Format Date
+                const date = new Date(h.joined_at).getFullYear();
+                let meta = `Joined ${date}`;
+                if (h.isGhost) meta = `<span class="ghost-tag">Ghost Citizen</span>`;
+                
+                el.innerHTML = `
+                    <div class="result-name">
+                        ${h.username}
+                        ${h.abandoned ? '💀' : ''}
+                    </div>
+                    <div class="result-meta">${meta}</div>
+                `;
+                
+                el.onclick = () => {
+                    panToHouse(h);
+                    results.classList.add('hidden');
+                    input.value = h.username;
+                };
+                results.appendChild(el);
+            });
+        } else {
+            results.innerHTML = '<div class="result-item" style="cursor:default; color:#888;">No citizens found.</div>';
+            results.classList.remove('hidden');
+        }
+    });
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('#city-directory')) {
+            results.classList.add('hidden');
+        }
+    });
+}
+
+function panToHouse(house) {
+    targetHouse = house;
+    
+    // Calculate Center for Camera
+    // We want house to be in center of screen
+    // screenCenter = (world - cam) * zoom + centerOffset
+    // => cam = world - (screenCenter - centerOffset) / zoom
+    // BUT simpler: cam.x = world.x, cam.y = world.y (since we translate(center, center) then -cam)
+    
+    const pos = gridToWorld(house.x, house.y);
+    
+    // Animate Camera?
+    const startX = camera.x;
+    const startY = camera.y;
+    const endX = pos.x;
+    const endY = pos.y - HOUSE_HEIGHT/2; // Center slightly above pivot
+    
+    const startZoom = camera.zoom;
+    const endZoom = 1.5; // Zoom in!
+    
+    const duration = 1000;
+    const startTime = performance.now();
+    
+    function animate(time) {
+        const elapsed = time - startTime;
+        const t = Math.min(elapsed / duration, 1);
+        
+        // Ease Out Cubic
+        const ease = 1 - Math.pow(1 - t, 3);
+        
+        camera.x = startX + (endX - startX) * ease;
+        camera.y = startY + (endY - startY) * ease;
+        camera.zoom = startZoom + (endZoom - startZoom) * ease;
+        
+        if (t < 1) requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+}
+
+function drawBeacon(house) {
+    const pos = gridToWorld(house.x, house.y);
+    const cx = pos.x;
+    const cy = pos.y - 120; // Float above house
+    
+    const time = Date.now() / 200;
+    
+    ctx.save();
+    
+    // Pulsing Arrow
+    const floatY = Math.sin(time/2) * 10;
+    
+    ctx.translate(cx, cy + floatY);
+    
+    // Draw Arrow Down
+    ctx.fillStyle = "#ef4444"; // Red
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 3;
+    
+    ctx.beginPath();
+    ctx.moveTo(-15, -20);
+    ctx.lineTo(15, -20);
+    ctx.lineTo(0, 10);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    
+    // Label "HERE"
+    ctx.fillStyle = "white";
+    ctx.font = "bold 14px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("TARGET", 0, -30);
+    
+    // Beam Effect
+    // Gradient fade out down to house
+    const beamGrad = ctx.createLinearGradient(0, 0, 0, 100);
+    beamGrad.addColorStop(0, "rgba(239, 68, 68, 0.5)");
+    beamGrad.addColorStop(1, "rgba(239, 68, 68, 0)");
+    
+    ctx.fillStyle = beamGrad;
+    ctx.beginPath();
+    ctx.moveTo(-15, -20);
+    ctx.lineTo(15, -20);
+    ctx.lineTo(40, 150); // Spread at bottom
+    ctx.lineTo(-40, 150);
+    ctx.fill();
+    
+    ctx.restore();
+    
+    // Ground highlight ring
+    ctx.save();
+    ctx.translate(pos.x, pos.y);
+    ctx.scale(1, 0.5); // Isometric squash
+    
+    ctx.beginPath();
+    const r = 40 + Math.sin(time) * 5;
+    ctx.arc(0, 0, r, 0, Math.PI*2);
+    ctx.strokeStyle = "rgba(239, 68, 68, 0.8)";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    
+    ctx.restore();
+}
+
 init();

@@ -9,16 +9,11 @@
         "username": "hari",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
         "x": 0,
         "y": 0,
         "facing": "down"
-    },
-    {
-        "x": 3.0,
-        "y": -3.0,
-        "obstacle": "tree"
     },
     {
         "color": "#d2ccda",
@@ -30,9 +25,9 @@
         "username": "hp",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 5.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 3.0,
         "y": -3.0,
         "facing": "left"
     },
@@ -46,9 +41,9 @@
         "username": "olivia",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 5.0,
         "y": -3.0,
         "facing": "left"
     },
@@ -62,9 +57,9 @@
         "username": "antigravity",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 7.0,
         "y": -3.0,
         "facing": "left"
     },
@@ -78,21 +73,11 @@
         "username": "coder",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 3.0,
-        "y": -5.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 9.0,
+        "y": -3.0,
         "facing": "left"
-    },
-    {
-        "x": 5.0,
-        "y": -5.0,
-        "obstacle": "tree"
-    },
-    {
-        "x": 7.0,
-        "y": -5.0,
-        "obstacle": "tree"
     },
     {
         "color": "#c87a8c",
@@ -104,9 +89,9 @@
         "username": "builder",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 3.0,
         "y": -5.0,
         "facing": "left"
     },
@@ -120,20 +105,15 @@
         "username": "tester",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 3.0,
-        "y": -7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 5.0,
+        "y": -5.0,
         "facing": "left"
     },
     {
-        "x": 5.0,
-        "y": -7.0,
-        "obstacle": "tree"
-    },
-    {
         "x": 7.0,
-        "y": -7.0,
+        "y": -5.0,
         "obstacle": "tree"
     },
     {
@@ -146,10 +126,10 @@
         "username": "observer",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
         "x": 9.0,
-        "y": -7.0,
+        "y": -5.0,
         "facing": "left"
     },
     {
@@ -162,20 +142,15 @@
         "username": "Alpha",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
         "x": 3.0,
-        "y": -9.0,
+        "y": -7.0,
         "facing": "left"
     },
     {
         "x": 5.0,
-        "y": -9.0,
-        "obstacle": "tree"
-    },
-    {
-        "x": 7.0,
-        "y": -9.0,
+        "y": -7.0,
         "obstacle": "tree"
     },
     {
@@ -188,10 +163,10 @@
         "username": "Beta",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 9.0,
-        "y": -9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 7.0,
+        "y": -7.0,
         "facing": "left"
     },
     {
@@ -204,11 +179,16 @@
         "username": "Gamma",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -3.0,
-        "y": -3.0,
-        "facing": "right"
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 9.0,
+        "y": -7.0,
+        "facing": "left"
+    },
+    {
+        "x": 3.0,
+        "y": -9.0,
+        "obstacle": "tree"
     },
     {
         "color": "#db1f4a",
@@ -220,11 +200,11 @@
         "username": "Delta",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -5.0,
-        "y": -3.0,
-        "facing": "right"
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 5.0,
+        "y": -9.0,
+        "facing": "left"
     },
     {
         "color": "#99f2b3",
@@ -236,11 +216,11 @@
         "username": "Epsilon",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -7.0,
-        "y": -3.0,
-        "facing": "right"
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 7.0,
+        "y": -9.0,
+        "facing": "left"
     },
     {
         "color": "#91526d",
@@ -252,11 +232,11 @@
         "username": "Zeta",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -9.0,
-        "y": -3.0,
-        "facing": "right"
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 9.0,
+        "y": -9.0,
+        "facing": "left"
     },
     {
         "color": "#c2fcfb",
@@ -268,10 +248,10 @@
         "username": "Eta",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
         "x": -3.0,
-        "y": -5.0,
+        "y": -3.0,
         "facing": "right"
     },
     {
@@ -284,10 +264,10 @@
         "username": "Theta",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
         "x": -5.0,
-        "y": -5.0,
+        "y": -3.0,
         "facing": "right"
     },
     {
@@ -300,10 +280,10 @@
         "username": "Iota",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
         "x": -7.0,
-        "y": -5.0,
+        "y": -3.0,
         "facing": "right"
     },
     {
@@ -316,10 +296,10 @@
         "username": "Kappa",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
         "x": -9.0,
-        "y": -5.0,
+        "y": -3.0,
         "facing": "right"
     },
     {
@@ -332,10 +312,10 @@
         "username": "Lambda",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
         "x": -3.0,
-        "y": -7.0,
+        "y": -5.0,
         "facing": "right"
     },
     {
@@ -348,11 +328,16 @@
         "username": "Mu",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
         "x": -5.0,
-        "y": -7.0,
+        "y": -5.0,
         "facing": "right"
+    },
+    {
+        "x": -7.0,
+        "y": -5.0,
+        "obstacle": "tree"
     },
     {
         "color": "#d9b7d9",
@@ -364,10 +349,10 @@
         "username": "Nu",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -7.0,
-        "y": -7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -9.0,
+        "y": -5.0,
         "facing": "right"
     },
     {
@@ -380,16 +365,11 @@
         "username": "Xi",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -3.0,
         "y": -7.0,
         "facing": "right"
-    },
-    {
-        "x": -3.0,
-        "y": -9.0,
-        "obstacle": "tree"
     },
     {
         "color": "#e94a5a",
@@ -401,16 +381,11 @@
         "username": "Omicron",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
         "x": -5.0,
-        "y": -9.0,
+        "y": -7.0,
         "facing": "right"
-    },
-    {
-        "x": -7.0,
-        "y": -9.0,
-        "obstacle": "tree"
     },
     {
         "color": "#127125",
@@ -422,11 +397,21 @@
         "username": "Pi",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -9.0,
-        "y": -9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -7.0,
+        "y": -7.0,
         "facing": "right"
+    },
+    {
+        "x": -9.0,
+        "y": -7.0,
+        "obstacle": "tree"
+    },
+    {
+        "x": -3.0,
+        "y": -9.0,
+        "obstacle": "tree"
     },
     {
         "color": "#7216bc",
@@ -438,11 +423,16 @@
         "username": "Rho",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -3.0,
-        "y": 3.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -5.0,
+        "y": -9.0,
         "facing": "right"
+    },
+    {
+        "x": -7.0,
+        "y": -9.0,
+        "obstacle": "tree"
     },
     {
         "color": "#827faf",
@@ -454,10 +444,10 @@
         "username": "Sigma",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -5.0,
-        "y": 3.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -9.0,
+        "y": -9.0,
         "facing": "right"
     },
     {
@@ -470,9 +460,9 @@
         "username": "Tau",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -3.0,
         "y": 3.0,
         "facing": "right"
     },
@@ -486,9 +476,9 @@
         "username": "Upsilon",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -5.0,
         "y": 3.0,
         "facing": "right"
     },
@@ -502,10 +492,10 @@
         "username": "Phi",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -3.0,
-        "y": 5.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -7.0,
+        "y": 3.0,
         "facing": "right"
     },
     {
@@ -518,11 +508,16 @@
         "username": "Chi",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -5.0,
-        "y": 5.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -9.0,
+        "y": 3.0,
         "facing": "right"
+    },
+    {
+        "x": -3.0,
+        "y": 5.0,
+        "obstacle": "tree"
     },
     {
         "color": "#ce1cb2",
@@ -534,16 +529,11 @@
         "username": "Psi",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -5.0,
         "y": 5.0,
         "facing": "right"
-    },
-    {
-        "x": -9.0,
-        "y": 5.0,
-        "obstacle": "tree"
     },
     {
         "color": "#39e25a",
@@ -555,10 +545,10 @@
         "username": "Omega",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -3.0,
-        "y": 7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -7.0,
+        "y": 5.0,
         "facing": "right"
     },
     {
@@ -571,16 +561,11 @@
         "username": "Nova",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -5.0,
-        "y": 7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -9.0,
+        "y": 5.0,
         "facing": "right"
-    },
-    {
-        "x": -7.0,
-        "y": 7.0,
-        "obstacle": "tree"
     },
     {
         "color": "#9de3de",
@@ -592,11 +577,16 @@
         "username": "Nebula",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -3.0,
         "y": 7.0,
         "facing": "right"
+    },
+    {
+        "x": -5.0,
+        "y": 7.0,
+        "obstacle": "tree"
     },
     {
         "color": "#d19ab7",
@@ -608,10 +598,10 @@
         "username": "Quasar",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -3.0,
-        "y": 9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -7.0,
+        "y": 7.0,
         "facing": "right"
     },
     {
@@ -624,11 +614,16 @@
         "username": "Pulsar",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -5.0,
-        "y": 9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -9.0,
+        "y": 7.0,
         "facing": "right"
+    },
+    {
+        "x": -3.0,
+        "y": 9.0,
+        "obstacle": "tree"
     },
     {
         "color": "#756fb2",
@@ -640,9 +635,9 @@
         "username": "Galaxy",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -5.0,
         "y": 9.0,
         "facing": "right"
     },
@@ -656,9 +651,9 @@
         "username": "Comet",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": -9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -7.0,
         "y": 9.0,
         "facing": "right"
     },
@@ -672,11 +667,11 @@
         "username": "Meteor",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 3.0,
-        "y": 3.0,
-        "facing": "left"
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -9.0,
+        "y": 9.0,
+        "facing": "right"
     },
     {
         "color": "#3cce5f",
@@ -688,9 +683,9 @@
         "username": "Astra",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 5.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 3.0,
         "y": 3.0,
         "facing": "left"
     },
@@ -704,16 +699,11 @@
         "username": "Cosmos",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 5.0,
         "y": 3.0,
         "facing": "left"
-    },
-    {
-        "x": 9.0,
-        "y": 3.0,
-        "obstacle": "tree"
     },
     {
         "color": "#76e1ab",
@@ -725,11 +715,16 @@
         "username": "Orbit",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 3.0,
-        "y": 5.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 7.0,
+        "y": 3.0,
         "facing": "left"
+    },
+    {
+        "x": 9.0,
+        "y": 3.0,
+        "obstacle": "tree"
     },
     {
         "color": "#32f722",
@@ -741,9 +736,9 @@
         "username": "Eclipse",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 5.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 3.0,
         "y": 5.0,
         "facing": "left"
     },
@@ -757,20 +752,15 @@
         "username": "Zenith",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 5.0,
         "y": 5.0,
         "facing": "left"
     },
     {
-        "x": 9.0,
+        "x": 7.0,
         "y": 5.0,
-        "obstacle": "tree"
-    },
-    {
-        "x": 3.0,
-        "y": 7.0,
         "obstacle": "tree"
     },
     {
@@ -783,10 +773,10 @@
         "username": "Apex",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 5.0,
-        "y": 7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 9.0,
+        "y": 5.0,
         "facing": "left"
     },
     {
@@ -799,9 +789,9 @@
         "username": "Vertex",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 3.0,
         "y": 7.0,
         "facing": "left"
     },
@@ -815,9 +805,9 @@
         "username": "Nexus",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 5.0,
         "y": 7.0,
         "facing": "left"
     },
@@ -831,10 +821,10 @@
         "username": "Core",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 3.0,
-        "y": 9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 7.0,
+        "y": 7.0,
         "facing": "left"
     },
     {
@@ -847,10 +837,10 @@
         "username": "Flux",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 5.0,
-        "y": 9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 9.0,
+        "y": 7.0,
         "facing": "left"
     },
     {
@@ -863,9 +853,9 @@
         "username": "Spark",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 3.0,
         "y": 9.0,
         "facing": "left"
     },
@@ -879,11 +869,16 @@
         "username": "Bolt",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 5.0,
         "y": 9.0,
         "facing": "left"
+    },
+    {
+        "x": 7.0,
+        "y": 9.0,
+        "obstacle": "tree"
     },
     {
         "color": "#b20024",
@@ -895,10 +890,10 @@
         "username": "Glow",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 3.0,
-        "y": -11.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 9.0,
+        "y": 9.0,
         "facing": "left"
     },
     {
@@ -911,9 +906,9 @@
         "username": "Haze",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 5.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 3.0,
         "y": -11.0,
         "facing": "left"
     },
@@ -927,9 +922,9 @@
         "username": "Mist",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 5.0,
         "y": -11.0,
         "facing": "left"
     },
@@ -943,9 +938,9 @@
         "username": "Frost",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 9.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 7.0,
         "y": -11.0,
         "facing": "left"
     },
@@ -959,10 +954,10 @@
         "username": "Flint",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 3.0,
-        "y": -13.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 9.0,
+        "y": -11.0,
         "facing": "left"
     },
     {
@@ -975,9 +970,9 @@
         "username": "Steel",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 5.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 3.0,
         "y": -13.0,
         "facing": "left"
     },
@@ -991,11 +986,16 @@
         "username": "Stone",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 5.0,
         "y": -13.0,
         "facing": "left"
+    },
+    {
+        "x": 7.0,
+        "y": -13.0,
+        "obstacle": "tree"
     },
     {
         "color": "#f2b6dc",
@@ -1007,11 +1007,21 @@
         "username": "Oak",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
         "x": 9.0,
         "y": -13.0,
         "facing": "left"
+    },
+    {
+        "x": 3.0,
+        "y": -15.0,
+        "obstacle": "tree"
+    },
+    {
+        "x": 5.0,
+        "y": -15.0,
+        "obstacle": "tree"
     },
     {
         "color": "#2e3283",
@@ -1023,16 +1033,11 @@
         "username": "Pine",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 3.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 7.0,
         "y": -15.0,
         "facing": "left"
-    },
-    {
-        "x": 5.0,
-        "y": -15.0,
-        "obstacle": "tree"
     },
     {
         "color": "#f26318",
@@ -1044,11 +1049,16 @@
         "username": "Cedar",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 7.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 9.0,
         "y": -15.0,
         "facing": "left"
+    },
+    {
+        "x": 3.0,
+        "y": -17.0,
+        "obstacle": "tree"
     },
     {
         "color": "#6f2762",
@@ -1060,10 +1070,10 @@
         "username": "Sage",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 9.0,
-        "y": -15.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 5.0,
+        "y": -17.0,
         "facing": "left"
     },
     {
@@ -1076,9 +1086,9 @@
         "username": "Fern",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 3.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 7.0,
         "y": -17.0,
         "facing": "left"
     },
@@ -1092,11 +1102,21 @@
         "username": "Ivy",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 5.0,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": 9.0,
         "y": -17.0,
         "facing": "left"
+    },
+    {
+        "x": -3.0,
+        "y": -11.0,
+        "obstacle": "tree"
+    },
+    {
+        "x": -5.0,
+        "y": -11.0,
+        "obstacle": "tree"
     },
     {
         "color": "#0df4dc",
@@ -1108,11 +1128,16 @@
         "username": "Rose",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 7.0,
-        "y": -17.0,
-        "facing": "left"
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -7.0,
+        "y": -11.0,
+        "facing": "right"
+    },
+    {
+        "x": -9.0,
+        "y": -11.0,
+        "obstacle": "tree"
     },
     {
         "color": "#951cef",
@@ -1124,10 +1149,90 @@
         "username": "Lily",
         "has_terrace": false,
         "abandoned": false,
-        "joined_at": "2026-04-20T14:59:31.098990",
-        "last_seen": "2026-04-20T14:59:31.098990",
-        "x": 9.0,
-        "y": -17.0,
-        "facing": "left"
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -3.0,
+        "y": -13.0,
+        "facing": "right"
+    },
+    {
+        "color": "#5d4140",
+        "roofStyle": 1,
+        "doorStyle": 1,
+        "windowStyle": 0,
+        "chimneyStyle": 1,
+        "wallStyle": 0,
+        "username": "hello",
+        "has_terrace": false,
+        "abandoned": false,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -5.0,
+        "y": -13.0,
+        "facing": "right"
+    },
+    {
+        "color": "#7d7930",
+        "roofStyle": 3,
+        "doorStyle": 1,
+        "windowStyle": 3,
+        "chimneyStyle": 1,
+        "wallStyle": 3,
+        "username": "world",
+        "has_terrace": false,
+        "abandoned": false,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -7.0,
+        "y": -13.0,
+        "facing": "right"
+    },
+    {
+        "color": "#ba9f11",
+        "roofStyle": 3,
+        "doorStyle": 2,
+        "windowStyle": 1,
+        "chimneyStyle": 3,
+        "wallStyle": 1,
+        "username": "git",
+        "has_terrace": false,
+        "abandoned": false,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -9.0,
+        "y": -13.0,
+        "facing": "right"
+    },
+    {
+        "color": "#bf2151",
+        "roofStyle": 3,
+        "doorStyle": 3,
+        "windowStyle": 2,
+        "chimneyStyle": 1,
+        "wallStyle": 1,
+        "username": "github",
+        "has_terrace": false,
+        "abandoned": false,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -3.0,
+        "y": -15.0,
+        "facing": "right"
+    },
+    {
+        "color": "#688513",
+        "roofStyle": 2,
+        "doorStyle": 0,
+        "windowStyle": 0,
+        "chimneyStyle": 1,
+        "wallStyle": 1,
+        "username": "gitville",
+        "has_terrace": false,
+        "abandoned": false,
+        "joined_at": "2026-04-22T09:25:33.825263",
+        "last_seen": "2026-04-22T09:25:33.825263",
+        "x": -5.0,
+        "y": -15.0,
+        "facing": "right"
     }
 ]

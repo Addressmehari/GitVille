@@ -1,0 +1,3 @@
+hari,hp,olivia,antigravity,coder,builder,tester,observer,
+Alpha,Beta,Gamma,Delta,Epsilon,Zeta,Eta,Theta,Iota,Kappa,Lambda,Mu,Nu,Xi,Omicron,Pi,Rho,Sigma,Tau,Upsilon,Phi,Chi,Psi,Omega,
+Nova,Nebula,Quasar,Pulsar,Galaxy,Comet,Meteor,Astra,Cosmos,Orbit,Eclipse,Zenith,Apex,Vertex,Nexus,Core,Flux,Spark,Bolt,Glow,Haze,Mist,Frost,Flint,Steel,Stone,Oak,Pine,Cedar,Sage,Fern,Ivy,Rose,Lily

@@ -1,89 +1,52 @@
-# 🏘️ GitVille - The GitHub City Generator
+# 🏘️ GitVille - The Local City Generator
 
-<div align="center">
-  <img src="output/city_snapshot.svg" width="100%" alt="GitVille Header" />
-</div>
-
-<div align="center">
-  <h3>
-    <a href="https://addressmehari.github.io/GitVille/web/create-own">✨ Create Your Own City ✨</a>
-  </h3>
-  <p>Turn any GitHub Profile or Repository into a living, breathing isometric metropolis.</p>
-</div>
+GitVille is a procedural engine that transforms a simple list of names into a living, interactive, isometric city. Originally built for GitHub, this version has been streamlined for **100% local, offline use**.
 
 ---
 
-## 🌟 What is GitVille?
+## 🌟 How it Works
 
-GitVille is a procedural generation engine that turns GitHub data into an interactive, isometric city.
-Every **Follower** or **Stargazer** becomes a unique house, creating a living visualization of a community.
-
-Originally designed to visualize just *this* repo's stargazers, it has evolved into a universal **"City Explorer"** for the entire GitHub ecosystem.
-
-**Commercial Friendly**: Built with MIT-only libraries and vanilla JS. Suitable for embedding in portfolios, presentations, or SaaS dashboards.
+Every name you provide is algorithmically transformed into a unique citizen with:
+- **🎨 Custom House Style**: Unique colors, roofs, and architectural details.
+- **📍 Deterministic Placement**: The same list of names will always produce the exact same city layout.
+- **🛣️ Infrastructure**: The engine automatically generates road networks and clusters neighborhoods.
+- **🌲 Organic Zoning**: Trees and greenery are procedurally scattered to fill the gaps.
 
 ---
 
-## 🚀 Two Ways to Explore
+## 🚀 Getting Started
 
-### 1. The "Create Mode" (Recommended)
+### 1. Define Your Citizens
+Create a `.txt` file (e.g., `names.txt`) and add names separated by commas or new lines:
+```text
+Hari, HP, Olivia, Alex, Samuel
+```
 
-We built a dedicated tool to generate, preview, and download city snapshots instantly.
+### 2. Generate the City
+Run the generator script with your text file as the input:
+```bash
+python scripts/fetch_stargazers.py names.txt
+```
+*This updates the local `data/` files used by the web engine.*
 
-**[👉 Click Here to Open the Creator Tool](https://addressmehari.github.io/GitVille/web/create-own)**
-
-- Enter **Any Username** (e.g., `torvalds`)
-- Enter **Any Repository** (e.g., `facebook/react`)
-- Download premium **SVG Cards** for your README or social media.
-
-### 2. The "Explorer Mode"
-
-View the city in its full interactive glory—with weather, day/night cycles, and walking citizens.
-
-`https://addressmehari.github.io/GitVille/web/?u={USERNAME_OR_REPO}`
+### 3. Explore Your World
+Start a local server and open the `web/` directory in your browser:
+```bash
+# Example using Python 3
+python -m http.server 8000
+```
+Then visit: `http://localhost:8000/web/`
 
 ---
 
 ## ✨ Features
 
-- **∞ Universal Compatibility**: Works with any public GitHub User or Repository.
-- **⚡️ Client-Side Generation**: No backend required. Your browser fetches data directly from GitHub.
-- **🏙️ Massive Scale**: Intelligently renders cities up to **1,000 houses** with zero lag using a creative "Ghost Citizen" system for huge communities.
-- **📸 Premium Snapshots**: Generate high-fidelity SVG cards with shadows, gradients, and animations directly in the browser.
+- **∞ Unlimited Scale**: Visualize communities of any size, from a small village to a massive metropolis.
 - **🎨 Live Aesthetics**:
   - **Dynamic Weather**: Rain, wind, and cloud systems.
   - **Day/Night Cycle**: Real-time atmospheric lighting.
-  - **Organic Zoning**: Algorithmically places houses and trees for a natural look.
-- **🔍 Details**: Inspect any house to see the user's name and join date.
-
----
-
-## 🛠️ Technical Details
-
-The core of GitVille is a lightweight, dependency-free JavaScript engine located in `web/script.js`.
-
-### 🏗️ City Generation Algorithm
-
-1. **Data Fetching**:
-   - Fetches the target profile/repo info from GitHub API.
-   - Pulls a sample of real followers/stargazers.
-   - If the community is huge (e.g., 50k stars), it procedurally generates "Ghost Citizens" to fill the city without hitting API rate limits.
-
-2. **Zoning**:
-   - Uses a diamond-expansion algorithm to create city blocks.
-   - Allocates slots for houses and generates a connected road network.
-   - Injects trees into empty slots (20% probability) for organic distribution.
-
-3. **Rendering**:
-   - Custom HTML5 Canvas isometric renderer.
-   - Handles z-sorting (depth) to ensure correct occlusion of buildings.
-
-### ⚠️ API Limits
-
-GitHub allows **60 requests/hour** for anonymous IP addresses.
-
-- If you click too fast, you might see a **Red Alert** dialog.
-- This is a GitHub limitation, not a bug. Just wait a few minutes or authenticate (if running locally).
+- **🔍 City Directory**: Use the interactive search bar to find and navigate to any "citizen."
+- **⚡️ Pure Performance**: Custom HTML5 Canvas isometric renderer with zero external dependencies.
 
 ---
 
@@ -91,31 +54,13 @@ GitHub allows **60 requests/hour** for anonymous IP addresses.
 
 ```text
 GitVille/
-├── data/               # Static JSON data (for the default view)
-├── scripts/            # Python helpers & SVG generators
-├── web/                # The Frontend Application
-│   ├── images/         # Asset textures
-│   ├── create-own/     # The "Card Creator" Tool
-│   ├── script.js       # Main Game Engine & Logic
-│   ├── style.css       # UI Styling
-│   └── index.html      # Entry Point
-└── output/             # Generated artifacts (e.g. SVGs)
+├── data/               # The "source of truth" JSON world data
+├── scripts/            # Python City Generator
+│   └── fetch_stargazers.py
+├── web/                # The Visual Engine (HTML/CSS/JS)
+└── test_names.txt      # Your input names list
 ```
 
 ---
 
-## 📸 Gallery
-
-<div align="center">
-  <img src="web/images/1.jpeg" width="45%" alt="Day Mode" />
-  <img src="web/images/2.jpeg" width="45%" alt="Terrace Mode" />
-  <br/>
-  <img src="web/images/3.jpeg" width="45%" alt="Roads" />
-  <img src="web/images/4.jpeg" width="45%" alt="Scale" />
-</div>
-
----
-
-Made with ❤️ for the Open Source Community
-
-**MIT License** • Created by [Addressmehari](https://github.com/addressmehari)
+Made for the community • Local & Offline Version

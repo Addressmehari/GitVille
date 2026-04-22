@@ -3,29 +3,8 @@
  * Pure HTML5 Canvas + Vanilla JS
  */
 
-let canvas = document.getElementById('gameCanvas');
-// Allow headless mode
-let ctx = canvas ? canvas.getContext('2d') : null;
-
-// Context Setter for external tools (SVG Generator)
-window.setGlobalCtx = function(newCtx) {
-    ctx = newCtx;
-};
-
-// Only init if canvas exists
-if (canvas) {
-    // Canvas setup
-    ctx.lineJoin = 'round'; // Smooth edges
-    // Optimize for no transparency on bg
-    // Safer check
-    if (ctx && ctx.canvas && typeof ctx.canvas.getContextAttributes === 'function' && ctx.canvas.getContextAttributes().alpha === false) {
-        // If alpha is already false, no need to set it again.
-        // This check is mostly for clarity, as we set it in getContext above.
-    } else {
-        // If for some reason alpha was true, we'd need to re-create context or handle it.
-        // For now, assume the initial getContext call is sufficient.
-    }
-}
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d', { alpha: false }); // Optimize for no transparency on bg
 
 // --- Configuration ---
 const TILE_SIZE = 64; // Base size of a tile side in pixels (before isometric projection)
@@ -78,6 +57,7 @@ let lastMouseX = 0;
 let lastMouseY = 0;
 let currentMouseX = 0;
 let currentMouseY = 0;
+let targetHouse = null;
 
 // Touch state for pinch zoom
 let initialPinchDistance = null;
@@ -95,78 +75,55 @@ async function init() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     setupInputListeners();
+    setupSearch(); // Initialize City Directory
 
-    // Check for URL Param
-    const urlParams = new URLSearchParams(window.location.search);
-    const dynamicUser = urlParams.get('u') || urlParams.get('username');
+    // --- LOCAL DATA ONLY MODE ---
+    console.log("Loading local city data from houses.json...");
+    try {
+        const [housesRes, worldRes, roadsRes] = await Promise.all([
+            fetch('../data/houses.json?t=' + Date.now()),
+            fetch('../data/world.json?t=' + Date.now()).catch(e => ({ ok: true, json: () => ({ weather: "none", timeOfDay: "day" }) })),
+            fetch('../data/roads.json?t=' + Date.now()).catch(e => null)
+        ]);
 
-    if (dynamicUser) {
-        // --- DYNAMIC MODE ---
-        console.log(`Dynamic Mode: Building city for ${dynamicUser}...`);
-        try {
-            const data = await fetchDynamicData(dynamicUser);
-            houses = data.houses;
-            roads = data.roads;
-            worldConfig = { weather: "none", timeOfDay: "day" };
-            console.log("Generated Dynamic City:", houses.length, "houses for", dynamicUser);
-        } catch (e) {
-            console.error(e);
-            showErrorDialog(e.message); 
-            houses = [{ x: 0, y: 0, color: "#ff6b6b", hoverAnim: 0, username: "Error" }];
-        }
-    } else {
-        // --- STATIC MODE ---
-        try {
-            console.log("Fetching static data...");
-            const [housesRes, worldRes, roadsRes] = await Promise.all([
-                fetch('../data/stargazers_houses.json?t=' + Date.now()),
-                fetch('../data/world.json?t=' + Date.now()),
-                fetch('../data/roads.json?t=' + Date.now()).catch(e => null)
-            ]);
-
-            if (!housesRes.ok) throw new Error(`Houses fetch failed: ${housesRes.status}`);
-            if (!worldRes.ok) throw new Error(`World fetch failed: ${worldRes.status}`);
-
-            houses = await housesRes.json();
+        if (!housesRes.ok) throw new Error(`Houses fetch failed: ${housesRes.status}`);
+        
+        houses = await housesRes.json();
+        
+        // Handle world config
+        if (worldRes.ok) {
             worldConfig = await worldRes.json();
-
-            if (roadsRes && roadsRes.ok) {
-                try {
-                    const roadData = await roadsRes.json();
-                    if (Array.isArray(roadData)) {
-                        roadData.forEach(r => roads.add(`${r.x},${r.y}`));
-                    }
-                } catch (e) { console.log("No roads found or invalid JSON"); }
-            }
-            houses.forEach(h => h.hoverAnim = 0);
-        } catch (e) {
-            console.error("Failed to load data detailed:", e);
-            houses = [{ x: 0, y: 0, color: "#ff6b6b", hoverAnim: 0, username: "Error" }];
-            alert("Failed to load data.\n" + e.message);
+        } else {
+            worldConfig = { weather: "none", timeOfDay: "day" };
         }
+
+        // Handle roads
+        if (roadsRes && roadsRes.ok) {
+            try {
+                const roadData = await roadsRes.json();
+                if (Array.isArray(roadData)) {
+                    roadData.forEach(r => roads.add(`${r.x},${r.y}`));
+                }
+            } catch (e) { console.log("No roads found or invalid JSON"); }
+        }
+        
+        houses.forEach(h => h.hoverAnim = 0);
+        console.log(`Loaded ${houses.length} houses.`);
+
+    } catch (e) {
+        console.error("Failed to load local data:", e);
+        showErrorDialog("Failed to load local data/houses.json. Please check if the file exists.");
+        houses = [{ x: 0, y: 0, color: "#ff6b6b", hoverAnim: 0, username: "Error" }];
     }
 
     // UI Updates
     if (houses.length > 0) {
-        let owner = houses[0].username;
-        owner = owner.replace(/[^a-zA-Z0-9_-]/g, ''); 
-        
         const titleEl = document.getElementById('city-title');
-        if (titleEl) titleEl.innerText = `${owner}'s City`;
+        if (titleEl) titleEl.innerText = `Local GitVille`;
         
         const badgeEl = document.getElementById('city-badge');
         if (badgeEl) {
-            // Pseudo-hex ID
-            let hash = 0;
-            for (let i = 0; i < owner.length; i++) hash = owner.charCodeAt(i) + ((hash << 5) - hash);
-            const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
-            const hexId = "00000".substring(0, 6 - c.length) + c;
-            
-            if (!dynamicUser) {
-                badgeEl.innerText = `gitville:SECTOR-${hexId}`; 
-            } else {
-                badgeEl.parentElement.href = `https://github.com/${owner}`;
-            }
+            badgeEl.innerText = `gitville:LOCAL-MODE`; 
         }
     }
 
@@ -234,14 +191,6 @@ async function fetchDynamicData(input) {
             return n;
         };
         badgeEl.innerText = `gitville:${formatCount(totalCount)} ${label}`; 
-
-        // Tier Styling
-        badgeEl.classList.remove('gold-tier', 'elite-tier');
-        if (totalCount > 10000) {
-            badgeEl.classList.add('elite-tier');
-        } else if (totalCount > 750) {
-            badgeEl.classList.add('gold-tier');
-        }
     }
     
     // Fetch just 50 real people
@@ -461,17 +410,17 @@ function setupInputListeners() {
     // Mouse
     canvas.addEventListener('mousedown', e => {
         isDragging = true;
+        targetHouse = null; // Clear active search highlight when user manually moves
         lastMouseX = e.clientX;
         lastMouseY = e.clientY;
     });
 
     // Interaction Click
     canvas.addEventListener('click', e => {
-        // Prevent click if we dragged
-        // We can track drag distance, but for now let's assume if it wasn't a long drag
-        // Wait, standard click behavior is fine usually.
+        // 1. Clear any active search beacon on click
+        targetHouse = null;
 
-        // 1. Get World Pos
+        // 2. Get World Pos
         const worldPos = screenToWorld(e.clientX, e.clientY);
         // 2. Get Grid Pos
         const gridPos = worldToGrid(worldPos.x, worldPos.y);
@@ -682,6 +631,11 @@ function render() {
     // 4. Render Houses (Calculate hover first)
     updateHoverState();
     renderHouses();
+
+    // 4a. Render Beacon (Target Highlight)
+    if (targetHouse) {
+        drawBeacon(targetHouse);
+    }
 
     // 4b. Render NPCs (Ideally integrated with houses for depth, but overlaid for now)
     if (npcManager) {
@@ -3199,6 +3153,181 @@ function adjustColor(color, amount) {
 }
 
 // Start
-if (typeof canvas !== 'undefined' && canvas) {
-    init();
+// --- City Directory & Search Feature ---
+
+function setupSearch() {
+    const input = document.getElementById('search-input');
+    const results = document.getElementById('search-results');
+    
+    if (!input || !results) return;
+
+    input.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        if (query.length < 1) {
+            results.classList.add('hidden');
+            return;
+        }
+
+        // Filter Houses
+        // Prioritize: Starts with > Contains
+        const matches = houses.filter(h => h.username && h.username.toLowerCase().includes(query));
+        
+        matches.sort((a, b) => {
+            const aName = a.username.toLowerCase();
+            const bName = b.username.toLowerCase();
+            const aStart = aName.startsWith(query);
+            const bStart = bName.startsWith(query);
+            if (aStart && !bStart) return -1;
+            if (!aStart && bStart) return 1;
+            return 0;
+        });
+
+        const limit = 20;
+        const display = matches.slice(0, limit);
+
+        if (display.length > 0) {
+            results.innerHTML = '';
+            results.classList.remove('hidden');
+            
+            display.forEach(h => {
+                const el = document.createElement('div');
+                el.className = 'result-item';
+                
+                // Format Date
+                const date = new Date(h.joined_at).getFullYear();
+                let meta = `Joined ${date}`;
+                if (h.isGhost) meta = `<span class="ghost-tag">Ghost Citizen</span>`;
+                
+                el.innerHTML = `
+                    <div class="result-name">
+                        ${h.username}
+                        ${h.abandoned ? '💀' : ''}
+                    </div>
+                    <div class="result-meta">${meta}</div>
+                `;
+                
+                el.onclick = () => {
+                    panToHouse(h);
+                    results.classList.add('hidden');
+                    input.value = h.username;
+                };
+                results.appendChild(el);
+            });
+        } else {
+            results.innerHTML = '<div class="result-item" style="cursor:default; color:#888;">No citizens found.</div>';
+            results.classList.remove('hidden');
+        }
+    });
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('#city-directory')) {
+            results.classList.add('hidden');
+        }
+    });
 }
+
+function panToHouse(house) {
+    targetHouse = house;
+    
+    // Calculate Center for Camera
+    // We want house to be in center of screen
+    // screenCenter = (world - cam) * zoom + centerOffset
+    // => cam = world - (screenCenter - centerOffset) / zoom
+    // BUT simpler: cam.x = world.x, cam.y = world.y (since we translate(center, center) then -cam)
+    
+    const pos = gridToWorld(house.x, house.y);
+    
+    // Animate Camera?
+    const startX = camera.x;
+    const startY = camera.y;
+    const endX = pos.x;
+    const endY = pos.y - HOUSE_HEIGHT/2; // Center slightly above pivot
+    
+    const startZoom = camera.zoom;
+    const endZoom = 1.5; // Zoom in!
+    
+    const duration = 1000;
+    const startTime = performance.now();
+    
+    function animate(time) {
+        const elapsed = time - startTime;
+        const t = Math.min(elapsed / duration, 1);
+        
+        // Ease Out Cubic
+        const ease = 1 - Math.pow(1 - t, 3);
+        
+        camera.x = startX + (endX - startX) * ease;
+        camera.y = startY + (endY - startY) * ease;
+        camera.zoom = startZoom + (endZoom - startZoom) * ease;
+        
+        if (t < 1) requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+}
+
+function drawBeacon(house) {
+    const pos = gridToWorld(house.x, house.y);
+    const cx = pos.x;
+    const cy = pos.y - 120; // Float above house
+    
+    const time = Date.now() / 200;
+    
+    ctx.save();
+    
+    // Pulsing Arrow
+    const floatY = Math.sin(time/2) * 10;
+    
+    ctx.translate(cx, cy + floatY);
+    
+    // Draw Arrow Down
+    ctx.fillStyle = "#ef4444"; // Red
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 3;
+    
+    ctx.beginPath();
+    ctx.moveTo(-15, -20);
+    ctx.lineTo(15, -20);
+    ctx.lineTo(0, 10);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    
+    // Label "HERE"
+    ctx.fillStyle = "white";
+    ctx.font = "bold 14px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("TARGET", 0, -30);
+    
+    // Beam Effect
+    // Gradient fade out down to house
+    const beamGrad = ctx.createLinearGradient(0, 0, 0, 100);
+    beamGrad.addColorStop(0, "rgba(239, 68, 68, 0.5)");
+    beamGrad.addColorStop(1, "rgba(239, 68, 68, 0)");
+    
+    ctx.fillStyle = beamGrad;
+    ctx.beginPath();
+    ctx.moveTo(-15, -20);
+    ctx.lineTo(15, -20);
+    ctx.lineTo(40, 150); // Spread at bottom
+    ctx.lineTo(-40, 150);
+    ctx.fill();
+    
+    ctx.restore();
+    
+    // Ground highlight ring
+    ctx.save();
+    ctx.translate(pos.x, pos.y);
+    ctx.scale(1, 0.5); // Isometric squash
+    
+    ctx.beginPath();
+    const r = 40 + Math.sin(time) * 5;
+    ctx.arc(0, 0, r, 0, Math.PI*2);
+    ctx.strokeStyle = "rgba(239, 68, 68, 0.8)";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    
+    ctx.restore();
+}
+
+init();

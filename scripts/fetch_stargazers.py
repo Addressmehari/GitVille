@@ -1,191 +1,10 @@
 import json
-import urllib.request
-import urllib.error
 import hashlib
 import math
 import sys
 import os
 import datetime
-import time
-
-def get_stargazers(owner, repo, token=None, limit=1000):
-    url = f"https://api.github.com/repos/{owner}/{repo}/stargazers"
-    stargazers = []
-    page = 1
-    per_page = 50 
-    
-    headers = {
-        "Accept": "application/vnd.github.v3.star+json",
-        "User-Agent": "GitVille-Stargazer-Fetcher"
-    }
-    if token:
-        headers["Authorization"] = f"token {token}"
-        
-    print(f"Fetching max {limit} stargazers from {owner}/{repo}...")
-    
-    while len(stargazers) < limit:
-        attempts = 0
-        success = False
-        
-        while attempts < 3:
-            try:
-                req = urllib.request.Request(f"{url}?page={page}&per_page={per_page}", headers=headers)
-                with urllib.request.urlopen(req, timeout=10) as response:
-                    content = response.read().decode()
-                    if not content.strip():
-                        data = []
-                    else:
-                        data = json.loads(content)
-                        
-                    if not data:
-                        success = True 
-                        return stargazers
-                    
-                    remaining = limit - len(stargazers)
-                    stargazers.extend(data[:remaining])
-                    
-                    print(f"Fetched page {page} (+{len(data[:remaining])}, total {len(stargazers)})")
-                    
-                    if len(data) < per_page:
-                        success = True
-                    else:
-                        success = True
-                        
-                    page += 1
-                    break
-                    
-            except (urllib.error.HTTPError, urllib.error.URLError, Exception) as e:
-                print(f"Attempt {attempts+1} failed: {e}")
-                attempts += 1
-                time.sleep(2) 
-                
-        if not success or (len(stargazers) >= limit):
-            if not success:
-                print("Failed to fetch page after retries.")
-            break
-            
-    return stargazers
-
-def get_contributors(owner, repo, token=None, limit=5000):
-    url = f"https://api.github.com/repos/{owner}/{repo}/contributors"
-    contributors = set()
-    page = 1
-    per_page = 100
-    
-    headers = {
-        "Accept": "application/vnd.github.v3+json",
-        "User-Agent": "GitVille-Contributor-Fetcher"
-    }
-    if token:
-        headers["Authorization"] = f"token {token}"
-        
-    print(f"Fetching contributors from {owner}/{repo}...")
-    
-    while len(contributors) < limit:
-        attempts = 0
-        success = False
-        
-        while attempts < 3:
-            try:
-                req = urllib.request.Request(f"{url}?page={page}&per_page={per_page}&anon=true", headers=headers)
-                with urllib.request.urlopen(req, timeout=10) as response:
-                    content = response.read().decode()
-                    if not content.strip():
-                        data = []
-                    else:
-                        data = json.loads(content)
-                        
-                    if not data:
-                        success = True
-                        break
-                    
-                    for item in data:
-                        if 'login' in item:
-                            contributors.add(item['login'])
-                    
-                    print(f"Fetched contributors page {page} (+{len(data)}, total {len(contributors)})")
-                    
-                    if len(data) < per_page:
-                        success = True
-                    else:
-                        success = True
-                        
-                    page += 1
-                    break
-                    
-            except (urllib.error.HTTPError, urllib.error.URLError, Exception) as e:
-                print(f"Contributor fetch attempt {attempts+1} failed: {e}")
-                attempts += 1
-                time.sleep(2)
-                
-        if not success:
-            print("Failed to fetch contributors page after retries.")
-            break
-        if len(data) == 0: 
-            break
-            
-    return contributors
-
-def get_followers(username, token=None, limit=1000):
-    url = f"https://api.github.com/users/{username}/followers"
-    followers = []
-    page = 1
-    per_page = 100
-    
-    headers = {
-        "Accept": "application/vnd.github.v3+json",
-        "User-Agent": "GitVille-Follower-Fetcher"
-    }
-    if token:
-        headers["Authorization"] = f"token {token}"
-        
-    print(f"Fetching max {limit} followers for user {username}...")
-    
-    while len(followers) < limit:
-        attempts = 0
-        success = False
-        
-        while attempts < 3:
-            try:
-                req = urllib.request.Request(f"{url}?page={page}&per_page={per_page}", headers=headers)
-                with urllib.request.urlopen(req, timeout=10) as response:
-                    content = response.read().decode()
-                    if not content.strip():
-                        data = []
-                    else:
-                        data = json.loads(content)
-                        
-                    if not data:
-                        success = True
-                        return followers
-                    
-                    # Wrap followers to match stargazer structure: {'user': user_obj}
-                    wrapped_data = [{'user': user} for user in data]
-                    
-                    remaining = limit - len(followers)
-                    followers.extend(wrapped_data[:remaining])
-                    
-                    print(f"Fetched followers page {page} (+{len(wrapped_data[:remaining])}, total {len(followers)})")
-                    
-                    if len(data) < per_page:
-                        success = True
-                    else:
-                        success = True
-                        
-                    page += 1
-                    break
-                    
-            except (urllib.error.HTTPError, urllib.error.URLError, Exception) as e:
-                print(f"Follower fetch attempt {attempts+1} failed: {e}")
-                attempts += 1
-                time.sleep(2)
-                
-        if not success or (len(followers) >= limit):
-            if not success:
-                print("Failed to fetch followers page after retries.")
-            break
-            
-    return followers
+import random
 
 def string_to_color(s):
     hash_object = hashlib.md5(s.encode())
@@ -202,12 +21,12 @@ def generate_city_slots(limit):
     slots = []
     facing_dir = []
     
-    # 0. Central House for Author
+    # 0. Central House
     slots.append((0, 0))
     facing_dir.append("down")
     
     if limit <= 1:
-        return slots, facing_dir
+        return slots, facing_dir, []
         
     HOUSE_GAP = 2
     STREET_GAP = 2 
@@ -224,7 +43,6 @@ def generate_city_slots(limit):
     BLOCK_STRIDE_Y = BLOCK_HEIGHT + STREET_GAP
     
     total_blocks = math.ceil(limit / HOUSES_PER_BLOCK)
-    
     quadrants = [(1, -1), (-1, -1), (-1, 1), (1, 1)]
     
     abstract_block_positions = []
@@ -243,7 +61,6 @@ def generate_city_slots(limit):
             if houses_placed >= limit: break
             
             qx, qy = quadrants[q_idx]
-            
             base_x = (MAIN_AVENUE_WIDTH / 2) * qx
             base_y = (MAIN_AVENUE_WIDTH / 2) * qy
             
@@ -260,222 +77,83 @@ def generate_city_slots(limit):
                 house_y = block_start_y + (iy * HOUSE_GAP * qy)
                 
                 slots.append((house_x, house_y))
-                
-                if house_x > 0:
-                    facing_dir.append("left")
-                else:
-                    facing_dir.append("right")
-                
+                facing_dir.append("left" if house_x > 0 else "right")
                 houses_placed += 1
             
-            # Roads
+            # Road Logic
             def get_r_coord(idx):
-                if idx == 0: return 0
-                return 2 + idx * 8
+                return 0 if idx == 0 else 2 + idx * 8
             
             rx_in = get_r_coord(bx) * qx
             rx_out = get_r_coord(bx + 1) * qx
             ry_in = get_r_coord(by) * qy
             ry_out = get_r_coord(by + 1) * qy
             
-            sx = int(min(rx_in, rx_out))
-            ex = int(max(rx_in, rx_out))
-            sy = int(min(ry_in, ry_out))
-            ey = int(max(ry_in, ry_out))
-            
-            for x in range(sx, ex + 1):
+            for x in range(int(min(rx_in, rx_out)), int(max(rx_in, rx_out)) + 1):
                 road_tiles.add((x, int(ry_in)))
                 road_tiles.add((x, int(ry_out)))
-            for y in range(sy, ey + 1):
+            for y in range(int(min(ry_in, ry_out)), int(max(ry_in, ry_out)) + 1):
                 road_tiles.add((int(rx_in), y))
                 road_tiles.add((int(rx_out), y))
                 
-    if slots:
-        for i in range(-2, 3):
-             if (0, i) in road_tiles: road_tiles.remove((0, i))
-             if (i, 0) in road_tiles: road_tiles.remove((i, 0))
-             
-        ring_min = -2
-        ring_max = 2
-        for x in range(ring_min, ring_max + 1):
-            road_tiles.add((x, ring_min))
-            road_tiles.add((x, ring_max))
-        for y in range(ring_min, ring_max + 1):
-            road_tiles.add((ring_min, y))
-            road_tiles.add((ring_max, y))
+    # Clean up central roads
+    for i in range(-2, 3):
+         if (0, i) in road_tiles: road_tiles.remove((0, i))
+         if (i, 0) in road_tiles: road_tiles.remove((i, 0))
+         
+    for x in range(-2, 3):
+        road_tiles.add((x, -2))
+        road_tiles.add((x, 2))
+    for y in range(-2, 3):
+        road_tiles.add((-2, y))
+        road_tiles.add((2, y))
                 
     return slots, facing_dir, list(road_tiles)
 
-def sync_houses(live_users, contributors, owner_name):
-    """
-    Syncs the live list of users with the existing JSON database.
-    Handles: New users, Abandoned users, Returning users, Terrace Upgrades.
-    """
-    filename = "data/stargazers_houses.json"
-    existing_houses = []
-    
-    if os.path.exists(filename):
-        with open(filename, "r") as f:
-            try:
-                existing_houses = json.load(f)
-            except json.JSONDecodeError:
-                existing_houses = []
-                
-    # Create Map of Existing Houses
-    # user -> house_obj
-    house_map = {h['username']: h for h in existing_houses if 'username' in h}
-    
+def build_city(names):
     today_str = datetime.datetime.now().isoformat()
     
-    limit_processed = 0
-    final_houses_list = []
+    # Seed the random generator for stable tree placement
+    seed_val = hashlib.md5("".join(names).encode()).hexdigest()
+    random.seed(seed_val)
     
-    # 1. Process Live Users (Updates & New Inserts)
-    live_usernames = set()
+    # Generate population list
+    cleaned_houses = []
+    for name in names:
+        attrs = string_to_pseudo_random(name)
+        cleaned_houses.append({
+            "color": string_to_color(name),
+            "roofStyle": attrs[0],
+            "doorStyle": attrs[1],
+            "windowStyle": attrs[2],
+            "chimneyStyle": attrs[3],
+            "wallStyle": attrs[4],
+            "username": name,
+            "has_terrace": False,
+            "abandoned": False,
+            "joined_at": today_str,
+            "last_seen": today_str
+        })
     
-    # Add Owner first to 'live' list virtually (always active)
-    live_usernames.add(owner_name)
-    
-    # Fix: live_users is a list of dicts {'user': {'login': 'name'}, ...} (standardized in get_followers)
-    # OR it is a list of stargazers similar structure.
-    standardized_live = []
-    
-    # Owner Entry
-    standardized_live.append({
-        'username': owner_name,
-        'metadata': {} # Placeholder
-    })
-    
-    for u in live_users:
-        if 'user' in u and 'login' in u['user']:
-            login = u['user']['login']
-            standardized_live.append({
-                'username': login,
-                'metadata': u
-            })
-            live_usernames.add(login)
-            
-    # Now iterate and update/create
-    for live_u in standardized_live:
-        username = live_u['username']
-        
-        if username in house_map:
-            # --- EXISTING HOUSE ---
-            house = house_map[username]
-            was_abandoned = house.get('abandoned', False)
-            
-            # Update Last Seen
-            house['last_seen'] = today_str
-            
-            if was_abandoned:
-                # --- RETURNING USER ---
-                print(f"User {username} returned! Restoring house.")
-                house['abandoned'] = False
-                house['has_terrace'] = False # Reset terrace req
-                house['joined_at'] = today_str # Reset timer
-            else:
-                # --- CONTINUING USER ---
-                # Check Terrace Logic
-                joined_at_str = house.get('joined_at', today_str) # Default to now if missing
-                
-                # Handle missing joined_at for legacy houses
-                if 'joined_at' not in house:
-                    house['joined_at'] = today_str # Start tracking from now
-                    
-                try:
-                    # Parse ISO dates (handle Z or not)
-                    joined_dt = datetime.datetime.fromisoformat(joined_at_str.replace('Z', ''))
-                    now_dt = datetime.datetime.now()
-                    delta = now_dt - joined_dt
-                    
-                    if delta.days >= 10:
-                        if not house.get('has_terrace', False):
-                            print(f"User {username} earned a terrace! ({delta.days} days)")
-                            house['has_terrace'] = True
-                except Exception as e:
-                    print(f"Date error for {username}: {e}")
-                    
-        else:
-            # --- NEW USER ---
-            print(f"New citizen: {username}")
-            attrs = string_to_pseudo_random(username)
-            house = {
-                "x": 0, "y": 0, # Placeholder
-                "color": string_to_color(username),
-                "roofStyle": attrs[0],
-                "doorStyle": attrs[1],
-                "windowStyle": attrs[2],
-                "chimneyStyle": attrs[3],
-                "wallStyle": attrs[4],
-                "username": username,
-                "facing": "down",
-                "has_terrace": False,
-                "abandoned": False,
-                "joined_at": today_str,
-                "last_seen": today_str
-            }
-            house_map[username] = house
-            
-    # 2. Process Abandoned Users (In Map but not in Live)
-    for username, house in house_map.items():
-        if username not in live_usernames:
-            if not house.get('abandoned', False):
-                print(f"User {username} left. House abandoned.")
-                house['abandoned'] = True
-            
-            
-    # 3. Assemble Final List & Sort
-    all_houses = list(house_map.values())
-    
-    def sort_key(h):
-        if h['username'] == owner_name:
-            return "0000-00-00" # Owner always first
-        return h.get('joined_at', today_str)
-
-    all_houses.sort(key=sort_key)
-    
-    # 4. Generate Layout (Assign X/Y)
-    
-    # Filter out pure obstacles from previous load (re-generate trees)
-    cleaned_houses = [h for h in all_houses if 'obstacle' not in h]
-    
-    estimated_total = int(len(cleaned_houses) * 1.3)
-    if estimated_total < len(cleaned_houses) + 5: estimated_total = len(cleaned_houses) + 5
-    
+    # Calculate slots (buffer for trees)
+    estimated_total = int(len(cleaned_houses) * 1.3) + 5
     slots, facings, roads = generate_city_slots(estimated_total)
     
     final_output = []
     house_idx = 0
     
-    import random
-    
     for i, (slot_x, slot_y) in enumerate(slots):
-        if house_idx >= len(cleaned_houses):
-            break
+        if house_idx >= len(cleaned_houses): break
             
         remaining_slots = len(slots) - i
         remaining_houses = len(cleaned_houses) - house_idx
         
-        place_tree = False
-        if i > 0 and remaining_slots > remaining_houses:
-            if random.random() < 0.2:
-                place_tree = True
-                
-        if place_tree:
-             final_output.append({
-                "x": slot_x,
-                "y": slot_y,
-                "obstacle": "tree"
-            })
+        # Random trees
+        if i > 0 and remaining_slots > remaining_houses and random.random() < 0.2:
+             final_output.append({"x": slot_x, "y": slot_y, "obstacle": "tree"})
         else:
             h = cleaned_houses[house_idx]
-            h['x'] = slot_x
-            h['y'] = slot_y
-            h['facing'] = facings[i]
-            
-            if h['username'] in contributors:
-                h['has_terrace'] = True
-            
+            h['x'], h['y'], h['facing'] = slot_x, slot_y, facings[i]
             final_output.append(h)
             house_idx += 1
             
@@ -483,63 +161,33 @@ def sync_houses(live_users, contributors, owner_name):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python fetch_stargazers.py owner/repo [count] [token]")
-        print("       python fetch_stargazers.py username (to add single user)")
-        repo_input = "n8n-io/n8n"
-    else:
-        repo_input = sys.argv[1]
+        print("Usage: python fetch_stargazers.py names.txt")
+        return
     
-    limit = 100
-    token = os.environ.get("GITHUB_TOKEN")
+    file_path = sys.argv[1]
+    if not os.path.exists(file_path):
+        print(f"Error: File {file_path} not found.")
+        return
+
+    print(f"Reading names from {file_path}...")
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+        names = [n.strip() for n in content.replace(',', '\n').split('\n') if n.strip()]
     
-    if len(sys.argv) > 2:
-        for arg in sys.argv[2:]:
-            if arg.isdigit():
-                limit = int(arg)
-            else:
-                token = arg
-            
-    if '/' not in repo_input:
-         print(f"Detecting single username '{repo_input}'. Adding to existing city...")
-         return
+    if not names:
+        print("Error: No names found.")
+        return
+
+    print(f"Generating city for {len(names)} citizens...")
+    houses, roads = build_city(names)
+    
+    if not os.path.exists("data"): os.makedirs("data")
         
-    owner, repo = repo_input.split('/')
-    print(f"Fetch limit set to: {limit}")
-    
-    is_profile_repo = (owner == repo)
-    
-    live_users = []
-    contributors = set()
-    
-    if is_profile_repo:
-        print(f"Detected Profile Repository '{owner}/{repo}'. Fetching FOLLOWERS.")
-        live_users = get_followers(owner, token, limit=limit)
-    else:
-        print(f"Fetching Stargazers.")
-        live_users = get_stargazers(owner, repo, token, limit=limit)
-        contributors = get_contributors(owner, repo, token, limit=limit)
+    with open("data/houses.json", "w") as f: json.dump(houses, f, indent=4)
+    with open("data/roads.json", "w") as f: json.dump([{"x": int(r[0]), "y": int(r[1])} for r in roads], f, indent=4)
+    with open("data/world.json", "w") as f: json.dump({"weather": "none", "timeOfDay": "day"}, f, indent=4)
         
-    if live_users is not None:
-        houses, roads = sync_houses(live_users, contributors, owner)
-        
-        with open("data/stargazers_houses.json", "w") as f:
-            json.dump(houses, f, indent=4)
-            
-        road_data = [{"x": int(r[0]), "y": int(r[1])} for r in roads]
-        with open("data/roads.json", "w") as f:
-            json.dump(road_data, f, indent=4)
-            
-        print(f"Updated city with {len(houses)} entities.")
-        
-        # Generate Snapshot using Node.js (Exact Replica)
-        import subprocess
-        try:
-            print("Generating SVG snapshot using script.js logic...")
-            subprocess.run(["node", "scripts/generate_svg.js"], check=True)
-        except Exception as e:
-            print(f"Failed to generate SVG: {e}")
-    else:
-        print("Error fetching users.")
+    print(f"Successfully generated city in data/houses.json")
 
 if __name__ == "__main__":
     main()

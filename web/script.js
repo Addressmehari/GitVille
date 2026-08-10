@@ -71,33 +71,13 @@ let cloudSystem; // Cloud Manager
 let npcManager; // NPC Manager
 
 // --- Initialization ---
-// --- URL Routing ---
+async function init() {
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    setupInputListeners();
+    setupSearch(); // Initialize City Directory
 
-function parseRoute() {
-    // 1. Check hash first
-    let path = window.location.hash || '';
-    if (path.startsWith('#')) {
-        path = path.slice(1); // remove '#'
-    }
-    
-    // If hash doesn't have our routes, fallback to pathname
-    if (!path.includes('/stargazers/') && !path.includes('/repo/')) {
-        path = window.location.pathname || '';
-    }
-    
-    const stargazersMatch = path.match(/\/stargazers\/([^\s#?]+)/);
-    const repoMatch = path.match(/\/repo\/([^\s#?]+)/);
-    
-    if (stargazersMatch) {
-        return { mode: 'stargazers', target: stargazersMatch[1].replace(/\/$/, '') };
-    } else if (repoMatch) {
-        return { mode: 'repo', target: repoMatch[1].replace(/\/$/, '') };
-    }
-    
-    return null;
-}
-
-async function loadLocalData() {
+    // --- LOCAL DATA ONLY MODE ---
     console.log("Loading local city data from houses.json...");
     try {
         const [housesRes, worldRes, roadsRes] = await Promise.all([
@@ -146,268 +126,17 @@ async function loadLocalData() {
             badgeEl.innerText = `gitville:LOCAL-MODE`; 
         }
     }
-}
 
-async function fetchUserRepos(username) {
-    // 1. Fetch User Info for total repo count
-    const infoRes = await fetch(`https://api.github.com/users/${username}`);
-    if (infoRes.status === 403) {
-        throw new Error("⚠️ Rate Limit Exceeded!\n\nGitHub allows 60 requests/hour for anonymous visitors.\nPlease wait a while or try a different network.");
-    }
-    if (infoRes.status === 404) {
-        throw new Error(`❌ Not Found\n\nCould not find User: "${username}"`);
-    }
-    if (!infoRes.ok) throw new Error("GitHub API Error: " + infoRes.status);
-    const infoData = await infoRes.json();
-
-    const totalCount = infoData.public_repos;
-    const MAX_VISUAL_HOUSES = 750;
-    const realFetchCount = 100;
-
-    // Update Badge
-    const badgeEl = document.getElementById('city-badge');
-    if (badgeEl) {
-        badgeEl.innerText = `gitville:${totalCount} REPOSITORIES`; 
-    }
-
-    // Fetch up to 100 real repos
-    const reposRes = await fetch(`https://api.github.com/users/${username}/repos?per_page=${realFetchCount}&page=1`);
-    let repos = [];
-    if (reposRes.ok) {
-        repos = await reposRes.json();
-    }
-
-    let rawHouses = [];
-    
-    // Center House (Owner)
-    rawHouses.push({
-        username: username,
-        joined_at: new Date().toISOString()
-    });
-
-    // Add Real Repos as citizens/houses
-    repos.forEach(repo => {
-        rawHouses.push({
-            username: repo.name,
-            joined_at: repo.created_at || new Date().toISOString()
-        });
-    });
-
-    // Add Ghost Citizens (if totalCount > rawHouses.length)
-    const targetTotal = Math.min(totalCount, MAX_VISUAL_HOUSES);
-    const neededGhosts = targetTotal - rawHouses.length;
-    if (neededGhosts > 0) {
-        console.log(`Generating ${neededGhosts} ghost repos to match population of ${totalCount}...`);
-        for(let i = 0; i < neededGhosts; i++) {
-            const ghostName = `Repo-${i}-${username.substring(0,3)}`;
-            rawHouses.push({
-                username: ghostName,
-                isGhost: true,
-                joined_at: new Date().toISOString()
-            });
-        }
-    }
-
-    return generateCityLayout(rawHouses, username);
-}
-
-async function fetchUserAllReposStargazers(username) {
-    // 1. Fetch all repos of the user
-    const reposRes = await fetch(`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`);
-    if (reposRes.status === 403) {
-        throw new Error("⚠️ Rate Limit Exceeded!\n\nGitHub allows 60 requests/hour for anonymous visitors.\nPlease wait a while or try a different network.");
-    }
-    if (reposRes.status === 404) {
-        throw new Error(`❌ Not Found\n\nCould not find User: "${username}"`);
-    }
-    if (!reposRes.ok) throw new Error("GitHub API Error: " + reposRes.status);
-    const repos = await reposRes.json();
-
-    // Filter repos that have at least 1 star and sort by star count descending
-    const starredRepos = repos
-        .filter(r => r.stargazers_count > 0)
-        .sort((a, b) => b.stargazers_count - a.stargazers_count)
-        .slice(0, 10); // limit to top 10 starred repos to avoid API rate limits
-
-    // Update Badge
-    const badgeEl = document.getElementById('city-badge');
-    let allStargazers = [];
-    let totalStars = repos.reduce((acc, r) => acc + (r.stargazers_count || 0), 0);
-
-    if (badgeEl) {
-        badgeEl.innerText = `gitville:${totalStars} STARGAZERS`;
-    }
-
-    if (starredRepos.length > 0) {
-        // Fetch stargazers for each starred repo in parallel
-        const fetchPromises = starredRepos.map(async (repo) => {
-            try {
-                // Fetch up to 50 stargazers for this repo
-                const res = await fetch(`https://api.github.com/repos/${username}/${repo.name}/stargazers?per_page=50`);
-                if (res.ok) {
-                    return await res.json();
-                } else if (res.status === 401 || res.status === 403 || res.status === 404) {
-                    console.warn(`Stargazers list restricted for ${repo.name} (Status ${res.status}). Falling back to contributors...`);
-                    const contribRes = await fetch(`https://api.github.com/repos/${username}/${repo.name}/contributors?per_page=50`);
-                    if (contribRes.ok) {
-                        return await contribRes.json();
-                    } else {
-                        const forksRes = await fetch(`https://api.github.com/repos/${username}/${repo.name}/forks?per_page=50`);
-                        if (forksRes.ok) {
-                            const forks = await forksRes.json();
-                            return forks.map(f => f.owner);
-                        }
-                    }
-                }
-            } catch (e) {
-                console.error(`Failed to fetch stargazers/contributors for repo ${repo.name}:`, e);
-            }
-            return [];
-        });
-
-        const results = await Promise.all(fetchPromises);
-        
-        // Flatten and deduplicate stargazers by username/login
-        const seenLogins = new Set();
-        results.flat().forEach(stargazer => {
-            const login = stargazer.login || stargazer.user?.login;
-            if (login && !seenLogins.has(login)) {
-                seenLogins.add(login);
-                allStargazers.push(stargazer);
-            }
-        });
-
-        if (allStargazers.length > 0) {
-            if (badgeEl) {
-                badgeEl.innerText = `gitville:${totalStars} STARS (${allStargazers.length} BUILDERS)`;
-            }
-        }
-    }
-
-    let rawHouses = [];
-    
-    // Center House (Owner)
-    rawHouses.push({
-        username: username,
-        joined_at: new Date().toISOString()
-    });
-
-    // Add Real Stargazers
-    allStargazers.forEach(p => {
-        const login = p.login || p.user?.login;
-        if (login) {
-            rawHouses.push({
-                username: login,
-                joined_at: new Date().toISOString()
-            });
-        }
-    });
-
-    // Add Ghost Citizens (if totalStars > rawHouses.length)
-    const MAX_VISUAL_HOUSES = 750;
-    const targetTotal = Math.min(totalStars, MAX_VISUAL_HOUSES);
-    const neededGhosts = targetTotal - rawHouses.length;
-    if (neededGhosts > 0) {
-        console.log(`Generating ${neededGhosts} ghost stargazers to match population of ${totalStars}...`);
-        for (let i = 0; i < neededGhosts; i++) {
-            const ghostName = generateGhostName(i, username);
-            rawHouses.push({
-                username: ghostName,
-                isGhost: true,
-                joined_at: new Date().toISOString()
-            });
-        }
-    }
-
-    return generateCityLayout(rawHouses, username);
-}
-
-async function reloadCity() {
-    const route = parseRoute();
-    console.log("Reloading city with route:", route);
-
-    // Show loading screen during reload
-    const loader = document.getElementById('loading-screen');
-    if (loader) loader.classList.remove('hidden');
-
-    // Clear existing state
-    houses = [];
-    roads.clear();
-
-    if (route) {
-        try {
-            let layout;
-            if (route.mode === 'stargazers') {
-                let target = route.target;
-                const titleEl = document.getElementById('city-title');
-                
-                if (target.includes('/')) {
-                    if (titleEl) titleEl.innerText = `${target}'s Stargazers`;
-                    layout = await fetchDynamicData(target);
-                } else {
-                    if (titleEl) titleEl.innerText = `${target}'s Stargazers`;
-                    layout = await fetchUserAllReposStargazers(target);
-                }
-            } else if (route.mode === 'repo') {
-                const titleEl = document.getElementById('city-title');
-                if (titleEl) titleEl.innerText = `${route.target}'s Repositories`;
-                layout = await fetchUserRepos(route.target);
-            }
-
-            houses = layout.houses;
-            roads = layout.roads;
-            houses.forEach(h => h.hoverAnim = 0);
-            console.log(`Generated ${houses.length} houses dynamically.`);
-        } catch (e) {
-            console.error("Failed to load dynamic data:", e);
-            showErrorDialog(e.message || "Failed to load GitHub data.");
-            await loadLocalData();
-        }
-    } else {
-        await loadLocalData();
-    }
-
-    setupSearch(); // Re-initialize search directory with new houses
-
-    // Reset NPC and cloud positions/state
     cloudSystem = new CloudSystem();
     npcManager = new NPCManager(15);
     
+    const loader = document.getElementById('loading-screen');
     if (loader) loader.classList.add('hidden');
-}
-
-async function init() {
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    setupInputListeners();
-    window.addEventListener('hashchange', reloadCity);
-
-    await reloadCity();
 
     requestAnimationFrame(render);
 }
 
 // --- Dynamic Generation Utils ---
-
-const GHOST_NAME_POOL = [
-    "hari", "olivia", "antigravity", "coder", "builder", "tester", "observer",
-    "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mu", "Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "Omega",
-    "Nova", "Nebula", "Quasar", "Pulsar", "Galaxy", "Comet", "Meteor", "Astra", "Cosmos", "Orbit", "Eclipse", "Zenith", "Apex", "Vertex", "Nexus", "Core", "Flux", "Spark", "Bolt", "Glow", "Haze", "Mist", "Frost", "Flint", "Steel", "Stone", "Oak", "Pine", "Cedar", "Sage", "Fern", "Ivy", "Rose", "Lily", "gitville"
-];
-
-function generateGhostName(index, salt) {
-    const hash = Math.abs(Math.sin(index * 17.31 + salt.charCodeAt(0) * 31.89) * 10000);
-    const name1 = GHOST_NAME_POOL[Math.floor(hash) % GHOST_NAME_POOL.length];
-    const name2 = GHOST_NAME_POOL[Math.floor(hash / 3) % GHOST_NAME_POOL.length];
-    const formatType = Math.floor(hash / 7) % 3;
-    if (formatType === 0) {
-        return `${name1.toLowerCase()}_${name2.toLowerCase()}`;
-    } else if (formatType === 1) {
-        return `${name1}${name2}`;
-    } else {
-        return `${name1.toLowerCase()}${(Math.floor(hash / 13) % 99) + 1}`;
-    }
-}
 
 async function fetchDynamicData(input) {
     let mode = 'user';
@@ -475,25 +204,7 @@ async function fetchDynamicData(input) {
     let people = [];
     if (peopleRes.ok) {
         people = await peopleRes.json();
-    } else if (mode === 'repo' && (peopleRes.status === 401 || peopleRes.status === 403 || peopleRes.status === 404)) {
-        console.warn(`Stargazers list restricted (Status ${peopleRes.status}). Falling back to contributors...`);
-        const contribRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contributors?per_page=${realFetchCount}`);
-        if (contribRes.ok) {
-            people = await contribRes.json();
-            if (badgeEl) {
-                badgeEl.innerText = `gitville:${people.length} CONTRIBUTORS`;
-            }
-        } else {
-            const forksRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/forks?per_page=${realFetchCount}`);
-            if (forksRes.ok) {
-                const forks = await forksRes.json();
-                people = forks.map(f => f.owner);
-                if (badgeEl) {
-                    badgeEl.innerText = `gitville:${people.length} FORKS`;
-                }
-            }
-        }
-    }
+    } // If fail, just use ghosts
 
     // 3. Construct House List
     let rawHouses = [];
@@ -529,7 +240,7 @@ async function fetchDynamicData(input) {
         for(let i=0; i<neededGhosts; i++) {
             // Generate a deterministic fake name based on index and owner
             // This ensures they stay consistent for the same repo (mostly)
-            const ghostName = generateGhostName(i, centerUser);
+            const ghostName = `Citizen-${i}-${centerUser.substring(0,3)}`;
             rawHouses.push({
                 username: ghostName,
                 isGhost: true, // Flag for simpler rendering if needed

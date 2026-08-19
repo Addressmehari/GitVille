@@ -1,5 +1,7 @@
 🏘️ GitVille
 
+page is live on : https://addressmehari.github.io/GitVille/web/
+
 ««GitHub, But You Can Walk Through It. 🌍»»
 
 GitVille is one of my favorite projects. ❤️

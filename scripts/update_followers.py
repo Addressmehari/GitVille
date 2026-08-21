@@ -62,6 +62,11 @@ def main():
         
     # Get followers from API
     followers = get_followers(username, token)
+    
+    # Reverse followers so they are ordered from oldest to newest.
+    # This guarantees that the oldest followers are placed first (starting) 
+    # and stay near the center, while new followers are appended to the end.
+    followers.reverse()
     print(f"Total followers found: {len(followers)}")
     
     if not os.path.exists(file_path):

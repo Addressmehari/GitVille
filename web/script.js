@@ -81,9 +81,9 @@ async function init() {
     console.log("Loading local city data from houses.json...");
     try {
         const [housesRes, worldRes, roadsRes] = await Promise.all([
-            fetch('../data/houses.json?t=' + Date.now()),
-            fetch('../data/world.json?t=' + Date.now()).catch(e => ({ ok: true, json: () => ({ weather: "none", timeOfDay: "day" }) })),
-            fetch('../data/roads.json?t=' + Date.now()).catch(e => null)
+            fetch('./data/houses.json?t=' + Date.now()),
+            fetch('./data/world.json?t=' + Date.now()).catch(e => ({ ok: true, json: () => ({ weather: "none", timeOfDay: "day" }) })),
+            fetch('./data/roads.json?t=' + Date.now()).catch(e => null)
         ]);
 
         if (!housesRes.ok) throw new Error(`Houses fetch failed: ${housesRes.status}`);

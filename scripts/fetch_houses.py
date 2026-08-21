@@ -181,13 +181,18 @@ def main():
     print(f"Generating city for {len(names)} citizens...")
     houses, roads = build_city(names)
     
-    if not os.path.exists("data"): os.makedirs("data")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    workspace_dir = os.path.dirname(script_dir)
+    output_dir = os.path.join(workspace_dir, "web", "data")
+    
+    if not os.path.exists(output_dir): 
+        os.makedirs(output_dir)
         
-    with open("data/houses.json", "w") as f: json.dump(houses, f, indent=4)
-    with open("data/roads.json", "w") as f: json.dump([{"x": int(r[0]), "y": int(r[1])} for r in roads], f, indent=4)
-    with open("data/world.json", "w") as f: json.dump({"weather": "none", "timeOfDay": "day"}, f, indent=4)
+    with open(os.path.join(output_dir, "houses.json"), "w") as f: json.dump(houses, f, indent=4)
+    with open(os.path.join(output_dir, "roads.json"), "w") as f: json.dump([{"x": int(r[0]), "y": int(r[1])} for r in roads], f, indent=4)
+    with open(os.path.join(output_dir, "world.json"), "w") as f: json.dump({"weather": "none", "timeOfDay": "day"}, f, indent=4)
         
-    print(f"Successfully generated city in data/houses.json")
+    print(f"Successfully generated city in {os.path.join(output_dir, 'houses.json')}")
 
 if __name__ == "__main__":
     main()

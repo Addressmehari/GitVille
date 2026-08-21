@@ -33,8 +33,8 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Add test_names.txt and data/ changes
-          git add test_names.txt data/
+          # Add test_names.txt and web/data/ changes
+          git add test_names.txt web/data/
           
           if git diff --staged --quiet; then
             echo "No changes to commit"

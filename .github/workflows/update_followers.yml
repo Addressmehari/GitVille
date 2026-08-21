@@ -1,0 +1,44 @@
+name: Update Followers and City
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-followers:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run follower update script
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/update_followers.py
+
+      - name: Regenerate City Data
+        run: python scripts/fetch_houses.py test_names.txt
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Add test_names.txt and data/ changes
+          git add test_names.txt data/
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update followers list and regenerate city rendering"
+            git push
+          fi
